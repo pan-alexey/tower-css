@@ -1,0 +1,42 @@
+{
+    "name": "tower-css",
+    "version": "1.0.0",
+    "description": "Frontend components",
+    "main": "gulp.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pan-alexey/tower-css.git"
+    },
+    "keywords": [
+        "css",
+        "less",
+        "frontend",
+        "js"
+    ],
+    "author": "Pan Alexey",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/pan-alexey/tower-css/issues"
+    },
+    "homepage": "https://github.com/pan-alexey/tower-css#readme",
+    "dependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/preset-env": "^7.5.5",
+        "browser-sync": "^2.26.7",
+        "fs": "0.0.1-security",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^6.1.0",
+        "gulp-babel": "^8.0.0",
+        "gulp-clean": "^0.4.0",
+        "gulp-clean-css": "^4.2.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-inject-string": "^1.1.2",
+        "gulp-less": "^4.0.1",
+        "gulp-rename": "^1.4.0",
+        "gulp-uglify-es": "^1.0.4",
+        "path": "^0.12.7"
+    }
+}
