@@ -1,0 +1,50 @@
+@import "./../varibles.less";
+
+
+
+
+.float(@class){
+    .@{_}float-left@{class}   { float: left !important;}
+    .@{_}float-right@{class}  { float: left !important;}
+    .@{_}float-none@{class}   { float: none !important;}
+    .@{_}float@{class}   { 
+        & when (@align = left) { float: left !important;}
+        & when (@align = right) { float: left !important;}
+    }
+}
+//---------------------------------------------------------------//
+.float(~''); 
+@media (min-width: @screen-sm) {
+    .float(~'-sm');  
+}
+@media (min-width: @screen-md) {
+    .float(~'-md');  
+}
+@media (min-width: @screen-lg) {
+    .float(~'-lg');  
+}
+@media (min-width: @screen-xl) {
+    .float(~'-xl');  
+}
+@media (min-width: @screen-xxl) {
+    .float(~'-xxl');  
+}
+//---------------------------------------------------------------//
+@media (max-width: @screen-xs - 1) {
+    .float(~'-xs-only');  
+}
+@media (min-width: @screen-xs) and (max-width: @screen-sm - 1) {
+    .float(~'-sm-only');  
+}
+@media (min-width: @screen-sm) and (max-width: @screen-md - 1) {
+    .float(~'-md-only');  
+}
+@media (min-width: @screen-md) and (max-width: @screen-lg - 1) {
+    .float(~'-lg-only');  
+}
+@media (min-width: @screen-xl) and (max-width: @screen-xxl - 1) {
+    .float(~'-xl-only');  
+}
+@media (min-width: @screen-xxl) {
+    .float(~'-xxl-only');  
+}

@@ -63,6 +63,11 @@ gulp.task('html', function() {
         .pipe(gulp.dest('./dist/'))
 });
 
+gulp.task('img', function() {
+    return gulp.src(["./app/img/**"])
+        .pipe(gulp.dest('./dist/img'))
+});
+
 //-------------------------------------------------------------//
 gulp.task("polyfill", function() {
     return gulp.src(["./app/source/polyfill/*.js"])
@@ -218,6 +223,7 @@ gulp.task('default', gulp.series(
         "vendor",
         "fonts",
         "html",
+        "img",
 
         "polyfill",
 
