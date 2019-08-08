@@ -1,0 +1,57 @@
+@import "./../varibles.less";
+
+
+
+.@{_}navbar{
+    position: relative;
+}
+//------------------------------------------------------//
+.@{_}navbar-top{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+//------------------------------------------------------//
+.@{_}navbar-block{
+    position: relative;
+    width: 100%;
+    left: 0;
+    right: 0;
+}
+//------------------------------------------------------//
+.navbar-content{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: @navbar;
+}
+//------------------------------------------------------//
+.navbar-offset{
+    position: relative;
+    overflow: hidden;
+    visibility: hidden;
+}
+//------------------------------------------------------//
+.@{_}nav-content{
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: @navbar;
+    &.@{_}navbar-1{ min-height: @height-1;  }
+    &.@{_}navbar-2{ min-height: @height-2; }
+    &.@{_}navbar-3{ min-height: @height-3; }
+    &.@{_}navbar-4{ min-height: @height-4; }
+    &.@{_}navbar-5{ min-height: @height-5; }
+    &.@{_}navbar-6{ min-height: @height-6; }
+    &.@{_}navbar-7{ min-height: @height-7; }
+    &.@{_}navbar-8{ min-height: @height-8; }
+    &.@{_}navbar-9{ min-height: @height-9; }
+    &.@{_}navbar-10{ min-height: @height-10; }
+    &.@{_}navbar-auto{ min-height: auto; }
+}
+//------------------------------------------------------//
+.@{_}navbar-raised{
+    box-shadow: @shadow;
+}

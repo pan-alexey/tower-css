@@ -1,0 +1,17 @@
+@import "./../varibles.less";
+
+
+
+
+.zindex(@index) when (@index > 0) {
+    .@{_}zindex-@{index} {
+       z-index: @index!important;
+    }
+    .@{_}z-index-@{index} {
+        z-index: @index!important;
+    }
+    .zindex(@index - 1);
+}
+
+
+.zindex(@zindex );

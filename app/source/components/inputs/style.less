@@ -1,0 +1,293 @@
+@import "./../varibles.less";
+
+
+input,
+textarea,
+input:focus,
+textarea:focus {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    resize: none;
+    // -ms-overflow-style: none;  // IE 10+
+    // scrollbar-width: none;  // Firefox
+    // &::-webkit-scrollbar { 
+    //     display: none; 
+    // }
+}
+
+textarea , input {
+    font-size: @font-size;
+    font-family: @font-family;
+    color: @color;
+    font-weight: @font-weight;
+    line-height: @line-height;
+}
+
+input::-ms-clear {
+    width: 0;
+    height: 0;
+    display: none;
+    position:absolute; 
+    visibility: hidden;
+}
+
+input::-ms-reveal {
+    width: 0;
+    height: 0;
+    display: none;
+    position:absolute; 
+    visibility: hidden;
+}
+
+
+.@{_}input-block{
+    position: relative;
+    display: inline-block;
+}
+
+.@{_}input-content{
+    display: table;
+    position: relative;
+    margin:0;
+    padding:0;
+    border: 0;
+    & > *{
+        display: table-cell;
+        table-layout: fixed;
+        width: 0;
+        vertical-align: middle;
+        position: relative;
+    }
+    .@{_}input-form{
+        width: 100%;
+    }
+    input, textarea{
+        display: block; // Fix to botttom margin;
+        resize: none;
+        overflow: hidden;
+        background: transparent;
+    }
+    .@{_}lable, lable{
+        top: 0;
+        left : 0;
+        position: absolute;
+        pointer-events: none;
+        user-select: none;
+        transition: 300ms ease all;
+        width: auto;
+        max-width: 100%;
+        white-space: nowrap; /* Отменяем перенос текста */
+        overflow: hidden; /* Обрезаем содержимое */
+        text-overflow: ellipsis; /* Многоточие */
+        display: block;
+        background: transparent;
+    }
+}
+
+.input-size(@height, @font-size, @min-lable){
+    @line-height : 1.1;
+    @offset : ceil( (@height - @line-height*@font-size)/4 );
+    @offset-x : ceil( @height/2 );
+    
+    @font-lable: @font-size;
+    @font-lable: if(8 > ceil(@font-size*0.75), 8px, ceil(@font-size*0.75));
+    @radius : if(3 > ceil(@font-size*0.5), 3px, ceil(@font-size*0.5));
+
+    font-size: @font-size;
+    width: 100%;
+    //---------------------------------------//
+    .@{_}input-content{
+        width: 100%;
+        padding-left: floor(@offset-x/2);
+        padding-right:floor(@offset-x/2);
+        & > *{
+            padding-left: floor(@offset/2);
+            padding-right:floor(@offset/2);
+            height: @height;
+        }
+        .input-group{
+            height: @height;
+        }
+    }
+    .@{_}input-form{
+        padding-top: @offset;
+        padding-bottom: @offset;
+        height: @height;
+        margin: -1px;
+    }
+    //---------------------------------------//
+    .@{_}input-form{
+        input {
+            font-size: @font-size;
+            line-height: @line-height;
+            height: @font-size;
+            overflow: hidden;
+        }
+        textarea {
+            font-size: @font-size;
+            height: @font-size;
+            line-height: @font-size;
+            min-height: @font-size;
+        }
+        textarea.@{_}line-2{ height: 2*@font-size;}
+        textarea.@{_}line-3{ height: 3*@font-size;}
+        textarea.@{_}line-4{ height: 4*@font-size;}
+        textarea.@{_}line-5{ height: 5*@font-size;}
+        textarea.@{_}line-6{ height: 6*@font-size;}
+        textarea.@{_}line-7{ height: 7*@font-size;}
+        textarea.@{_}line-8{ height: 8*@font-size;}
+        textarea.@{_}line-9{ height: 9*@font-size;}
+        textarea.@{_}line-10{ height: 10*@font-size;}
+    }
+    //---------------------------------------//
+    // focus & valid
+    &.@{_}focus{
+        .lable, lable{
+            font-size: @font-lable;
+            line-height: @font-lable;
+            height: @font-lable;
+            top: -1*ceil(@font-lable/2)-2;
+            background: @background;
+        }
+    }
+    &.@{_}valid{
+        .@{_}lable, lable{
+            font-size: @font-lable;
+            line-height: @font-lable;
+            height: @font-lable;
+            top: -1*ceil(@font-lable/2)-2;
+            background: @background;
+        }
+    }
+    &.@{_}input-lable{
+        .@{_}lable, lable{
+            font-size: @font-lable;
+            line-height: @font-lable;
+            height: @font-lable;
+            top: -1*ceil(@font-lable/2)-2;
+        }
+    }
+    .@{_}input-content > lable{
+       margin-left: @font-size/2;
+    }
+    .@{_}input-content > .@{_}lable{
+        margin-left: @font-size/2;
+    }
+    //---------------------------------------//
+    .@{_}lable, lable{
+        padding-left: floor(@offset/2);
+        padding-right:floor(@offset/2);
+        max-height: @height - 2px; // border fix
+        line-height:  @height - 2px; // border fix
+        font-size: @font-size;
+        margin: 1px;
+    }
+    //---------------------------------------//
+    &.@{_}input-border .input-content{
+        border-radius: @radius;
+    }
+    //---------------------------------------//
+    // .@{_}clear-right{
+    //     margin-right: -1 * @offset-x ;
+    // }
+    // .@{_}clear-left{
+    //     margin-left: -1 * @offset-x ;
+    // }
+}
+//=============================================================//
+.input-color(@color_name){
+    @color : extract(@color_name, 1);
+    &.@{_}input-material::before{
+        content: "";
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 1px;
+        border-bottom: 1px solid @color;
+        transition: 300ms ease all;
+    } 
+
+    &.@{_}input-material.@{_}focus::before{
+        content: "";
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 2px;
+        border-bottom: 2px solid @color;
+        transition: 300ms ease all;
+    }
+
+    &.@{_}input-border .input-content{
+        box-shadow: 0 0 0 1px @color;
+    }
+    &.@{_}input-border.@{_}focus .input-content{
+        box-shadow: 0 0 0 2px @color;
+    }
+    &.@{_}focus{
+        .lable, lable{
+            color: @color;
+        }
+    }
+    textarea::-webkit-scrollbar {
+        width: 5px;
+    }
+    textarea::-webkit-scrollbar-track {
+        background: fade( @color, 20%);
+        border-radius: 5px;
+    }
+    textarea::-webkit-scrollbar-thumb {
+        background: fade( @color, 50%);
+        border-radius: 5px;
+    }
+    textarea::-webkit-scrollbar-thumb:hover {
+        background: fade( @color, 50%);
+        border-radius: 5px;
+    }
+    textarea::-webkit-scrollbar-thumb:active {
+        background: fade( @color, 50%);
+        border-radius: 5px;
+    }
+}
+
+.@{_}input-block{.input-size(@height, @font-size,  @font-1);}
+.@{_}input-block.@{_}input-1{.input-size(@height-1, @font-1, @font-1);}
+.@{_}input-block.@{_}input-2{.input-size(@height-2, @font-2, @font-1);}
+.@{_}input-block.@{_}input-3{.input-size(@height-3, @font-3, @font-1);}
+.@{_}input-block.@{_}input-4{.input-size(@height-4, @font-4, @font-1);}
+.@{_}input-block.@{_}input-5{.input-size(@height-5, @font-5, @font-1);}
+.@{_}input-block.@{_}input-6{.input-size(@height-6, @font-6, @font-1);}
+.@{_}input-block.@{_}input-7{.input-size(@height-7, @font-7, @font-1);}
+.@{_}input-block.@{_}input-8{.input-size(@height-8, @font-8, @font-1);}
+.@{_}input-block.@{_}input-9{.input-size(@height-9, @font-9, @font-1);}
+.@{_}input-block.@{_}input-10{.input-size(@height-10, @font-10, @font-1);}
+
+
+.@{_}input-secondary{.input-color(@secondary);}
+.@{_}input-red{.input-color(@red);}
+.@{_}input-green{.input-color(@green);}
+.@{_}input-blue{.input-color(@blue);}
+.@{_}input-pink{.input-color(@pink);}
+.@{_}input-yellow{.input-color(@yellow);}
+.@{_}input-orange{.input-color(@orange);}
+.@{_}input-gray{.input-color(@gray);}
+.@{_}input-gray{.input-color(@gray);}
+.@{_}input-black{.input-color(@black);}
+.@{_}input-white{.input-color(@white);}
+
+.@{_}input-purple{.input-color(@purple);}
+.@{_}input-deep-purple{.input-color(@deep-purple);}
+.@{_}input-indigo{.input-color(@indigo);}
+.@{_}input-light-blue{.input-color(@light-blue);}
+.@{_}input-cyan{.input-color(@cyan);}
+.@{_}input-teal{.input-color(@teal);}
+.@{_}input-light-green{.input-color(@light-green);}
+.@{_}input-lime{.input-color(@lime);}
+.@{_}input-amber{.input-color(@amber);}
+.@{_}input-deep-orange{.input-color(@deep-orange);}
+.@{_}input-brown{.input-color(@brown);}
+.@{_}input-blue-gray{.input-color(@blue-gray);}
+//-------------------------------------------------------------//
+
