@@ -1,6 +1,6 @@
 (function (window) {
     'use strict';
-    var oldScroll = window.pageYOffset || document.documentElement.scrollTop;
+    let oldScroll = window.pageYOffset || document.documentElement.scrollTop;
 
 
 
@@ -9,12 +9,12 @@
     //------------------------------------------------------------//
     //---------------------- helpers  ----------------------------//
     function addToArr(value, arr, limit){
-        var $sumArr = arr.reduce(function(a,b) {return a + b;});
-        var sum = $sumArr + value;
-        var result = arr.map(function(name) {return 0;}); // set zero arr
+        let $sumArr = arr.reduce(function(a,b) {return a + b;});
+        let sum = $sumArr + value;
+        let result = arr.map(function(name) {return 0;}); // set zero arr
         for (let i = 0; i < arr.length; i++) {
-            var _limit = limit[i] ? limit[i] : 0;
-            var item = sum > _limit ? _limit : sum;
+            let _limit = limit[i] ? limit[i] : 0;
+            let item = sum > _limit ? _limit : sum;
                 item = item <= 0 ? 0 : item;
                 result[i] = item;
             sum = sum - _limit;
@@ -23,19 +23,19 @@
     }
     //---------------------- helpers  ----------------------------//
     //------------------------------------------------------------//
-    var stikyMode = function(navbars, scroll){
+    let stikyMode = function(navbars, scroll){
         if(navbars.querySelectorAll('.@{_}navbar-block[data-type="sticky"]').length==0) return 0;
-        var navBlock = [];
-        var blockHeight = [];
-        var blockMargin = [];
-        var vector = [];
+        let navBlock = [];
+        let blockHeight = [];
+        let blockMargin = [];
+        let vector = [];
         // Get DOM data
         for (let i = 0; i < navbars.querySelectorAll('.@{_}navbar-block[data-type="sticky"]').length; i++) {
-            var element = navbars.querySelectorAll('.@{_}navbar-block[data-type="sticky"]')[i];
-            var height =  window.getComputedStyle ? getComputedStyle(element).height : element.currentStyle.height;
+            let element = navbars.querySelectorAll('.@{_}navbar-block[data-type="sticky"]')[i];
+            let height =  window.getComputedStyle ? getComputedStyle(element).height : element.currentStyle.height;
                 height = parseInt(height);
 
-            var margin =  window.getComputedStyle ? getComputedStyle(element).marginTop : element.currentStyle.marginTop;
+            let margin =  window.getComputedStyle ? getComputedStyle(element).marginTop : element.currentStyle.marginTop;
                 margin = margin ? -parseInt( margin ) : 0;
 
             vector[i] = 0;
@@ -43,27 +43,27 @@
             blockMargin[i] = margin;
             blockHeight[i] = height;
         }
-        var offset = addToArr(scroll, vector, blockHeight);
+        let offset = addToArr(scroll, vector, blockHeight);
         for (let i = 0; i < navBlock.length; i++) {
-            var element = navBlock[i];
+            let element = navBlock[i];
             element.style.marginTop = - offset[i] + "px";
         }
         return Math.abs( offset.reduce(function(a,b) {return a + b;}) - blockMargin.reduce(function(a,b) {return a + b;}) );
     }
     //------------------------------------------------------------//
-    var floatMode = function(navbars, scrolled){
+    let floatMode = function(navbars, scrolled){
         if(navbars.querySelectorAll('.@{_}navbar-block[data-type="float"]').length==0) return 0;
-        var navBlock = [];
-        var blockHeight = [];
-        var blockMargin = [];
+        let navBlock = [];
+        let blockHeight = [];
+        let blockMargin = [];
         // Get DOM data
         for (let i = 0; i < navbars.querySelectorAll('.@{_}navbar-block[data-type="float"]').length; i++) {
-            var element = navbars.querySelectorAll('.@{_}navbar-block[data-type="float"]')[i];
-            var height =  window.getComputedStyle ? getComputedStyle(element).height : element.currentStyle.height;
+            let element = navbars.querySelectorAll('.@{_}navbar-block[data-type="float"]')[i];
+            let height =  window.getComputedStyle ? getComputedStyle(element).height : element.currentStyle.height;
                 height = parseFloat(height);
 
                 
-            var margin =  window.getComputedStyle ? getComputedStyle(element).marginTop : element.currentStyle.marginTop;
+            let margin =  window.getComputedStyle ? getComputedStyle(element).marginTop : element.currentStyle.marginTop;
                 margin = margin ? -parseFloat( margin ) : 0;
 
 
@@ -72,31 +72,31 @@
             blockMargin[i] = margin;
             blockHeight[i] = height;
         }
-        var offset = addToArr(scrolled, blockMargin, blockHeight);
+        let offset = addToArr(scrolled, blockMargin, blockHeight);
         for (let i = 0; i < navBlock.length; i++) {
-            var element = navBlock[i];
+            let element = navBlock[i];
             element.style.marginTop = - offset[i] + "px";
         }
         return Math.abs( offset.reduce(function(a,b) {return a + b;}) - blockMargin.reduce(function(a,b) {return a + b;}) );
     }
     //------------------------------------------------------------//
-    var offset = function(navbars){
+    let offset = function(navbars){
         if(navbars.querySelectorAll('.@{_}navbar-top').length==0) return 0;
         if(navbars.querySelectorAll('.@{_}navbar-offset').length==0) {
-            var dom =  document.createElement('div');
+            let dom =  document.createElement('div');
             dom.className = "@{_}navbar-offset";
             navbars.appendChild(dom);
         }
-        var element = navbars.querySelectorAll('.@{_}navbar-top')[0];
-        var elementOffset = navbars.querySelectorAll('.@{_}navbar-offset')[0];
+        let element = navbars.querySelectorAll('.@{_}navbar-top')[0];
+        let elementOffset = navbars.querySelectorAll('.@{_}navbar-offset')[0];
 
         //all childs dociments
-        var heightChilds = 0;
+        let heightChilds = 0;
         for (let i = 0; i < navbars.querySelectorAll('.@{_}navbar-block').length; i++) {
-            var element = navbars.querySelectorAll('.@{_}navbar-block')[i];
-            var height =  window.getComputedStyle ? getComputedStyle(element).height : element.currentStyle.height;
+            let element = navbars.querySelectorAll('.@{_}navbar-block')[i];
+            let height =  window.getComputedStyle ? getComputedStyle(element).height : element.currentStyle.height;
                 height = parseInt(height);
-            var minHeight = window.getComputedStyle ? getComputedStyle(element).minHeight : element.currentStyle.minHeight;
+            let minHeight = window.getComputedStyle ? getComputedStyle(element).minHeight : element.currentStyle.minHeight;
                 minHeight = parseInt(minHeight);
                 
                 height = minHeight? minHeight : height;
@@ -105,9 +105,9 @@
         elementOffset.style.height = heightChilds + "px" ;
     }
     //------------------------------------------------------------//
-    var navbar = function () {
-       var scroll = window.pageYOffset || document.documentElement.scrollTop;
-       var navbars = document.querySelectorAll('.@{_}navbar');
+    let navbar = function () {
+       let scroll = window.pageYOffset || document.documentElement.scrollTop;
+       let navbars = document.querySelectorAll('.@{_}navbar');
         for (let i = 0; i < navbars.length; i++) {
            if(!stikyMode(navbars[i], scroll)){
                 floatMode(navbars[i], scroll - oldScroll);
