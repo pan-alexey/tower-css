@@ -1,6 +1,6 @@
 @import "./../varibles.less";
 
-
+//box-shadow:  0 0 0 @border-width @color;
 .@{_}btn {
     display: inline-block;
     position: relative;
@@ -39,10 +39,9 @@
 
     line-height: @line-height;
     font-size: @font-size;
-    height : @height;
+    min-height : @height;
     padding: @offset @offset*1.5;
     border-radius: @radius;
-
     .@{_}btn-child{
         border-radius: @radius;
     }
@@ -52,11 +51,9 @@
             border-radius: ceil(@height/2);
         }
     }
-    
 }
 //---------------------------------------------------------------------//
 .@{_}btn{ .btn-size( @height, @font); }
-
 .@{_}btn-1{ .btn-size( @height-1, @font-1); }
 .@{_}btn-2{ .btn-size( @height-2, @font-2); }
 .@{_}btn-3{ .btn-size( @height-3, @font-3); }
@@ -67,3 +64,66 @@
 .@{_}btn-8{ .btn-size( @height-8, @font-8); }
 .@{_}btn-9{ .btn-size( @height-9, @font-9); }
 .@{_}btn-10{ .btn-size( @height-10, @font-10); }
+//---------------------------------------------------------------------//
+
+.btn-color(@color){
+
+    &:hover{
+        background: fade( extract(@color, 1), 20%);
+    }
+    &.@{_}btn-color,.@{_}btn-default{
+        background: extract(@color,1);
+        color: extract(@color,3);
+        &:hover{
+            background: extract(@color,2);
+            color: extract(@color,4);
+        }
+    }
+    &.@{_}btn-border{
+        border-color: extract(@color,1);
+        color: extract(@color,1);
+    }
+    &.@{_}btn-text{
+        color: extract(@color,1);
+        &:hover{
+            border-color: extract(@color,1);
+            background: extract(@color,1);
+            color: extract(@color,4);
+        }
+    }
+    &.@{_}btn-material{
+        background: extract(@color,1);
+        color: extract(@color,3);
+        box-shadow: @shadow;
+        &:hover{
+            background: extract(@color,2);
+            color: extract(@color,4);
+            box-shadow: @shadow-hover;
+        } 
+    }
+}
+
+.@{_}btn-secondary{ .btn-color(@secondary) }
+.@{_}btn-red{ .btn-color(@red) }
+.@{_}btn-green{ .btn-color(@green) }
+.@{_}btn-blue{ .btn-color(@blue) }
+.@{_}btn-pink{ .btn-color(@pink) }
+.@{_}btn-yellow{ .btn-color(@yellow) }
+.@{_}btn-orange{ .btn-color(@orange) }
+.@{_}btn-gray{ .btn-color(@gray) }
+.@{_}btn-black{ .btn-color(@black) }
+.@{_}btn-white{ .btn-color(@white) }
+//----------- Aditional color  -----------------//
+.@{_}btn-purple{ .btn-color(@purple) }
+.@{_}btn-deep-purple{ .btn-color(@deep-purple) }
+.@{_}btn-indigo{ .btn-color(@indigo) }
+.@{_}btn-light-blue{ .btn-color(@light-blue) }
+.@{_}btn-cyan{ .btn-color(@cyan) }
+.@{_}btn-teal{ .btn-color(@teal) }
+.@{_}btn-light-green{ .btn-color(@light-green) }
+.@{_}btn-lime{ .btn-color(@lime) }
+.@{_}btn-amber{ .btn-color(@amber) }
+.@{_}btn-deep-orange{ .btn-color(@deep-orange) }
+.@{_}btn-brown{ .btn-color(@brown) }
+.@{_}btn-blue-gray{ .btn-color(@blue-gray) }
+//-------------------------------------------------------------//
