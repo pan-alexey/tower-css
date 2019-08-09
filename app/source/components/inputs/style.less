@@ -135,6 +135,7 @@ input::-ms-reveal {
     //---------------------------------------//
     &.@{_}input-border .input-content{
         border-radius: @radius;
+        
     }
     &.@{_}input-border.input-round .input-content{
         border-radius: ceil( @height / 2 );
@@ -146,6 +147,8 @@ input::-ms-reveal {
         width: 100%;
         padding-left: floor(@offset-x);
         padding-right:floor(@offset-x);
+        border: 1px solid transparent;
+
 
         .input-sibling{
             height: @height;
@@ -235,10 +238,13 @@ input::-ms-reveal {
     }
 
     &.@{_}input-border .input-content{
-        box-shadow: 0 0 0 1px @color;
+        border: 1px solid @color;
+        //box-shadow: inset 0 0 0 1px @color;
+        //box-shadow: 0 0 0 1px @color;
     }
     &.@{_}input-border.@{_}focus .input-content{
-        box-shadow: 0 0 0 2px @color;
+        //box-shadow: inset 0 0 0 2px @color;
+        box-shadow: 0 0 0 1px @color;
     }
     &.@{_}focus{
         .lable, lable{

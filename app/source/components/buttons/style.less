@@ -33,10 +33,7 @@
 }
 //---------------------------------------------------------------------//
 .btn-size( @height, @font-size){
-
     @radius : if(3 > ceil(@font-size*0.5), 3px, ceil(@font-size*0.5));
-
-
     @offset : ceil( (@height - @line-height*@font-size)/4 );
     @offset-x : ceil( @height/2 );
 
@@ -44,16 +41,18 @@
     font-size: @font-size;
     height : @height;
     padding: @offset @offset*1.5;
-
     border-radius: @radius;
 
-
+    .@{_}btn-child{
+        border-radius: @radius;
+    }
     &.@{_}btn-round{
         border-radius: ceil(@height/2);
+        .@{_}btn-child{
+            border-radius: ceil(@height/2);
+        }
     }
-    // &.@{_}btn-round > .@{_}btn-radius{
-    //     border-radius: @radius;
-    // }
+    
 }
 //---------------------------------------------------------------------//
 .@{_}btn{ .btn-size( @height, @font); }
