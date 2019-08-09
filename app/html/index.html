@@ -23,8 +23,14 @@
     <link rel="stylesheet" type="text/css" href="./fonts/material-icons.css">
     <link rel="stylesheet" type="text/css" href="./source/css/core.css">
     <link rel="stylesheet" type="text/css" href="./source/css/components.css">
+
+
+    
 </head>
 <body>
+
+
+
     <div class="container">
         <br>
         <div class="input-block offset input-material input-blue valid">
@@ -62,6 +68,15 @@
             </div>
         </div>
     </div>
+
+    <br>
+    <div class="container">
+            <div id="app">
+                <router-view></router-view>
+            </div>
+    </div>
+    
+
 </body>
 <!-- UI COMPONENTS  -->
 <script src="./source/polyfill.js"></script>
@@ -69,5 +84,7 @@
 <script src="./source/js/components.js"></script>
 
 <!--/ UI COMPONENTS -->
+<script src="./webpack/app.js"></script>
+
 
 </html>

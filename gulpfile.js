@@ -183,11 +183,43 @@ gulp.task("components.less", function() {
 
 
 
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 
 
 
-
+gulp.task("webpack", function() {
+    return gulp.src('./app/webpack/app.js')
+    .pipe(webpackStream({
+        mode: 'production',
+        entry: {
+            main: './app/webpack/app.js'
+        },
+        module: {
+            rules: [
+                { test: /\.vue$/, use: 'vue-loader'},
+                { test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
+            ]
+        },
+        plugins: [
+            new VueLoaderPlugin()
+        ],
+        output: {
+            filename: 'app.js',
+        },
+    }), webpack)
+    .on('error', function(err) {
+        console.log("webpack", err);
+        this.emit('end');
+    })
+    .pipe(inject.replace('@{_}', PREFIX))
+    .pipe(babel({
+        presets: [babelPreset],
+    }))
+    .pipe(gulp.dest('./dist/webpack'));
+});
 
 
 
@@ -214,11 +246,15 @@ gulp.task('watch', function() {
     gulp.watch(["./app/source/varibles.less"], gulp.parallel(['core.less', 'components.less']));
     gulp.watch(["./app/source/components/**/style.less"], gulp.parallel('components.less'));
     gulp.watch(["./app/source/core/**/style.less"], gulp.parallel('core.less'));
+
+    gulp.watch(["./app/webpack/**"], gulp.parallel('webpack'));
+
 });
 
 //---------------------------------------------------------------------//
 gulp.task('default', gulp.series(
     'clean',
+    "webpack",
     gulp.parallel(
         "vendor",
         "fonts",
@@ -232,6 +268,8 @@ gulp.task('default', gulp.series(
 
         "components.js",
         "components.less",
+
+   
     ),
     gulp.parallel(
         'bsync',
