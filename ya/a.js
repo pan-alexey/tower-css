@@ -1,14 +1,37 @@
-function add(a) {
-    let currentSum = a;
-    function f(b) {
-      currentSum += b;
-      return f;
-    }
-    // f.toString = function() {
-    //   return currentSum;
-    // };
-    return f;
+let check = function(string){
+  let stack = [];
+
+
+  let openBracket = {
+    "(" : ")",
+    "[" : "]",
+    "{" : "}"
+  };
+  let closeBracket = {
+    ")" : "(",
+    "]" : "[",
+    "}" : "{",
+  }
+
+
+  
+  var pushStack = function(char){}
+  var popStack = function(char){}
+
+
+  for (let i = 0; i < string.length; i++) {
+    const element = string[i];
+
+    console.llog(element);
+  }
+
+
+  console.log(string);
+
+
+
 }
 
 
-console.log( add(1)(2)(7)  );
+
+check('{z(/x/(ka"z"ak)x)z}');
