@@ -91,7 +91,7 @@ input::-ms-reveal {
 .input-size(@height, @font-size, @min-lable){
     @line-height : 1.1;
     @offset : ceil( (@height - @line-height*@font-size)/4 );
-    @offset-x : ceil( @height/2 );
+    @offset-x :  @height/4;
     
     @font-lable: @font-size;
     @font-lable: if(8 > ceil(@font-size*0.75), 8px, ceil(@font-size*0.75));
@@ -99,20 +99,8 @@ input::-ms-reveal {
 
     font-size: @font-size;
     width: 100%;
+
     //---------------------------------------//
-    .@{_}input-content{
-        width: 100%;
-        padding-left: floor(@offset-x/2);
-        padding-right:floor(@offset-x/2);
-        & > *{
-            padding-left: floor(@offset/2);
-            padding-right:floor(@offset/2);
-            height: @height;
-        }
-        .input-sibling{
-            height: @height;
-        }
-    }
     .@{_}input-form{
         padding-top: @offset;
         padding-bottom: @offset;
@@ -143,6 +131,47 @@ input::-ms-reveal {
         textarea.@{_}line-9{ height: 9*@font-size;}
         textarea.@{_}line-10{ height: 10*@font-size;}
     }
+
+    //---------------------------------------//
+    &.@{_}input-border .input-content{
+        border-radius: @radius;
+    }
+    &.@{_}input-border.input-round .input-content{
+        border-radius: ceil( @height / 2 );
+        padding-left: ceil( @height / 2.5 );
+        padding-right: ceil( @height / 2.5 );
+    }
+    //---------------------------------------//
+    .@{_}input-content{
+        width: 100%;
+        padding-left: floor(@offset-x);
+        padding-right:floor(@offset-x);
+
+        .input-sibling{
+            height: @height;
+        }
+        & > div { 
+            padding-left: floor(@offset-x/2);
+            padding-right:floor(@offset-x/2);
+        }
+        & > div:first-child{
+            padding-left: 0;
+        }
+        & > div:last-child{
+            padding-right: 0;
+        }
+    }
+    //---------------------------------------//
+   .@{_}input-content.@{_}no-offset-right{
+        padding-right: 0!important;
+    }
+    .@{_}input-content.@{_}no-offset-left{
+        padding-left: 0!important;
+    }
+    .@{_}input-content.@{_}no-offset{
+        padding-left: 0!important;
+        padding-right: 0!important;
+    }
     //---------------------------------------//
     // focus & valid
     &.@{_}focus{
@@ -171,12 +200,6 @@ input::-ms-reveal {
             top: -1*ceil(@font-lable/2)-2;
         }
     }
-    .@{_}input-content > lable{
-       margin-left: @font-size/2;
-    }
-    .@{_}input-content > .@{_}lable{
-        margin-left: @font-size/2;
-    }
     //---------------------------------------//
     .@{_}lable, lable{
         padding-left: floor(@offset/2);
@@ -187,16 +210,6 @@ input::-ms-reveal {
         margin: 1px;
     }
     //---------------------------------------//
-    &.@{_}input-border .input-content{
-        border-radius: @radius;
-    }
-    //---------------------------------------//
-    // .@{_}clear-right{
-    //     margin-right: -1 * @offset-x ;
-    // }
-    // .@{_}clear-left{
-    //     margin-left: -1 * @offset-x ;
-    // }
 }
 //=============================================================//
 .input-color(@color_name){
