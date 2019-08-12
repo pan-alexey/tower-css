@@ -2,10 +2,6 @@
     'use strict';
     let oldScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-
-
-
-
     //------------------------------------------------------------//
     //---------------------- helpers  ----------------------------//
     function addToArr(value, arr, limit){
@@ -62,11 +58,8 @@
             let height =  window.getComputedStyle ? getComputedStyle(element).height : element.currentStyle.height;
                 height = parseFloat(height);
 
-                
             let margin =  window.getComputedStyle ? getComputedStyle(element).marginTop : element.currentStyle.marginTop;
                 margin = margin ? -parseFloat( margin ) : 0;
-
-
 
             navBlock[i] = element;
             blockMargin[i] = margin;

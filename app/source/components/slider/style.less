@@ -1,0 +1,73 @@
+@import "./../varibles.less";
+
+@slider-background : #b6b6b6;
+@slider-color : #b6b6b6;
+@slider-height : 32px;
+@bar-height : 3px;
+@handle-size : 14px;
+
+
+.@{_}slider{
+    position: relative;
+    width: 100%;
+    background: #b6b6b6;
+    height: @slider-height;
+    pointer-events: all;
+    //-- for drag & drop browser --//
+    -webkit-text-size-adjust: none;
+    touch-action: manipulation;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.@{_}slider-content{
+    position: relative;
+    background: red;
+    left: 0%;
+    right: 0%;
+    height: @handle-size;
+}
+
+.slider-handle{
+    position: absolute;
+    height: @handle-size;
+    width: @handle-size;
+    background: blue;
+    cursor: pointer;
+}
+
+.@{_}slider[data-slider="multi"]{
+    padding-left: @handle-size;
+    padding-right: @handle-size;
+    .slider-handle[data-handle="left"]{
+        margin-left: -@handle-size;
+        left : 0%;
+        transition: 100ms ease all;
+    }
+    .slider-handle[data-handle="right"]{
+        margin-right: -@handle-size;
+        right : 0%;
+        transition: 100ms ease all;
+    }
+}
+
+.@{_}slider[data-slider="left"]{
+    padding-left: @handle-size/2;
+    padding-right: @handle-size/2;
+    .slider-handle{
+        left: 0%;
+        margin-left: -@handle-size/2;
+    }
+}
+
+.@{_}slider[data-slider="right"]{
+    padding-left: @handle-size/2;
+    padding-right: @handle-size/2;
+    .slider-handle{
+        right: 0%;
+        margin-right: -@handle-size/2;
+    }
+}

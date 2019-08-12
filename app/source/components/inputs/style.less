@@ -72,7 +72,7 @@ input::-ms-reveal {
     }
     .@{_}lable, lable{
         top: 0;
-        left : 0;
+        @{align} : 0;
         z-index: 100;
         position: absolute;
         pointer-events: none;
@@ -136,7 +136,6 @@ input::-ms-reveal {
     //---------------------------------------//
     &.@{_}input-border .input-content{
         border-radius: @radius;
-        
     }
     &.@{_}input-border.input-round .input-content{
         border-radius: ceil( @height / 2 );
@@ -149,8 +148,7 @@ input::-ms-reveal {
         padding-left: floor(@offset-x);
         padding-right:floor(@offset-x);
         border: @border-width solid transparent;
-
-
+        
         .input-sibling{
             height: @height;
         }
@@ -175,6 +173,15 @@ input::-ms-reveal {
     .@{_}input-content.@{_}no-offset{
         padding-left: 0!important;
         padding-right: 0!important;
+    }
+
+    .@{_}input-content.@{_}no-offset-align{
+        & when (@align = right) { padding-left: 0!important;}
+        & when (@align = left) {padding-right: 0!important;}
+    }
+    .@{_}input-content.@{_}no-offset-noalign{
+        & when (@align = left) { padding-left: 0!important;}
+        & when (@align = right) {padding-right: 0!important;}
     }
     //---------------------------------------//
     // focus & valid

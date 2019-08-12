@@ -28,6 +28,51 @@
     
 </head>
 <body>
+    
+    <div class="container" style="padding: 40px;">
+        <!-- setup as value as percent-->
+        <div class="slider" data-slider="multi" data-min="0" data-max="100">
+            <div class="slider-content">
+                <div class="slider-handle" data-handle="left">1</div>
+                <div class="slider-handle" data-handle="right">2</div>
+            </div>
+        </div>
+        <br>
+
+        <div class="slider" data-slider="multi" data-min="0" data-max="100" data-left="30" data-right="20"></div>
+        <br>
+        <!-- setup as value as percent-->
+        <div class="slider" data-slider="multi" , data-align="right" data-min="0" data-max="100" data-limit="20,*">
+            <div class="slider-content">
+                <div class="slider-bar"></div>
+                <div class="slider-handle" data-handle="left"></div>
+                <div class="slider-handle" data-handle="right"></div>
+            </div>
+        </div>
+        <br>
+        <!-- setup as value as percent-->
+        <div class="slider" data-slider="left" , data-min="0" data-max="100" data-limit="20,*">
+            <div class="slider-content">
+                <div class="slider-bar"></div>
+                <div class="slider-handle"></div>
+            </div>
+        </div>
+        <br>
+        <div class="slider" data-slider="right" , data-min="0" data-max="100" data-limit="20,*">
+            <div class="slider-content">
+                <div class="slider-bar"></div>
+                <div class="slider-handle"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding: 40px;">
+        <div id="log"></div>
+    </div>
+    
+    
+    <br>
+
     <div class="container">
         <br>
         <div class="input-block offset input-material input-blue valid">

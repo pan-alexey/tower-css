@@ -1,4 +1,4 @@
-(function(window) {
+
     Element.prototype.addClass = function(classToAdd) {
         var classes = this.className.split(' ')
         if (classes.indexOf(classToAdd) === -1) classes.push(classToAdd)
@@ -45,4 +45,21 @@
         };
     }
     //---------------------------------//
-})();
+    Element.prototype.addClass = function(className){
+        // something
+        var el = this;
+        if (el.classList){  el.classList.add(className); }
+        else { el.className += ' ' + className; }
+        return el;
+    }
+
+    Element.prototype.removeClass = function(className){
+        // something
+        var el = this;
+        if (el.classList){
+            el.classList.remove(className);
+        }else{
+            el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+        return el;
+    }
