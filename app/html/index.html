@@ -25,12 +25,18 @@
     <link rel="stylesheet" type="text/css" href="./source/css/components.css">
 
 
-    
+
 </head>
+
 <body>
-    
-    <div class="container" style="padding: 40px;">
+
+    <div class="container" style="padding: 30px;">
         <!-- setup as value as percent-->
+
+        <div id="slider" data-slider="multi" data-min="0" data-max="90">
+        </div>
+
+        <br>
         <div class="slider" data-slider="multi" data-min="0" data-max="100">
             <div class="slider-content">
                 <div class="slider-handle" data-handle="left">1</div>
@@ -66,11 +72,11 @@
         </div>
     </div>
 
-    <div class="container" style="padding: 40px;">
+    <div class="container" style="padding: 30px;">
         <div id="log"></div>
     </div>
-    
-    
+
+
     <br>
 
     <div class="container">
@@ -122,9 +128,9 @@
     </div>
     <br>
     <div class="container">
-            <div id="app">
-                <router-view></router-view>
-            </div>
+        <div id="app">
+            <router-view></router-view>
+        </div>
     </div>
 </body>
 <!-- UI COMPONENTS  -->
@@ -133,4 +139,5 @@
 <script src="./source/js/components.js"></script>
 <!--/ UI COMPONENTS -->
 <script src="./webpack/app.js"></script>
+
 </html>
