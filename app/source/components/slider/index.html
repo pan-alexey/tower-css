@@ -24,16 +24,12 @@
     <link rel="stylesheet" type="text/css" href="./source/css/core.css">
     <link rel="stylesheet" type="text/css" href="./source/css/components.css">
 
+
+
 </head>
 
 <body>
-    <div class="navbar">
-        <div class="navbar-top">
-            <div class="navbar-block blue" data-type="float">
-                <div class="navbar-content"></div>
-            </div>
-        </div>
-    </div>
+
     <div class="container">
         <br>
         <br>
@@ -57,34 +53,61 @@
     <div class="container" style="padding: 30px;">
         <div id="log"></div>
     </div>
-    <br>
-    <div class="container">
 
+
+    <br>
+
+    <div class="container">
+        <br>
         <div class="input-block offset input-material input-blue valid">
             <div class="input-content no-offset">
                 <div class="input-form">
                     <input value="value">
-                    <lable>input</lable>
+                    <lable>lable</lable>
                 </div>
             </div>
         </div>
         <br><br>
-        <div class="input-block offset input-material input-blue valid">
-            <div class="input-content no-offset">
+        <div class="input-block input-border input-green valid">
+            <div class="input-content">
                 <div class="input-form">
                     <textarea row-max="8">Text</textarea>
-                    <lable>textarea</lable>
+                    <lable>lable</lable>
+                </div>
+                <div class="input-sibling">
+                    <div class="btn btn-1 btn-material red">btn</div>
                 </div>
             </div>
         </div>
         <br><br>
-
+        <div class="input-block input-border input-green valid">
+            <div class="input-content no-offset-right">
+                <div class="input-form">
+                    <textarea row-max="8">Text</textarea>
+                    <lable>lable</lable>
+                </div>
+                <div class="input-sibling">
+                    <div class="btn btn-material red">btn</div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="input-block input-border input-round input-green valid">
+            <div class="input-content no-offset-right">
+                <div class="input-form">
+                    <textarea row-max="8">Text</textarea>
+                    <lable>lable</lable>
+                </div>
+                <div class="input-sibling">
+                    <div class="btn btn-round btn-material btn-red">btn-red</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <br>
     <div class="container">
         <div id="app">
-            <router-view>
-                123
-            </router-view>
+            <router-view></router-view>
         </div>
     </div>
 </body>
