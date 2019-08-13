@@ -27,6 +27,18 @@
 </head>
 
 <body>
+
+    <!-- 
+<div class="swipemenu" data-swipemenu="left">
+        <div class="swipemenu-content">
+
+        </div>
+</div>
+ -->
+
+
+
+
     <div class="navbar">
         <div class="navbar-top">
             <div class="navbar-block blue" data-type="float">
@@ -38,7 +50,7 @@
         <br>
         <br>
         <!-- setup as value as percent-->
-        <div class="slider" data-slider="multi" data-min="0" data-max="90">
+        <div class="slider" data-slider="multi">
             <div class="slider-content">
                 <div class="slider-bar"></div>
                 <div class="slider-handle" data-handle="left"></div>
@@ -46,7 +58,13 @@
             </div>
         </div>
         <!-- setup as value as percent-->
-        <div class="slider" data-slider="right" , data-min="0" data-max="100">
+        <div class="slider" data-slider="right">
+            <div class="slider-content">
+                <div class="slider-bar"></div>
+                <div class="slider-handle"></div>
+            </div>
+        </div>
+        <div class="slider" data-slider="left">
             <div class="slider-content">
                 <div class="slider-bar"></div>
                 <div class="slider-handle"></div>
@@ -54,36 +72,21 @@
         </div>
     </div>
 
-    <div class="container" style="padding: 30px;">
-        <div id="log"></div>
-    </div>
     <br>
-    <div class="container">
 
-        <div class="input-block offset input-material input-blue valid">
-            <div class="input-content no-offset">
-                <div class="input-form">
-                    <input value="value">
-                    <lable>input</lable>
-                </div>
-            </div>
-        </div>
-        <br><br>
-        <div class="input-block offset input-material input-blue valid">
-            <div class="input-content no-offset">
-                <div class="input-form">
-                    <textarea row-max="8">Text</textarea>
-                    <lable>textarea</lable>
-                </div>
-            </div>
-        </div>
-        <br><br>
 
     <br>
     <div class="container">
         <div id="app">
             <router-view>
-                123
+                <!--Пример вставки компонентв slider-->
+                <div class="slider" data-slider="multi" data-min="0" data-max="90">
+                    <div class="slider-content">
+                        <div class="slider-bar"></div>
+                        <div class="slider-handle" data-handle="left"></div>
+                        <div class="slider-handle" data-handle="right"></div>
+                    </div>
+                </div>
             </router-view>
         </div>
     </div>

@@ -1,0 +1,23 @@
+@import "./../varibles.less";
+
+
+.swipemenu{
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top:0;
+
+    background: #ccc;
+    z-index: 1020;
+}
+
+
+[data-swipemenu="left"] .swipemenu-content{
+    position: absolute;
+    width: 400px;
+    height: 100%;
+    left: -400px;
+    background: red;
+}

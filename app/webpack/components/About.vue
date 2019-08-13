@@ -3,7 +3,9 @@
 
 <template>
 <div>
-  <h1>About us</h1>
+  <h1>VUE component (<router-link to="/">HOME</router-link>/ABOUT)</h1>
+  <p>Пример работы компонента <b>[slider]</b> без инициализцци</p>
+  <p>Как видно что <b>[slider]</b> не требует инициализации, но не сохраняет свои значения</p>
   <router-link to="/">Перейти к HOME</router-link>
         <div class="slider" data-slider="multi" data-min="0" data-max="90">
             <div class="slider-content">
