@@ -139,32 +139,22 @@
 
             var left = state.x > 0 ? Math.abs($state.x - state.x) : 0;
             var right = state.x < 0 ? Math.abs($state.x - state.x): 0;
-
-
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++//
             if(  Math.max(left, right) > 10 ){
-                var rule = $state.x > state.x  ? 'rtl' : 'ltr';
-
-                if(rule == "ltr"){
-                    if( $state.x >= 0 ) {
-                        $state.x = $state.left;
-                    }else{
-                        $state.x = 0;
-                    }
+                if($state.x) {
+                    close($element);
+                    return;
                 }
-              
-
-                setX($element, $state.x );
+                if(left){
+                    openLeft($element, $state.left);
+                    return;
+                }
+                if(right){
+                    openRight($element, -$state.right);
+                    return;
+                }
             } 
-
-
-            
-            if(!$state.x ){ 
-                close($element);
-            }
-            
-            end($element, $state);
-
+            setX($element, $state.x );
         },
         up : function(target){
             if(!$element) return;
