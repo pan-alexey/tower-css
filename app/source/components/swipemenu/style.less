@@ -6,18 +6,58 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 100vh;
+    padding-bottom: 60px;
     top:0;
-
-    background: #ccc;
     z-index: 1020;
+    visibility: hidden;
+    &.active{
+        visibility: visible;
+    }
+}
+.swipemenu-content{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    transition: 300ms ease all;
 }
 
 
-[data-swipemenu="left"] .swipemenu-content{
+
+
+.swipemenu.change{
+    .swipemenu-content{
+        transition: none;
+    }
+    .swipemenu-backdrop{
+        transition: none;
+    }
+}
+
+
+
+.swipemenu-backdrop{
     position: absolute;
-    width: 400px;
-    height: 100%;
-    left: -400px;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background: fade( #000, 30%);
+    opacity: 0;
+}
+
+.swipemenu-block{
+    position: absolute;
+    width: 60%;
+    height: 100vh;
     background: red;
+    z-index: 10;
+
+
+    &[data-swipemenu="left"]{
+        right: 100%;
+    }
+    &[data-swipemenu="right"]{
+        left: 100%;
+    }
 }

@@ -2,6 +2,22 @@
 
 <template>
 <div>
+
+
+<div class="swipemenu">
+        <div class="swipemenu-backdrop"></div>
+        <div class="swipemenu-content">
+            <div class="swipemenu-block" data-swipemenu="left" style="width: 40%">
+            </div>
+            <div class="swipemenu-block" data-swipemenu="right">
+            </div>
+        </div>
+</div>
+
+
+
+
+
 <h1>VUE component (    HOME/<router-link to="/about">ABOUT</router-link>)</h1>
   <p>Пример работы компонентов <b>[inputs]</b> без инициализцци</p>
   <p>Как видно что <b>[inputs]</b> не требует инициализации, но не сохраняет свои значения</p>

@@ -80,7 +80,7 @@ window["@{_}slider"] = function(element, prop){}
         attr.slider = new String(attr.slider).toLowerCase();
 
         attr.step = element.getAttribute('data-step') ? element.getAttribute('data-step') : propDefault.step;
-        attr.step = toFloat(attr.step);
+        attr.step = parseInt(attr.step);
 
         if (attr.slider == "multi") {
 
@@ -191,6 +191,8 @@ window["@{_}slider"] = function(element, prop){}
     //----------------------------------------------------------------------------------------------------------------//
     var $elementBounding = {};
     var $state = {};
+
+
     var $action = {
         start: function (element, points) {
             $state = init(element, {});
@@ -198,22 +200,21 @@ window["@{_}slider"] = function(element, prop){}
             $state = mutable($state, $elementBounding, points);
             cahnge(element, $state);
             save(element, $state);
-
             domActive(element, $state); // for active slider and handle
         },
         // wrap action to debounce function
         move: debounce(function (element, points) {
             $state = mutable($state, $elementBounding, points);
             cahnge(element, $state);
-
             domActive(element, $state); // for active slider and handle
-        }, 20),
+        }, 40),
+
         end: function (element, points) {
             cahnge(element, $state);
             save(element, $state);
             $elementBounding = {};
             $state = {};
-
+            $debounce = 40;
             domActive(element); // clear active slider and handle
         }
     };
@@ -265,7 +266,7 @@ window["@{_}slider"] = function(element, prop){}
         };
         //------------------------------------------------------//
         function end(event) {
-            event.preventDefault();
+            //event.preventDefault();
             var endTouches = [];
             for (var i = 0; i < event.touches.length; i++) {
                 var id = event.touches[i].identifier;

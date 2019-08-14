@@ -1,6 +1,10 @@
 Расмотреть для navbar обернуть в функцию throthling/debounce
 Создать pipeline для slider
+    //В момент манипуляции slider, необходимо html джобавить класс, в котором запрещенны все скролы;
+    // Необходим для плавной работы в случаях multitouch
+    //var root = document.getElementsByTagName( 'html' )[0]; 
 
+    
 
 menu
 
