@@ -140,6 +140,8 @@
             var left = state.x > 0 ? Math.abs($state.x - state.x) : 0;
             var right = state.x < 0 ? Math.abs($state.x - state.x): 0;
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+            // Проработать логику перемещения сразу на 2 меню
             if(  Math.max(left, right) > 10 ){
                 if($state.x) {
                     close($element);
