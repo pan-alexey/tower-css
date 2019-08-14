@@ -18,99 +18,80 @@
         ]
     };
 
+    //========================================================================//
     var clamp = function (value, limit) {
         if (typeof limit == 'undefined') { limit = [0, 100]; }
         return value > limit[1] ? limit[1] : value < limit[0] ? limit[0] : value;
     }
 
-
-
-
-
-
-
-
-    //-----------------------------------------------//
-    var getContentLeft = function(element){
-        var left = 0;
-        var limit = 0;
-        var leftPercent = 0;
-        var rightPercent = 0;
-        if(element.querySelectorAll('.swipemenu-content').length){
-            var content = element.querySelectorAll('.swipemenu-content')[0];
-            left = window.getComputedStyle ? getComputedStyle(content).left : content.currentStyle.left;
-            left = parseInt(left);
-            var leftBlock = content.querySelectorAll('.swipemenu-block[data-swipemenu="left"]').length ? content.querySelectorAll('.swipemenu-block[data-swipemenu="left"]')[0] : null;
-            var rightBlock = content.querySelectorAll('.swipemenu-block[data-swipemenu="right"]').length ? content.querySelectorAll('.swipemenu-block[data-swipemenu="right"]')[0] : null;
-            var limitLeft = leftBlock ? (window.getComputedStyle ? getComputedStyle(leftBlock).width : leftBlock.currentStyle.width) : 0;
-                limitLeft = parseInt(limitLeft);
-            var limitRight = rightBlock ? (window.getComputedStyle ? getComputedStyle(rightBlock).width : rightBlock.currentStyle.width) : 0;
-                limitRight = parseInt(limitRight);
-
-            leftPercent = left > 0 ? Math.abs(100*left/limitLeft) : 0;
-            rightPercent = left < 0 ? Math.abs(100*left/limitRight) : 0;
-
-            limit = [-limitRight, limitLeft];
-        }
-        return {left, leftPercent, rightPercent, limit};
+    function debounce(func, ms) {
+        let isCooldown = false;
+        return function () {
+            if (isCooldown) return;
+            func.apply(this, arguments);
+            isCooldown = true;
+            setTimeout(() => isCooldown = false, ms);
+        };
     }
-    //-----------------------------------------------//
-    var setContentLeft = function(element, left, limit){
-        if(element.querySelectorAll('.swipemenu-content').length){
-            var content = element.querySelectorAll('.swipemenu-content')[0];
-            //get  swipemenu blocks
-            if(!left){
-                content.style.left = left + 'px';
-                return left;
-            }
-            left =  clamp(left, limit );
-            content.style.left = left + 'px';
-            return left;
-        }
-        return 0;
+    //========================================================================//
+
+    var close = function(element){
+        element.removeClass('@{_}active');
+        setBackdrop(element, 0);
+        setX(element, 0);
     }
-    //-------------------------------------------------------------------------------------------------//
-    var setBackdrop =  function(element, percent){
-        if(element.querySelectorAll('.@{_}swipemenu-backdrop').length){
-            var backdrop = element.querySelectorAll('.@{_}swipemenu-backdrop')[0];
-            backdrop.style.opacity = percent/100;
-        }
+
+    var openLeft = function(element, width){
+        setX(element, width);
+        setBackdrop(element, 1);
+    }
+
+    var openRight = function(element, width){
+        setX(element, width);
+        setBackdrop(element, 1);
     }
 
 
 
 
+    var begin = function(element, state){
+        element.addClass('@{_}active');
+        element.addClass('@{_}change');
 
-    // event function (для дополнительной манипуляции с dom)
-    var onStartChange = function(element){
-    }
-
-    var onChange = function(element){
-        $element.addClass('@{_}active');
-        // setBackdrop($element, percent);
-        // console.log(percent, match);
-    }
-
-    var onChangeEnd = function(element,percent, match){
-        $element.addClass('@{_}active');
-    }
-
-    var onClose = function(element){
-        setContentLeft($element,0); // close swipemenu
-        setBackdrop($element, 0);
-        $element.removeClass('@{_}active');
         
     }
+    var change = function(element,state){
+        var percent = 0;
+        if(state.x > 0 && state.left){percent = Math.abs( state.x/state.left );}
+        if(state.x < 0 && state.right){percent = Math.abs( state.x/state.right );}
+        setBackdrop(element, percent);
+    }
 
 
-    //В момент действительного открытия, необходимо html джобавить класс, в котором запрещенны все скролы;
-    //var root = document.getElementsByTagName( 'html' )[0]; 
+    var end = function(element, state){
+        element.removeClass('@{_}change');
+        //openLeft
+        //openRight
+        //close
+    }
+
+
+
+
+
+    
+
+
+
+
     var $element = null;
-    var $contentStorage = {};
-    var $changeCount = 0;
+    var $change = 0;
+    var $state = {};
+    var $lastX = null;
     var $action = {
         start : function(distance, target){
-
+            $change = 0;
+            $lastX = null;
             // ---------------------------------------- //
             // -----  Get swipemenu element;  ----------//
             var stack = [];
@@ -125,58 +106,135 @@
             stack.forEach(function(element){element.removeClass('@{_}active');});
             if(!$element) return;
             // ---------------------------------------- //
-            $element.addClass('@{_}change');
-            $changeCount = 0;
 
-            $contentStorage = getContentLeft($element);
-            onStartChange($element);
+            $state = getElementProp($element);
+            begin($element, $state); // ++++
+
         },
-        move : function(distance){
+        move : debounce(function(distance){
             if(!$element) return;
-            var left = $contentStorage.left + distance;
-            var prop = setContentLeft($element, left, $contentStorage.limit);
-            if(prop){ 
-                $changeCount++ ;
-                onChange($element);
+            var x = parseInt( $state.x + distance );
+                x = clamp(x, [-$state.right,$state.left] );
+            if($lastX === x) return;
+            $lastX = x;
+            setX($element, x);
+            var state = {
+                x : x,
+                right : $state.right,
+                left : $state.left
             }
-        },
+            change($element,state);
+
+            $change++ ;
+        },30),
         end : function(distance, target){
             if(!$element) return;
             $element.removeClass('@{_}change');
-            $changeCount = 0;
+            $change = 0;
+            var state = getElementProp($element);
 
-            var contentLeft = getContentLeft($element);
-            if ( contentLeft.leftPercent && contentLeft.rightPercent ) {
-                onClose($element);
-                return;
+            //---------------------------------//
+            var offsetLeft = 0;
+            var offsetRight = 0;
+
+            var left = state.x > 0 ? Math.abs($state.x - state.x) : 0;
+            var right = state.x < 0 ? Math.abs($state.x - state.x): 0;
+
+
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+            if(  Math.max(left, right) > 10 ){
+                var rule = $state.x > state.x  ? 'rtl' : 'ltr';
+
+                if(rule == "ltr"){
+                    if( $state.x >= 0 ) {
+                        $state.x = $state.left;
+                    }else{
+                        $state.x = 0;
+                    }
+                }
+              
+
+                setX($element, $state.x );
+            } 
+
+
+            
+            if(!$state.x ){ 
+                close($element);
             }
-            var match = contentLeft.leftPercent > contentLeft.rightPercent ? 'left' : 'right';
-            var diff = match == 'left' ?  contentLeft.leftPercent - $contentStorage.leftPercent : contentLeft.rightPercent - $contentStorage.rightPercent;
-            if(  Math.abs(diff) < 10 ){
-                setContentLeft($element,$contentStorage.left, $contentStorage.limit);
-                if(!$contentStorage.left){  $element.removeClass('@{_}active'); }
-                return;
-            }
-            if( diff > 0 ){
-                setContentLeft($element, match == 'left' ? 10000 : -10000, $contentStorage.limit);
-                setBackdrop($element, 100);
-            }else{
-                onClose($element); 
-            }
+            
+            end($element, $state);
+
         },
         up : function(target){
             if(!$element) return;
             if(!target.closest('.@{_}swipemenu-backdrop')) return;
-
-            console.log($changeCount)
-            if($changeCount < 1){
-                onClose($element);
+            if($change < 1){
+                close($element);
+                $element = null;
             }
         }
-        
     };
     //-----------------------------------------------//
 
+
+
+    function setBackdrop(element, opacity){
+        if(element.querySelectorAll('.swipemenu-backdrop').length){
+            element.querySelectorAll('.swipemenu-backdrop')[0].style.opacity = opacity;
+        }
+    }
+
+    function setX(element, x){
+        //x =  clamp(x, [ -state.right, state.left] );
+        if(element.querySelectorAll('.swipemenu-content').length){
+            var content = element.querySelectorAll('.swipemenu-content')[0];
+            content.style.left = x + 'px';
+        }
+    }
+
+
+    function getElementProp(element){
+        var x = 0;
+        var left = 0;
+        var right = 0;
+        if(element.querySelectorAll('.swipemenu-content').length){
+
+            var content = element.querySelectorAll('.swipemenu-content')[0];
+            var leftBlock = content.querySelectorAll('.swipemenu-block[data-swipemenu="left"]').length ? content.querySelectorAll('.swipemenu-block[data-swipemenu="left"]')[0] : null;
+            var rightBlock = content.querySelectorAll('.swipemenu-block[data-swipemenu="right"]').length ? content.querySelectorAll('.swipemenu-block[data-swipemenu="right"]')[0] : null;
+
+            x = window.getComputedStyle ? getComputedStyle(content).left : content.currentStyle.left;
+            x = parseInt(x);
+
+            left = leftBlock ? (window.getComputedStyle ? getComputedStyle(leftBlock).width : leftBlock.currentStyle.width) : 0;
+            left = parseInt(left);
+
+            right = rightBlock ? (window.getComputedStyle ? getComputedStyle(rightBlock).width : rightBlock.currentStyle.width) : 0;
+            right = parseInt(right);
+        }
+        return {
+            x,
+            left,
+            right
+        }
+    }
+
+
+
+    function checkContent(state, x){
+        if(state) 
+
+        return 0;
+    }
+
+    function getPercent(state){
+        let result = {
+            block : null,
+            percent : 0
+        }
+
+    }
 
 
 
