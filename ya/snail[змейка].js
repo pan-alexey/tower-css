@@ -14,12 +14,19 @@ snail = function(array) {
         //------------------------------------//
         return newArr;
     }
+
     var result = [];
     while (  line = array.shift() ){
         result = result.concat(line);
+        console.log(line, );
         array = arrow(array);
     }
-    return result;
+
+
+
+
+
+    console.log( result );
 }
 
 

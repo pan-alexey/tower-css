@@ -27,7 +27,7 @@
 
 
 
-    <div class="container gutter-y">
+    <div class="container gutter">
       <p class="center  gutter-y"> Обычные кнопки </p>
 
 
@@ -100,6 +100,19 @@
       </div>
 
     </div>
+
+
+    <div class="container gutter">
+      <p class="center  gutter-y"> Блочные кнопки </p>
+      <div class="gutter-nano">
+        <div class="btn btn-block btn-blue-gray btn-material">blue-gray</div>
+      </div>
+    </div>
+
+
+
+
+
   </div>
 </template>
 

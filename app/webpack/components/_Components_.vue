@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container gutter-x">
       
       <ul>
         <li><router-link to="/swipemenu"> <i class='material-icons icon-home'>&#xe88a;</i> swipemenu</router-link></li>

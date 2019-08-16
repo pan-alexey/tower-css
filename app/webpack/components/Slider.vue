@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container gutter-x">
       <p>SLIDER - компонент SLIDER. Компонент поддерживает multitouch события. В режиме MULTI можно управлять одновременно двумя ручками</p>
       <p>SLIDER - обернут в debounce функцию с вызовом не чаще чем 60ms</p>
       <br>

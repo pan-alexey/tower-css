@@ -18,11 +18,15 @@
             </div>
         </div>
     </div>
-    <div class="container center-outer-transform heigt-100vh">
-      <div class="center-inner">
-        <h2 class="center">404</h2>
-        <h3 class="center">PAGE NOT FOUND</h3>
-      </div>
+    <div class="container gutter-x">
+        <div class="center-outer-transform heigt-100vh">
+          <div class="center-inner ">
+            <h2 class="center">404</h2>
+            <h3 class="center">PAGE NOT FOUND</h3>
+            <br>
+            <router-link class="btn btn-blue btn-block" to="/"> ОБРАТНО НА ГЛАВНУЮ </router-link>
+          </div>
+    </div>
     </div>
 </div>
 </template>

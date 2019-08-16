@@ -41,26 +41,28 @@
 
 .fade-enter,
 .fade-leave-active {
-  opacity: 0
+  opacity: 0;
 }
 
 
 
 .fade-enter-active {
   animation: fade-in .600s;
+  overflow: auto;
 }
 .fade-leave-active {
-  animation: fade-out .100s;
+  animation: fade-out .600s;
+  overflow: hidden;
 }
 
 
 @keyframes fade-in {
   0% {
     opacity: 0;
-    transform: translateX(60%);
+    transform: translateY(30%);
   }
   50%{
-    transform: translateX(0);
+    transform: translateY(0);
   }
   100% {
     opacity: 1;
