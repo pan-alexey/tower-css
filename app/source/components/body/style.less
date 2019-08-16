@@ -10,10 +10,10 @@
     box-sizing: border-box;
 }
 
-*:not(input):not(textarea) {
-    -webkit-user-select: none; /* disable selection/Copy of UIWebView */
-    -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
-}
+// *:not(input):not(textarea) {
+//     -webkit-user-select: none; /* disable selection/Copy of UIWebView */
+//     -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
+// }
 
 html{
     & when (@align = right) {direction: rtl;}
@@ -34,7 +34,7 @@ html{
     //scroll-behavior: smooth;
 }
 
-body {
+body, .body {
     background-color: @background;
     font-size: @font-size;
     font-family: @font-family;
@@ -46,6 +46,18 @@ body {
     width: 100%;
     overflow-x: hidden;
     height: 100%;
+   
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.activity{
+    background-color: @background;
+    position: absolute;
     left: 0;
     top: 0;
     bottom: 0;

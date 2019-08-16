@@ -31,13 +31,18 @@
         outline: 0;
     }
 }
+
+.@{_}btn-block{
+    display: block;
+    width: 100%;
+}
 //---------------------------------------------------------------------//
 .btn-size( @height, @font-size){
-    @radius : if(3 > ceil(@font-size*0.5), 3px, ceil(@font-size*0.5));
-    @offset : ceil( (@height - @line-height*@font-size)/4 );
+    @radius : if(3 > ceil(@font-size*0.4), 3px, ceil(@font-size*0.4));
+    @offset : floor( (@height - @line-height*@font-size)/2 );
     @offset-x : ceil( @height/2 );
 
-    line-height: @line-height;
+    line-height: @font-size;
     font-size: @font-size;
     min-height : @height;
     padding: @offset @offset*1.5;
@@ -71,14 +76,14 @@
     &:hover{
         background: fade( extract(@color, 1), 20%);
     }
-    &.@{_}btn-color,.@{_}btn-default{
-        background: extract(@color,1);
-        color: extract(@color,3);
-        &:hover{
-            background: extract(@color,2);
-            color: extract(@color,4);
-        }
+
+    background: extract(@color,1);
+    color: extract(@color,3);
+    &:hover{
+        background: extract(@color,2);
+        color: extract(@color,4);
     }
+
     &.@{_}btn-border{
         border-color: extract(@color,1);
         color: extract(@color,1);

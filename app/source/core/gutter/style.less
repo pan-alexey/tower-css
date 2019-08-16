@@ -1,0 +1,42 @@
+@import "./../varibles.less";
+
+
+//---------------------------------//
+.@{_}gutter{
+    padding: @gutter-y @gutter-x ;
+}
+.@{_}gutter-x {
+    padding-right: @gutter-x ;
+    padding-left: @gutter-x ;  
+}
+.@{_}gutter-y {
+    padding-top: @gutter-y ;
+    padding-bottom: @gutter-y ;  
+}
+
+//---------------------------------//
+
+.@{_}gutter-mini{
+    padding: floor(@gutter-y/2) floor(@gutter-x/2) ;
+}
+.@{_}gutter-x-mini {
+    padding-right: floor(@gutter-x/2) ;
+    padding-left: floor(@gutter-x/2) ;  
+}
+.@{_}gutter-y-mini {
+    padding-top: floor(@gutter-y/2) ;
+    padding-bottom: floor(@gutter-y/2) ;
+}
+
+
+.@{_}gutter-nano{
+    padding: floor(@gutter-y/4) floor(@gutter-x/4) ;
+}
+.@{_}gutter-x-nano {
+    padding-right: floor(@gutter-x/4) ;
+    padding-left: floor(@gutter-x/4) ;  
+}
+.@{_}gutter-y-nano {
+    padding-top: floor(@gutter-y/4) ;
+    padding-bottom: floor(@gutter-y/4) ;
+}

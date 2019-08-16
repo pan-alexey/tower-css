@@ -17,6 +17,17 @@
         }
         return result;
     }
+
+    function debounce(func, ms) {
+        let isCooldown = false;
+        return function () {
+            if (isCooldown) return;
+            func.apply(this, arguments);
+            isCooldown = true;
+            setTimeout(() => isCooldown = false, ms);
+        };
+    }
+    
     //---------------------- helpers  ----------------------------//
     //------------------------------------------------------------//
     let stikyMode = function(navbars, scroll){
@@ -108,8 +119,15 @@
            offset(navbars[i]);
         }
         oldScroll = scroll;
-    }
+    };
+
+
+
     navbar();
     document.addEventListener("scroll", navbar);
     document.addEventListener("resize", navbar);
+
+
+
+    window['@{_}navbar'] = navbar;
 })(window);

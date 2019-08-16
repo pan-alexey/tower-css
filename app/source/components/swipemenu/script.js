@@ -6,9 +6,10 @@
     // swipermenu не работает:
     // если был скролл больше 40px;
     // если Math.abs(x) >= Math.abs(y/2)
-
+    
     var $param = {
-        blindZone : 50,
+        blindZone : 60,
+        matageLength : 60,
         tan : 2,
         exclude : [
             ".@{_}slider",
@@ -35,23 +36,29 @@
     }
     //========================================================================//
 
+
+
+    var openLeft = function(element, width){
+        var state = getElementProp(element);
+        if(!state.left) return;
+
+        setX(element, state.left);
+        setBackdrop(element, 1);
+    }
+
+    var openRight = function(element, width){
+        var state = getElementProp(element);
+        if(!state.right) return;
+
+        setX(element, -state.right);
+        setBackdrop(element, 1);
+    }
+
     var close = function(element){
         element.removeClass('@{_}active');
         setBackdrop(element, 0);
         setX(element, 0);
     }
-
-    var openLeft = function(element, width){
-        setX(element, width);
-        setBackdrop(element, 1);
-    }
-
-    var openRight = function(element, width){
-        setX(element, width);
-        setBackdrop(element, 1);
-    }
-
-
 
 
     var begin = function(element, state){
@@ -117,6 +124,7 @@
                 x = clamp(x, [-$state.right,$state.left] );
             if($lastX === x) return;
             $lastX = x;
+
             setX($element, x);
             var state = {
                 x : x,
@@ -126,37 +134,55 @@
             change($element,state);
 
             $change++ ;
-        },30),
+        },60),
         end : function(distance, target){
             if(!$element) return;
             $element.removeClass('@{_}change');
             $change = 0;
             var state = getElementProp($element);
 
-            //---------------------------------//
-            var offsetLeft = 0;
-            var offsetRight = 0;
-
-            var left = state.x > 0 ? Math.abs($state.x - state.x) : 0;
-            var right = state.x < 0 ? Math.abs($state.x - state.x): 0;
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++//
-
             // Проработать логику перемещения сразу на 2 меню
-            if(  Math.max(left, right) > 10 ){
-                if($state.x) {
+            if(Math.abs(state.x) < $param.matageLength) {
+                close($element);
+                return;
+            }
+
+            // OLD STATE
+            if( Math.abs($state.x - state.x) < $param.matageLength  ){
+                if(!$state.x){
                     close($element);
                     return;
                 }
-                if(left){
-                    openLeft($element, $state.left);
+                if($state.x > 0){
+                    openLeft($element);
                     return;
                 }
-                if(right){
-                    openRight($element, -$state.right);
+                if($state.x < 0){
+                    openRight($element);
                     return;
                 }
-            } 
-            setX($element, $state.x );
+            }
+            //---------------------------------//
+            var left = state.x > 0 ? Math.abs($state.x - state.x) : 0;
+            var right = state.x < 0 ? Math.abs($state.x - state.x): 0;
+            if(left){
+                if($state.x && ($state.x - state.x)>0    ){
+                    close($element);
+                    return;
+                }
+                openLeft($element);
+                return;
+            }
+            if(right){
+                if($state.x && ($state.x - state.x)<0 ){
+                    close($element);
+                    return;
+                }
+                openRight($element);
+                return;
+            }
+            close($element);
+            return;
         },
         up : function(target){
             if(!$element) return;
@@ -280,8 +306,9 @@
             if (Math.max(x, y) >= $param.blindZone) {
                 trigger = $param.tan * x <= y ? -1 : 1;
                 if (trigger == 1) {
-                    point = event.touches[0];
-                    $action.start(0, target);
+                    //point = event.touches[0];
+                    distance = point.clientX - event.touches[0].clientX;
+                    $action.start(distance, target);
                 }
                 return;
             }
@@ -351,8 +378,9 @@
             if (Math.max(x, y) >= $param.blindZone) {
                 trigger = $param.tan * x <= y ? -1 : 1;
                 if (trigger == 1) {
-                    point = event;
-                    $action.start(0, target);
+                    //point = event;
+                    distance = point.clientX - event.clientX;
+                    $action.start(distance, target);
                 }
                 return;
             }

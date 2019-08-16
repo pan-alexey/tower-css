@@ -1,4 +1,4 @@
-// Home.vue
+// _Components_.vue
 
 <template>
   <div class="activity">
@@ -9,7 +9,7 @@
                     <div class="navbar-group blue">
                         <router-link to="/"> <i class='material-icons icon-home'>&#xe88a;</i> </router-link>
                     </div>
-                    <div class="navbar-title center"><b>HOME</b></div>
+                    <div class="navbar-title center"><b>PAGE NOT FOUND</b></div>
                     <div class="navbar-group">
                         <router-link to="/components"> <i class='material-icons icon-list'>&#xe896;</i> </router-link>
                         
@@ -18,10 +18,11 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <p>TOWER - Вэб компонентный фреймворк с открытыс исходным кодом для создания приложения HTML, CSS и JS. Поддерживается даже самыми устаревшими браузерами, такими как Internet Explorer 9</p>
-        <p>Модульная архитектура позволяет использовать и подключать только те компоненты, которые нужны</p>
-        <p>Для корректной работы, модули не требуют инициализацию, поээтому они работают даже елси не были инициализированны изначально</p>
+    <div class="container center-outer-transform heigt-100vh">
+      <div class="center-inner">
+        <h2 class="center">404</h2>
+        <h3 class="center">PAGE NOT FOUND</h3>
+      </div>
     </div>
 </div>
 </template>

@@ -1,4 +1,4 @@
-// Home.vue
+// _Components_.vue
 
 <template>
   <div class="activity">
@@ -9,7 +9,7 @@
                     <div class="navbar-group blue">
                         <router-link to="/"> <i class='material-icons icon-home'>&#xe88a;</i> </router-link>
                     </div>
-                    <div class="navbar-title center"><b>HOME</b></div>
+                    <div class="navbar-title center"><b>COMPONENTS LIST </b></div>
                     <div class="navbar-group">
                         <router-link to="/components"> <i class='material-icons icon-list'>&#xe896;</i> </router-link>
                         
@@ -19,9 +19,14 @@
         </div>
     </div>
     <div class="container">
-        <p>TOWER - Вэб компонентный фреймворк с открытыс исходным кодом для создания приложения HTML, CSS и JS. Поддерживается даже самыми устаревшими браузерами, такими как Internet Explorer 9</p>
-        <p>Модульная архитектура позволяет использовать и подключать только те компоненты, которые нужны</p>
-        <p>Для корректной работы, модули не требуют инициализацию, поээтому они работают даже елси не были инициализированны изначально</p>
+      
+      <ul>
+        <li><router-link to="/swipemenu"> <i class='material-icons icon-home'>&#xe88a;</i> swipemenu</router-link></li>
+        <li><router-link to="/slider"> <i class='material-icons icon-home'>&#xe88a;</i> slider</router-link></li>
+        <li><router-link to="/inputs"> <i class='material-icons icon-home'>&#xe88a;</i> inputs</router-link></li>
+        <li><router-link to="/navbar"> <i class='material-icons icon-home'>&#xe88a;</i> navbar</router-link></li>
+        <li><router-link to="/button"> <i class='material-icons icon-home'>&#xe88a;</i> buttons</router-link></li>
+      </ul>
     </div>
 </div>
 </template>

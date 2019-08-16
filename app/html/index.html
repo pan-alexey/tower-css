@@ -25,77 +25,66 @@
     <link rel="stylesheet" type="text/css" href="./source/css/components.css">
 
 </head>
-
 <body>
 
+    <style>
 
 
 
 
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
+}
 
 
 
-
-    <div class="navbar">
-        <div class="navbar-top">
-            <div class="navbar-block blue" data-type="float">
-                <div class="navbar-content"></div>
-            </div>
-        </div>
-    </div>
-
-    
-    <div class="container">
-        <br>
-        <br>
-        
-        <br>
-        <br>
-        <br>
-        <br>
-            <div id="log"></div>
-        <br>
-        <br>
-        <!-- setup as value as percent-->
-        <div class="slider" data-slider="multi">
-            <div class="slider-content">
-                <div class="slider-bar"></div>
-                <div class="slider-handle" data-handle="left"></div>
-                <div class="slider-handle" data-handle="right"></div>
-            </div>
-        </div>
-        <!-- setup as value as percent-->
-        <div class="slider" data-slider="right">
-            <div class="slider-content">
-                <div class="slider-bar"></div>
-                <div class="slider-handle"></div>
-            </div>
-        </div>
-        <div class="slider" data-slider="left">
-            <div class="slider-content">
-                <div class="slider-bar"></div>
-                <div class="slider-handle"></div>
-            </div>
-        </div>
-    </div>
-
-    <br>
+.fade-enter-active {
+  animation: fade-in .600s;
+}
+.fade-leave-active {
+  animation: fade-out .100s;
+}
 
 
-    <br>
-    <div class="container">
-        <div id="app">
-            <router-view>
-                <!--Пример вставки компонентв slider-->
-                <div class="slider" data-slider="multi" data-min="0" data-max="90">
-                    <div class="slider-content">
-                        <div class="slider-bar"></div>
-                        <div class="slider-handle" data-handle="left"></div>
-                        <div class="slider-handle" data-handle="right"></div>
-                    </div>
-                </div>
-            </router-view>
-        </div>
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateX(60%);
+  }
+  50%{
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+
+</style>
+    <div id="app">
+<transition
+    name="fade"
+          >
+            <router-view></router-view>
+        </transition>
     </div>
 </body>
 <!-- UI COMPONENTS  -->
