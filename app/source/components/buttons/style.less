@@ -73,29 +73,51 @@
 
 .btn-color(@color){
 
-    &:hover{
-        background: fade( extract(@color, 1), 20%);
-    }
 
     background: extract(@color,1);
     color: extract(@color,3);
+
     &:hover{
         background: extract(@color,2);
         color: extract(@color,4);
     }
 
     &.@{_}btn-border{
+        background: transparent;
+        color: extract(@color,1);
         border-color: extract(@color,1);
-        color: extract(@color,1);
-    }
-    &.@{_}btn-text{
-        color: extract(@color,1);
         &:hover{
-            border-color: extract(@color,1);
-            background: extract(@color,1);
+            background: extract(@color,2);
+            border-color: extract(@color,2);
             color: extract(@color,4);
-        }
+        } 
     }
+    
+
+    &.@{_}btn-text{
+        background: transparent;
+        color: extract(@color,1);
+        border-color: transparent;
+        &:hover{
+            background: fade(extract(@color,1), 10%),;
+            border-color: transparent;
+            color: extract(@color,1);
+        } 
+    }
+
+
+    &.@{_}btn-color{
+        background: transparent;
+        color: extract(@color,1);
+        border-color: transparent;
+        &:hover{
+            background: extract(@color,2);
+            border-color: transparent;
+            color: extract(@color,4);
+        } 
+    }
+
+
     &.@{_}btn-material{
         background: extract(@color,1);
         color: extract(@color,3);

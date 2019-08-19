@@ -1,32 +1,29 @@
-snail = function(array) {
-    // enjoy
-    var arrow = function(array){
-        var newArr = [];
-        //-------------------------------------//
-        for (let i = 0; i < array.length; i++) {
-            for (let j = 0; j < array[i].length; j++) {
-                let index = (array[i].length - 1) - j;
-                newArr[j] = array.map(function(e){
-                    return e[index] ? e[index] : null;
-                });
-            }
-        }
-        //------------------------------------//
-        return newArr;
+
+function add(a, b) {
+
+    var aa = a.toString().split('').reverse();
+    var bb = b.toString().split('').reverse();
+    var maxLength = Math.max(aa.length, bb.length);
+
+    var stack = [];
+    for (let i = 0; i < maxLength; i++) {
+        let num1 = aa[i] ? parseInt(aa[i]) : 0;
+        let num2 = bb[i] ? parseInt(bb[i]) : 0;
+        stack[i] = num1 + num2;
     }
-    var result = [];
-    while (  line = array.shift() ){
-        result = result.concat(line);
-        array = arrow(array);
+
+
+    for (var i = 0; i < stack.length; i++) {
+        var num = stack[i] % 10;
+        var move = Math.floor(stack[i] / 10);
+        stack[i] = num;
+        if (stack[i + 1])
+            stack[i + 1] += move;
+        else if (move != 0)
+            stack[i + 1] = move;
     }
-    return result;
+    return stack.reverse().join('');
 }
 
 
-
-snail([
-    [1, 2, 3, 4], 
-    [5, 6, 7, 8], 
-    [9, 10, 11, 12], 
-    [13, 14, 15, 16], 
-]);
+console.log(add(325,500));

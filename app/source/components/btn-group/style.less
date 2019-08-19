@@ -1,0 +1,93 @@
+@import "./../varibles.less";
+
+.@{_}btn-group {
+    position: relative;
+    display: table;
+    vertical-align: middle;
+
+    &>.@{_}btn {
+        margin: 0px;
+        position: relative;
+        float: @align;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            z-index: 2;
+        }
+    }
+}
+
+.@{_}btn-group-blind {
+    position: relative;
+    display: table;
+    vertical-align: middle;
+
+    &>.@{_}btn {
+        margin: 0px;
+        position: relative;
+        float: @align;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            z-index: 2;
+        }
+    }
+
+    &>.@{_}btn:not(:first-child):not(:last-child) {
+        border-radius: 0px;
+        border-left-width: ceil(@border-width /2);
+        border-right-width: ceil(@border-width /2);
+    }
+
+    //---------------------------------------------------//
+    &>.@{_}btn:first-child:not(:last-child) {
+        & when (@align =right) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left-width: ceil(@border-width /2);
+        }
+
+        & when (@align =left) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right-width: ceil(@border-width /2);
+        }
+    }
+
+    //---------------------------------------------------//
+    &>.@{_}btn:last-child:not(:first-child) {
+        & when (@align =right) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right-width: ceil(@border-width /2);
+        }
+
+        & when (@align =left) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left-width: ceil(@border-width /2);
+        }
+    }
+
+}
+
+
+
+.@{_}btn-group-block {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    & when (@align =right) {
+        direction: rtl;
+    }
+
+    >.@{_}btn {
+        float: none;
+        display: table-cell;
+    }
+}

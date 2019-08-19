@@ -38,10 +38,11 @@
             <div class="btn btn-3 btn-material red">OK</div>
           </div>
           <div class="input-form">
-            <input value="Введите/Удалите текст" />
+            <input value="Введите/Удалите текст" v-model="message"/>
             <lable>input</lable>
           </div>
         </div>
+        
       </div>
       <br>
       <br>
@@ -55,6 +56,7 @@
             <div class="btn btn-3 btn-material red">OK</div>
           </div>
         </div>
+
       </div>
 
 
@@ -68,10 +70,14 @@
             <div class="btn btn-3 btn-material red">OK</div>
           </div>
           <div class="input-form">
-            <input value="Введите/Удалите текст" />
+            <input value="Введите/Удалите текст" v-model="input"/>
             <lable>input</lable>
           </div>
         </div>
+        <p>{{ input }}</p>
+
+
+
       </div>
       <br><br>
       <div class="input-block input-border offset input-green valid">
@@ -99,6 +105,11 @@
 
 <script>
 export default {
+  data: function () {
+    return {
+      input: "Введите текст"
+    }
+  },
   mounted: function() {
     //Необходимо вызвать пересчет отступа
     window.navbar();
