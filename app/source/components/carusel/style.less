@@ -39,7 +39,7 @@
 
 .@{_}carusel-block{
     .carusel-item{
-        transition: 600ms ease all;
+        transition: 300ms ease all;
     }
 }
 
@@ -47,11 +47,9 @@
 
 .@{_}carusel-block.active{
     .carusel-item{
-        transition: 60ms linear all;
+        transition: none;
     }
 }
-
-
 
 
 
@@ -59,9 +57,9 @@
     z-index: 1;
 }
 
-.carusel-item.front{
-    z-index: 4!important;
-}
 .carusel-item.back{
     z-index: 2;
+}
+.carusel-item.front{
+    z-index: 10 !important;
 }
