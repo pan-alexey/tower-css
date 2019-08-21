@@ -16,7 +16,7 @@ import Navbar from './components/Navbar.vue';
 import Slider from './components/Slider.vue';
 import Swipemenu from './components/Swipemenu.vue';
 import Inputs from './components/Inputs.vue';
-
+import Carusel from './components/Carusel.vue';
 
 
 const router = new VueRouter({
@@ -31,7 +31,7 @@ const router = new VueRouter({
       
       { path: '/navbar', component: Navbar },
       { path: '/button', component: Button },
-
+      { path: '/carusel', component: Carusel },
       { path: '*', component: _404_ },
 
     ]
