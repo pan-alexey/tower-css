@@ -25,6 +25,17 @@ window["@{_}carusel"] = function(element, prop){}
 
 
 
+// Проверяем DOM
+// Переделать чтобы складывалось ощущение что слайд наезжает
+    var open = function(carusel, index){
+        var onTransitionEnd = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"]
+        var item = carusel.querySelectorAll('.carusel-item.@{_}front')[0];
+        
+        
+        // onTransitionEnd.forEach(function(transitionend){
+        //     $item.removeEventListener(transitionend, transitionEnd);
+        // });
+    }
 
 //carusel
 //item
@@ -39,7 +50,7 @@ window["@{_}carusel"] = function(element, prop){}
 
     var $collection = [];
     var $index = 0;
-
+    var $back = 0;
 
 
     var $action = {
@@ -50,34 +61,19 @@ window["@{_}carusel"] = function(element, prop){}
             $width = $carusel.getBoundingClientRect().width;
             $x = 0;
 
-
             $carusel.addClass("@{_}active");
             $item.addClass("@{_}front");
 
-
             for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
-
+                $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
+                $carusel.querySelectorAll('.carusel-item')[i].style.left = "";
                 if($item == $carusel.querySelectorAll('.carusel-item')[i]){
-                    
+                    $index = i;
+                    continue;
                 }
-                // $collection.push( $carusel.querySelectorAll('.carusel-item')[i]  );
-                // $carusel.querySelectorAll('.carusel-item')[i].style.left = "";
-                // if($item == $carusel.querySelectorAll('.carusel-item')[i]){
-                //     $active = i;
-                // }
+                $carusel.querySelectorAll('.carusel-item')[i].removeClass("@{_}front");
             }
 
-
-            // var index = 0;
-            // for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
-            //     $collection.push( $carusel.querySelectorAll('.carusel-item')[i]  );
-            //     $carusel.querySelectorAll('.carusel-item')[i].style.left = "";
-            //     if($item == $carusel.querySelectorAll('.carusel-item')[i]){
-            //         $active = i;
-            //     }
-            // }
-            // $collection[$active].removeClass("@{_}back");
-            // $collection[$active].addClass("@{_}front");
         },
         // wrap action to debounce function
         move: function (element, points) {
@@ -86,35 +82,49 @@ window["@{_}carusel"] = function(element, prop){}
 
             $item.style.left = $x + "px";
 
+            prew = $index - 1 < 0 ? $collection.length - 1 : $index- 1;
+            next = $index + 1 >= $collection.length ? 0 : $index + 1 ;
+            $back = $x < 0 ? next : prew;
 
+            for (let i = 0; i < $collection.length; i++) {
+                if( i == $back ) {
+                    $collection[i].addClass("@{_}back");
+                }else{
+                    $collection[i].removeClass("@{_}back");
+                }
+            }
 
-
-            // prew = $active - 1 < 0 ? $collection.length - 1 : $active - 1;
-            // next = $active + 1 >= $collection.length ? 0 : $active + 1 ;
-            // $index = x < 0 ? next : prew;
-            // for (let i = 0; i < $collection.length; i++) {
-            //     if( i !== $index ) $collection[i].removeClass("@{_}back");
-            // }
-            // $collection[$index].addClass("@{_}back");
+            // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+            //     $item.removeEventListener(transitionend, transitionEnd);
+            // });
         },
         end: function (element, points) {
             if(!$carusel ) return;
-
-
             $carusel.removeClass("@{_}active");
 
 
+            var percent = ( 100 * $x / $width );
 
 
-            // var x =  parseInt( points[0].pageX ) - $starX;
-            // var width = $carusel.getBoundingClientRect().width;
-            // var percent = ( 100 * x / width );
+            open();
+
+
+
             // if( Math.abs(percent) < 20 ){
-            //     $collection[$active].style.left = "0px";
+            //     $item.style.left = "0px";
+            //     ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+            //         $item.addEventListener(transitionend, function(event){
+            //             $collection.forEach(function(element){
+            //                 element.style.left = "0px";
+            //                 element.removeClass("@{_}back");
+            //             })
+            //         });
+            //     });
             //     return;
             // }
-            // $collection[$active].style.left = percent < 0  ? "-100%" : "100%";
-            // $collection.forEach(function(el){el.removeClass("@{_}back");});
+
+
+            
         }
     };
     //=======================================================//
