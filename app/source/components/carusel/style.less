@@ -25,12 +25,33 @@
 }
 
 
+
+
 .carusel-item{
     width: 100%;
     height: 100%;
     position: absolute;
     background: red;
+    transition: 60ms linear all;
 }
+
+
+
+.@{_}carusel-block{
+    .carusel-item{
+        transition: 600ms ease all;
+    }
+}
+
+
+
+.@{_}carusel-block.active{
+    .carusel-item{
+        transition: 60ms linear all;
+    }
+}
+
+
 
 
 
@@ -38,17 +59,9 @@
     z-index: 1;
 }
 
-
-.carusel-item.active{
-    z-index: 2;
-    left: 0;
+.carusel-item.front{
+    z-index: 4!important;
 }
-
-.carusel-item.after{
+.carusel-item.back{
     z-index: 2;
-    left: -100%;
-}
-.carusel-item.before{
-    z-index: 2;
-    left: 100%;
 }

@@ -26,13 +26,38 @@
 
     <div class="container gutter-x">
 
-
+<br>
 <div class="carusel" style="height:300px;">
     <div class="carusel-content">
         <div class="carusel-block">
-            <div class="carusel-item">1</div>
-            <div class="carusel-item">2</div>
-            <div class="carusel-item">3</div>
+
+            <div class="red carusel-item center-outer-flex center">
+              <div class="center-inner">
+              1
+              </div>
+            </div>
+
+            <div class="blue carusel-item center-outer-flex center">
+              <div class="center-inner">
+              2
+              </div>
+            </div>
+
+            <div class="green carusel-item center-outer-flex center">
+              <div class="center-inner ">
+              3
+              </div>
+            </div>
+
+            <div class="yellow carusel-item center-outer-flex center">
+              <div class="center-inner">
+              4
+              </div>
+            </div>
+
+
+
+
         </div>
     </div>
 </div>

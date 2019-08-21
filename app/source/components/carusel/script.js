@@ -22,34 +22,93 @@ window["@{_}carusel"] = function(element, prop){}
     }
 
 
-    var $carusel = null;
+
+
+
+
+
+
+
     var $starX = 0;
+    var $carusel = null;
+    var $collection = [];
+    var $active = 0;
+    var $index = 0;
     var $action = {
         start: function (element, points) {
-            $carusel = element.closest(".@{_}carusel");
-            $starX = parseInt( points.pageX );
+            $starX = parseInt( points[0].pageX );
+            $carusel = element.closest(".@{_}carusel-block");
+            $carusel.addClass("@{_}active");
+            var index = 0;
+            for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
+                $collection.push( $carusel.querySelectorAll('.carusel-item')[i]  );
+                $carusel.querySelectorAll('.carusel-item')[i].style.left = '0';
+                if(element == $carusel.querySelectorAll('.carusel-item')[i]){
+                    $active = i;
+                    $carusel.querySelectorAll('.carusel-item')[i].addClass("@{_}front");
+                } else{
+                    $carusel.querySelectorAll('.carusel-item')[i].removeClass("@{_}front");
+                }
+            }
 
-            console.log("carusel move" ,  points);
+
+
         },
         // wrap action to debounce function
         move: debounce(function (element, points) {
             if(!$carusel ) return;
+            var x =  parseInt( points[0].pageX ) - $starX;
+            element.style.left = x + "px";
 
-            //console.log( $starX - parseInt(points.pageX) );
+            //------------------------------------------//
+            $collection.forEach(function(item){ item.removeClass("@{_}back"); });
+
+            var indexAfter = $active + 1 > $collection.length-1 ? 0 : $active + 1;
+            var indexBefore = $active - 1 < 0 ? $collection.length-1  : $active - 1;
+            var $index = x > 0 ? indexBefore : indexAfter;
+            $collection[ $index ].addClass("@{_}back");
 
 
-            //console.log("carusel move" , element , points);
+
+            // var indexAfter = index + 1 > $collection.length-1 ? 0 : index + 1;
+            // var indexBefore = index - 1 < 0 ? $collection.length-1  : index - 1;
+
+            // $itemBefore = $collection[indexBefore];
+            // $itemAfter = $collection[indexAfter];
+
+            // if( x > 0 ){
+            //     $itemBefore.addClass("@{_}back");
+            // }else{
+            //     $itemAfter.addClass("@{_}back");
+            // }
+
+
         }, 40),
-
         end: function (element, points) {
             if(!$carusel ) return;
-            
+            $carusel.removeClass("@{_}active");
+
+            var x =  parseInt( points[0].pageX ) - $starX;
+            var width = $carusel.getBoundingClientRect().width;
+            var percent = ( 100 * x / width );
 
 
+            if( Math.abs(percent) < 20 ){
+                element.style.left = "0px";
+                return;
+            }
+            element.style.left = percent < 0  ? "-100%" : "100%";
 
-            console.log("carusel move" , element , points);
-            $carusel = null;
-            $starX = 0
+
+            //element.removeClass("@{_}front");
+            // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+            //     element.addEventListener(transitionend, function(event){
+            //         element.removeClass("@{_}front");
+            //         // $collection.forEach(function(el){
+            //         //     el.removeClass("@{_}back");
+            //         // });
+            //     });
+            // });
         }
     };
     //=======================================================//
