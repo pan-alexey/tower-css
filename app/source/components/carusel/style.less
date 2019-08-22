@@ -36,19 +36,21 @@
     position: absolute;
     background: red;
     transition: 60ms linear all;
+
+    visibility: hidden;
 }
 
 
 
-.@{_}carusel-block{
+
+.@{_}carusel{
     .carusel-item{
         transition: 200ms ease all;
     }
 }
 
 
-
-.@{_}carusel-block.active{
+.@{_}carusel.@{_}active{
     .carusel-item{
         transition: none;
     }
@@ -56,13 +58,19 @@
 
 
 
+
+
 .carusel-item:first-child{
     z-index: 1;
+    visibility: visible;
 }
 
-.carusel-item.back{
-    z-index: 2;
+.carusel-item.before{
+    z-index: 5;
 }
-.carusel-item.front{
-    z-index: 10 !important;
+.carusel-item.active{
+    z-index: 10;
+}
+.carusel-item.after{
+    z-index: 20;
 }

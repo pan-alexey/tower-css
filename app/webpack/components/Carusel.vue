@@ -25,43 +25,29 @@
     </div>
 
     <div class="container gutter-x">
+      <br />
+      <div class="carusel" style="height:300px;">
+        <div class="carusel-content">
 
-<br>
-<div class="carusel" style="height:300px;">
-    <div class="carusel-content">
-        <div class="carusel-block">
 
+          <div class="carusel-block">
             <div class="red carusel-item center-outer-flex center">
-              <div class="center-inner">
-              1
-              </div>
+              <div class="center-inner">1</div>
             </div>
 
             <div class="blue carusel-item center-outer-flex center">
-              <div class="center-inner">
-              2
-              </div>
+              <div class="center-inner">2</div>
             </div>
 
             <div class="green carusel-item center-outer-flex center">
-              <div class="center-inner ">
-              3
-              </div>
-            </div>
-
-            <div class="yellow carusel-item center-outer-flex center">
-              <div class="center-inner">
-              4
-              </div>
+              <div class="center-inner">3</div>
             </div>
 
 
 
-
+          </div>
         </div>
-    </div>
-</div>
-
+      </div>
 
       <p>SWIPEMENU - КОМПОНЕНТ ДЛЯ БОКОВОГО МЕНЮ. Hаботает аналогично как и реализация в android</p>
       <p>Для проверки, проведите пальцем по экрану влево или вправо</p>
@@ -79,8 +65,6 @@
       <div style="height: 100vh;"></div>
       <div style="height: 100vh;"></div>
     </div>
-
-
   </div>
 </template>
 

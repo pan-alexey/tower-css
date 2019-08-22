@@ -21,123 +21,183 @@ window["@{_}carusel"] = function(element, prop){}
         };
     }
 
-
-
-
-
-// Проверяем DOM
-// Переделать чтобы складывалось ощущение что слайд наезжает
-    var open = function(carusel, index){
-        var onTransitionEnd = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"]
-        var item = carusel.querySelectorAll('.carusel-item.@{_}front')[0];
-        
-        
-        // onTransitionEnd.forEach(function(transitionend){
-        //     $item.removeEventListener(transitionend, transitionEnd);
-        // });
+    var clamp = function (value, limit) {
+        if (typeof limit == 'undefined') { limit = [0, 100]; }
+        return value > limit[1] ? limit[1] : value < limit[0] ? limit[0] : value;
     }
 
-//carusel
-//item
-//collection
 
 
-    var $starX = 0;
+
+
+
+    function open(carusel, index){
+
+
+        index = index < 0;
+        var collection = [];
+        for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
+            collection[i] = carusel.querySelectorAll('.carusel-item')[i];
+
+        }
+
+        if(collection.length - 1  )
+
+    }
+
+    
+
+
+
+
     var $carusel = null;
     var $item = null;
     var $width = null;
-    var $x = 0;
+
 
     var $collection = [];
-    var $index = 0;
-    var $back = 0;
+    var $index = null;
+    var $before = null;
+    var $after = null;
+
+
+
+
 
 
     var $action = {
         start: function (element, points) {
-            $starX = parseInt( points[0].pageX );
-            $carusel = element.closest(".@{_}carusel-block");
+            $carusel = element.closest(".@{_}carusel");
             $item = element.closest(".@{_}carusel-item");
             $width = $carusel.getBoundingClientRect().width;
-            $x = 0;
-
-            $carusel.addClass("@{_}active");
-            $item.addClass("@{_}front");
-
-            for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
-                $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
-                $carusel.querySelectorAll('.carusel-item')[i].style.left = "";
-                if($item == $carusel.querySelectorAll('.carusel-item')[i]){
-                    $index = i;
-                    continue;
-                }
-                $carusel.querySelectorAll('.carusel-item')[i].removeClass("@{_}front");
-            }
-
         },
         // wrap action to debounce function
-        move: function (element, points) {
+        move: debounce(function (element, points) {
             if(!$carusel ) return;
-            $x = parseInt( points[0].pageX ) - $starX;
-
-            $item.style.left = $x + "px";
-
-            prew = $index - 1 < 0 ? $collection.length - 1 : $index- 1;
-            next = $index + 1 >= $collection.length ? 0 : $index + 1 ;
-            $back = $x < 0 ? next : prew;
-
-            for (let i = 0; i < $collection.length; i++) {
-                if( i == $back ) {
-                    $collection[i].addClass("@{_}back");
-                }else{
-                    $collection[i].removeClass("@{_}back");
-                }
-            }
-
-            // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
-            //     $item.removeEventListener(transitionend, transitionEnd);
-            // });
-        },
+        }, 40 ),
         end: function (element, points) {
             if(!$carusel ) return;
             $carusel.removeClass("@{_}active");
-
-
-            var percent = ( 100 * $x / $width );
-
-
-            open();
+            $carusel = null;
+        }
+    }
 
 
 
-            // if( Math.abs(percent) < 20 ){
-            //     $item.style.left = "0px";
-            //     ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
-            //         $item.addEventListener(transitionend, function(event){
-            //             $collection.forEach(function(element){
-            //                 element.style.left = "0px";
-            //                 element.removeClass("@{_}back");
-            //             })
-            //         });
-            //     });
-            //     return;
-            // }
+
+// // Проверяем DOM
+// // Переделать чтобы складывалось ощущение что слайд наезжает
+//     var open = function(carusel, index){
+//         var onTransitionEnd = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"]
+//         var item = carusel.querySelectorAll('.carusel-item.@{_}front')[0];
+        
+        
+//         // onTransitionEnd.forEach(function(transitionend){
+//         //     $item.removeEventListener(transitionend, transitionEnd);
+//         // });
+//     }
+
+// //carusel
+// //item
+// //collection
+
+
+//     var $starX = 0;
+//     var $carusel = null;
+//     var $item = null;
+//     var $width = null;
+//     var $x = 0;
+
+//     var $collection = [];
+//     var $index = 0;
+//     var $back = 0;
+
+
+//     var $action = {
+//         start: function (element, points) {
+//             $starX = parseInt( points[0].pageX );
+//             $carusel = element.closest(".@{_}carusel-block");
+//             $item = element.closest(".@{_}carusel-item");
+//             $width = $carusel.getBoundingClientRect().width;
+//             $x = 0;
+
+//             $carusel.addClass("@{_}active");
+//             $item.addClass("@{_}front");
+
+//             for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
+//                 $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
+//                 $carusel.querySelectorAll('.carusel-item')[i].style.left = "";
+//                 if($item == $carusel.querySelectorAll('.carusel-item')[i]){
+//                     $index = i;
+//                     continue;
+//                 }
+//                 $carusel.querySelectorAll('.carusel-item')[i].removeClass("@{_}front");
+//             }
+
+//         },
+//         // wrap action to debounce function
+//         move: function (element, points) {
+//             if(!$carusel ) return;
+//             $x = parseInt( points[0].pageX ) - $starX;
+
+//             $item.style.left = $x + "px";
+
+//             prew = $index - 1 < 0 ? $collection.length - 1 : $index- 1;
+//             next = $index + 1 >= $collection.length ? 0 : $index + 1 ;
+//             $back = $x < 0 ? next : prew;
+
+//             for (let i = 0; i < $collection.length; i++) {
+//                 if( i == $back ) {
+//                     $collection[i].addClass("@{_}back");
+//                 }else{
+//                     $collection[i].removeClass("@{_}back");
+//                 }
+//             }
+
+//             // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+//             //     $item.removeEventListener(transitionend, transitionEnd);
+//             // });
+//         },
+//         end: function (element, points) {
+//             if(!$carusel ) return;
+//             $carusel.removeClass("@{_}active");
+
+
+//             var percent = ( 100 * $x / $width );
+
+
+//             open();
+
+
+
+//             // if( Math.abs(percent) < 20 ){
+//             //     $item.style.left = "0px";
+//             //     ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+//             //         $item.addEventListener(transitionend, function(event){
+//             //             $collection.forEach(function(element){
+//             //                 element.style.left = "0px";
+//             //                 element.removeClass("@{_}back");
+//             //             })
+//             //         });
+//             //     });
+//             //     return;
+//             // }
 
 
             
-        }
-    };
-    //=======================================================//
+//         }
+//     };
+//     //=======================================================//
 
-            //element.removeClass("@{_}front");
-            // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
-            //     element.addEventListener(transitionend, function(event){
-            //         element.removeClass("@{_}front");
-            //         // $collection.forEach(function(el){
-            //         //     el.removeClass("@{_}back");
-            //         // });
-            //     });
-            // });
+//             //element.removeClass("@{_}front");
+//             // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+//             //     element.addEventListener(transitionend, function(event){
+//             //         element.removeClass("@{_}front");
+//             //         // $collection.forEach(function(el){
+//             //         //     el.removeClass("@{_}back");
+//             //         // });
+//             //     });
+//             // });
 
 
 
