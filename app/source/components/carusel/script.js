@@ -325,29 +325,66 @@ window["@{_}carusel"] = function(element, prop){}
 
 
 
+function clamp(value, limit) {
+    if (typeof limit == 'undefined') { limit = [0, 100]; }
+    return value > limit[1] ? limit[1] : value < limit[0] ? limit[0] : value;
+}
 
 
+function open(carusel, index){
+    if( carusel.querySelectorAll('.carusel-item').length <= 0) return;
+    if( carusel.hasClass("action") ) return ;
+        
+    var block = carusel.querySelectorAll('.carusel-block')[0];
+    carusel.addClass("action");
 
-function open(carusel, index, rule = 'toLeft'){
-
-    var event = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"];
-    index = index < 0;
-    
     var collection = [];
     var active = 0;
     for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
         collection[i] = carusel.querySelectorAll('.carusel-item')[i];
         if( collection[i].hasClass('active') ){active = i;} 
     }
-
     collection[active].addClass("active");
+    index = clamp(index, [0, collection.length - 1] );
+    if(index == active) return;
 
 
-    var before = active - 1 < 0 ? collection.length - 1 : active- 1;
-    var after = active + 1 >= collection.length ? 0 : active + 1 ;
+    collection.forEach(function(element){
+        element.removeClass("right");
+        element.removeClass("left");
+    });
+
+    if(active > index ){
+        collection[index].addClass("left");
+        block.style.transform = "translateX(100%)";
+    }else{
+        collection[index].addClass("right");
+        block.style.transform = "translateX(-100%)";
+    }
+
+    
+
+    var action = function(){
+        carusel.removeClass("action");
+        collection[index].addClass("active");
+
+        collection.forEach(function(element, i){
+            element.removeClass("right");
+            element.removeClass("left");
+            if(i!==index)  element.removeClass("active");
+        });
+        block.style.transform = "translateX(0)";
+    }
 
 
-    console.log(before, active, after);
+    var event = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"];
+    event.forEach(function(onEvent){
+        block.addEventListener(onEvent, action);
+    })
+
+
+
+    // console.log(before, active, after);
     //
     // collection[active].addClass("before");
     // collection[active].addClass("after");
@@ -362,8 +399,24 @@ function open(carusel, index, rule = 'toLeft'){
 
 
 
-setTimeout(() => {
-    var carusel = document.querySelectorAll(".carusel")[0];
-    open(carusel, 2);
-}, 100);
 
+
+
+setTimeout(function(){
+    var carusel = document.querySelectorAll(".carusel")[0];
+    open(carusel, 1);
+}, 1000);
+
+
+setTimeout(function(){
+    var carusel = document.querySelectorAll(".carusel")[0];
+    open(carusel, 3);
+    console.log("3")
+}, 10000);
+
+
+setTimeout(function(){
+    var carusel = document.querySelectorAll(".carusel")[0];
+    open(carusel, 0);
+    console.log("0")
+}, 15000);
