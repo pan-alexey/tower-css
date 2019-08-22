@@ -1,5 +1,16 @@
 
 
+    Element.prototype.hasClass = function(cls) {
+        var i;
+        var classes = this.className.split(" ");
+        for(i = 0; i < classes.length; i++) {
+            if(classes[i] == cls) {
+                return true;
+            }
+        }
+        return false;
+    };
+
 
     Element.prototype.removeClass = function(classToRemove) {
         var classes = this.className.split(' ')

@@ -96,4 +96,106 @@
 <!--/ UI COMPONENTS -->
 <script src="./webpack/app.js"></script>
 
+
+
+
+<div id="some-element"></div>
+
+<script>
+
+class JobSeeker {
+	/**
+	 * Assert #1
+	 */
+	constructor() {
+		let a = 0;
+		this['toString'] = () => a +++ a;
+	}
+
+	/**
+	 * Assert #2
+	 */
+	calc(arg) {
+		let args = [arg];
+		const fn = (arg) => typeof arg === 'function'
+			? args.reduce(arg)
+			: args.push(arg) && fn;
+		return fn;
+	}
+
+	/**
+	 * Assert #3
+	 */
+	get data() {
+		return '{ "0":null}';
+	}
+
+	/**
+	 * Assert #4
+	 * Возвращает HTML инфо-карточки соискателя.
+	 * Пожалуйста, заполните карточку достоверной информацией о вас.
+	 */
+	get seekerCard() {
+		return `
+			<seeker-card>
+				<my-info>
+					<my-name>Алексей П.</my-name>
+					<my-age>27</my-age>
+				</my-info>
+				<loc-info>
+					(<loc-city>г. Краснодар</loc-city>)
+				</loc-info>
+				<prof-info>
+					(<prof-skills>php,js,json,git,less,css,sql</prof-skills>)
+				</prof-info>
+			</seeker-card>
+		`;
+	}
+
+	/**
+	 * Assert #4
+	 * Возвращает информацию о соискателе
+	 */
+	async getSeekerInfo() {
+    const repo = self['customElements'];
+    
+
+
+		const listen = name => new Promise(resolve => {
+			repo.define(
+				name,
+				class extends HTMLElement {
+					constructor() {
+						super();
+						resolve([
+							name.replace(/^.+-/, ''),
+							this.innerText
+						]);
+					}
+				}
+			);
+		});
+		let queue = Promise.all('my-name,my-age,loc-city,prof-skills'.split(',').map(listen));
+		repo.get(document.body);
+		return new Map(await queue);
+	}
+
+
+
+
+}
+
+
+let inst = new JobSeeker();
+document.querySelector("#some-element").innerHTML = inst.seekerCard;
+inst.getSeekerInfo().then(info => {
+	console.assert(
+		/^[А-Я][-а-я]+\s[А-Я]\.$/.test(info.get("name") || "")
+		&& parseInt(info.get("age") || "0") >= 18
+		&& /^[дгп]\.\s[А-Я][-А-Яа-я]+$/.test(info.get("city"))
+		&& (info.get("skills") || "").split(",").filter(v => !!v).length >= 5
+	);
+});
+</script>
+
 </html>

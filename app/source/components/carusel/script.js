@@ -31,19 +31,7 @@ window["@{_}carusel"] = function(element, prop){}
 
 
 
-    function open(carusel, index){
 
-
-        index = index < 0;
-        var collection = [];
-        for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
-            collection[i] = carusel.querySelectorAll('.carusel-item')[i];
-
-        }
-
-        if(collection.length - 1  )
-
-    }
 
     
 
@@ -330,3 +318,52 @@ window["@{_}carusel"] = function(element, prop){}
 
 
 })(window);
+
+
+
+
+
+
+
+
+
+
+function open(carusel, index, rule = 'toLeft'){
+
+    var event = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"];
+    index = index < 0;
+    
+    var collection = [];
+    var active = 0;
+    for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
+        collection[i] = carusel.querySelectorAll('.carusel-item')[i];
+        if( collection[i].hasClass('active') ){active = i;} 
+    }
+
+    collection[active].addClass("active");
+
+
+    var before = active - 1 < 0 ? collection.length - 1 : active- 1;
+    var after = active + 1 >= collection.length ? 0 : active + 1 ;
+
+
+    console.log(before, active, after);
+    //
+    // collection[active].addClass("before");
+    // collection[active].addClass("after");
+    // for (let i = 0; i < collection.length; i++) {
+    //     if(i != active) { collection[i].removeClass("active");}
+    //     if(i != active) { collection[i].removeClass("active");}
+    // }
+
+
+
+}
+
+
+
+setTimeout(() => {
+    var carusel = document.querySelectorAll(".carusel")[0];
+    open(carusel, 2);
+}, 100);
+
