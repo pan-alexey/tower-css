@@ -364,7 +364,7 @@ function open(carusel, index){
 
     
 
-    var action = function(){
+    var action = function(event){
         carusel.removeClass("action");
         collection[index].addClass("active");
 
@@ -374,6 +374,9 @@ function open(carusel, index){
             if(i!==index)  element.removeClass("active");
         });
         block.style.transform = "translateX(0)";
+
+
+        block.removeEventListener(event.type,action);
     }
 
 
