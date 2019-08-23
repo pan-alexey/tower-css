@@ -20,16 +20,65 @@ window["@{_}carusel"] = function(element, prop){}
             setTimeout(() => isCooldown = false, ms);
         };
     }
-
-    var clamp = function (value, limit) {
+    //-----------------------------------//
+    function clamp(value, limit) {
         if (typeof limit == 'undefined') { limit = [0, 100]; }
         return value > limit[1] ? limit[1] : value < limit[0] ? limit[0] : value;
     }
+    //-----------------------------------//
 
 
+    function open(carusel, index){
+        if( carusel.querySelectorAll('.carusel-item').length <= 0) return;
+        if( carusel.hasClass("action") ) return ;
+            
+        var block = carusel.querySelectorAll('.carusel-block')[0];
+        carusel.addClass("action");
+    
+        var collection = [];
+        var active = 0;
+        for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
+            collection[i] = carusel.querySelectorAll('.carusel-item')[i];
+            if( collection[i].hasClass('active') ){active = i;} 
+        }
+        collection[active].addClass("active");
+        index = clamp(index, [0, collection.length - 1] );
+        if(index == active) return;
+
+        collection.forEach(function(element){
+            element.removeClass("right");
+            element.removeClass("left");
+        });
+    
+        if(active > index ){
+            collection[index].addClass("left");
+            block.style.transform = "translateX(100%)";
+        }else{
+            collection[index].addClass("right");
+            block.style.transform = "translateX(-100%)";
+        }
+
+        var action = function(event){
+            carusel.removeClass("action");
+            block.style.transform = "translateX(0)";
+            collection[index].addClass("active");
 
 
+            // collection.forEach(function(element, i){
+            //     element.removeClass("right");
+            //     element.removeClass("left");
+            //     if(i!==index)  element.removeClass("active");
+            // });
+            // collection[index].addClass("active");
 
+            
+            block.removeEventListener(event.type,action);
+        }
+        var event = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"];
+        event.forEach(function(onEvent){
+            block.addEventListener(onEvent, action);
+        });
+    }
 
 
 
@@ -39,154 +88,111 @@ window["@{_}carusel"] = function(element, prop){}
 
 
     var $carusel = null;
-    var $item = null;
-    var $width = null;
-
-
+    var $block = null;
     var $collection = [];
+    
+
+    var $active = 0;
     var $index = null;
-    var $before = null;
-    var $after = null;
-
-
-
-
-
+    var $width = 0;
+    var $x = 0;
+    var $s = 0;
 
     var $action = {
         start: function (element, points) {
             $carusel = element.closest(".@{_}carusel");
-            $item = element.closest(".@{_}carusel-item");
+            //если у нас произходит анимация, то не обрабатываем 
+            if($carusel.hasClass("@{_}action")) return;
+
+
+            $block = element.closest(".@{_}carusel-block");
+
+
+
+
+            $block.style.transform = "translateX(0px)";
+            element.closest(".@{_}carusel-item").addClass('active');
+
+
             $width = $carusel.getBoundingClientRect().width;
-        },
-        // wrap action to debounce function
-        move: debounce(function (element, points) {
-            if(!$carusel ) return;
-        }, 40 ),
-        end: function (element, points) {
-            if(!$carusel ) return;
-            $carusel.removeClass("@{_}active");
-            $carusel = null;
-        }
-    }
-
-
-
-
-// // Проверяем DOM
-// // Переделать чтобы складывалось ощущение что слайд наезжает
-//     var open = function(carusel, index){
-//         var onTransitionEnd = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"]
-//         var item = carusel.querySelectorAll('.carusel-item.@{_}front')[0];
-        
-        
-//         // onTransitionEnd.forEach(function(transitionend){
-//         //     $item.removeEventListener(transitionend, transitionEnd);
-//         // });
-//     }
-
-// //carusel
-// //item
-// //collection
-
-
-//     var $starX = 0;
-//     var $carusel = null;
-//     var $item = null;
-//     var $width = null;
-//     var $x = 0;
-
-//     var $collection = [];
-//     var $index = 0;
-//     var $back = 0;
-
-
-//     var $action = {
-//         start: function (element, points) {
-//             $starX = parseInt( points[0].pageX );
-//             $carusel = element.closest(".@{_}carusel-block");
-//             $item = element.closest(".@{_}carusel-item");
-//             $width = $carusel.getBoundingClientRect().width;
-//             $x = 0;
-
-//             $carusel.addClass("@{_}active");
-//             $item.addClass("@{_}front");
-
-//             for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
-//                 $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
-//                 $carusel.querySelectorAll('.carusel-item')[i].style.left = "";
-//                 if($item == $carusel.querySelectorAll('.carusel-item')[i]){
-//                     $index = i;
-//                     continue;
-//                 }
-//                 $carusel.querySelectorAll('.carusel-item')[i].removeClass("@{_}front");
-//             }
-
-//         },
-//         // wrap action to debounce function
-//         move: function (element, points) {
-//             if(!$carusel ) return;
-//             $x = parseInt( points[0].pageX ) - $starX;
-
-//             $item.style.left = $x + "px";
-
-//             prew = $index - 1 < 0 ? $collection.length - 1 : $index- 1;
-//             next = $index + 1 >= $collection.length ? 0 : $index + 1 ;
-//             $back = $x < 0 ? next : prew;
-
-//             for (let i = 0; i < $collection.length; i++) {
-//                 if( i == $back ) {
-//                     $collection[i].addClass("@{_}back");
-//                 }else{
-//                     $collection[i].removeClass("@{_}back");
-//                 }
-//             }
-
-//             // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
-//             //     $item.removeEventListener(transitionend, transitionEnd);
-//             // });
-//         },
-//         end: function (element, points) {
-//             if(!$carusel ) return;
-//             $carusel.removeClass("@{_}active");
-
-
-//             var percent = ( 100 * $x / $width );
-
-
-//             open();
-
-
-
-//             // if( Math.abs(percent) < 20 ){
-//             //     $item.style.left = "0px";
-//             //     ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
-//             //         $item.addEventListener(transitionend, function(event){
-//             //             $collection.forEach(function(element){
-//             //                 element.style.left = "0px";
-//             //                 element.removeClass("@{_}back");
-//             //             })
-//             //         });
-//             //     });
-//             //     return;
-//             // }
+            $s = 0;
+            $x = parseInt( points[0].pageX );
 
 
             
-//         }
-//     };
-//     //=======================================================//
 
-//             //element.removeClass("@{_}front");
-//             // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
-//             //     element.addEventListener(transitionend, function(event){
-//             //         element.removeClass("@{_}front");
-//             //         // $collection.forEach(function(el){
-//             //         //     el.removeClass("@{_}back");
-//             //         // });
-//             //     });
-//             // });
+            for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
+                $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
+                if( $collection[i].hasClass('active') ){$active = i;} 
+            }
+            // clear old active element
+            for (let i = 0; i < $collection.length; i++) {
+                if(i != $active) { $collection[i].removeClass("active");}
+                $collection[i].removeClass("right");
+                $collection[i].removeClass("left");
+            }
 
+
+        },
+        // wrap action to debounce function
+        move: debounce(function (element, points) {
+            if(!$block ) return;
+            $s =  parseInt( points[0].pageX ) - $x;
+            $s = clamp($s, [-$width, $width]) ;
+            if($s == 0 ) return;
+
+            $block.style.transform = "translateX("+$s+"px)";
+
+            //слево на право
+            if($s > 0){
+                $index = $active - 1 < 0 ? $collection.length - 1 : $active - 1;
+                $collection[$index].addClass("left");
+                $collection.forEach(element => {
+                    element.removeClass("right");
+                });
+            }else{
+                $index = $active + 1 >= $collection.length ? 0: $active + 1;
+                $collection[$index].addClass("right");
+                $collection.forEach(element => {
+                    element.removeClass("left");
+                });
+                
+            }
+
+            
+        }, 40 ),
+        end: function (element, points) {
+            if(!$block ) return;
+            //open($carusel, $index);
+
+
+            //$block.style.transform = "translateX(0)";
+
+            if($active > $index ){
+                $block.style.transform = "translateX(-100%)";
+            }else{
+                $block.style.transform = "translateX(100%)";
+            }
+
+            for (let i = 0; i <   $collection.length; i++) {
+                $collection[i].removeClass("left");
+                $collection[i].removeClass("right");
+                if( i == $index ){
+                    $collection[i].addClass("active");
+                }else{
+                    $collection[i].removeClass("active");
+                }
+            }
+            $block.style.transform = "translateX(0)";
+
+
+
+            $active = 0;
+            $collection = [];
+            $carusel = null;
+            $block = null;
+        }
+    }
 
 
 
@@ -325,86 +331,16 @@ window["@{_}carusel"] = function(element, prop){}
 
 
 
-function clamp(value, limit) {
-    if (typeof limit == 'undefined') { limit = [0, 100]; }
-    return value > limit[1] ? limit[1] : value < limit[0] ? limit[0] : value;
-}
-
-
-function open(carusel, index){
-    if( carusel.querySelectorAll('.carusel-item').length <= 0) return;
-    if( carusel.hasClass("action") ) return ;
-        
-    var block = carusel.querySelectorAll('.carusel-block')[0];
-    carusel.addClass("action");
-
-    var collection = [];
-    var active = 0;
-    for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
-        collection[i] = carusel.querySelectorAll('.carusel-item')[i];
-        if( collection[i].hasClass('active') ){active = i;} 
-    }
-    collection[active].addClass("active");
-    index = clamp(index, [0, collection.length - 1] );
-    if(index == active) return;
-
-
-    collection.forEach(function(element){
-        element.removeClass("right");
-        element.removeClass("left");
-    });
-
-    if(active > index ){
-        collection[index].addClass("left");
-        block.style.transform = "translateX(100%)";
-    }else{
-        collection[index].addClass("right");
-        block.style.transform = "translateX(-100%)";
-    }
-
-    
-
-    var action = function(event){
-        carusel.removeClass("action");
-        collection[index].addClass("active");
-
-        collection.forEach(function(element, i){
-            element.removeClass("right");
-            element.removeClass("left");
-            if(i!==index)  element.removeClass("active");
-        });
-        block.style.transform = "translateX(0)";
-
-
-        block.removeEventListener(event.type,action);
-    }
-
-
-    var event = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"];
-    event.forEach(function(onEvent){
-        block.addEventListener(onEvent, action);
-    })
-
-
-
-    // console.log(before, active, after);
-    //
-    // collection[active].addClass("before");
-    // collection[active].addClass("after");
-    // for (let i = 0; i < collection.length; i++) {
-    //     if(i != active) { collection[i].removeClass("active");}
-    //     if(i != active) { collection[i].removeClass("active");}
-    // }
-
-
-
-}
 
 
 
 
 
 
+
+
+
+/*
 setTimeout(function(){
     var carusel = document.querySelectorAll(".carusel")[0];
     open(carusel, 1);
@@ -423,3 +359,154 @@ setTimeout(function(){
     open(carusel, 0);
     console.log("0")
 }, 15000);
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Проверяем DOM
+// // Переделать чтобы складывалось ощущение что слайд наезжает
+//     var open = function(carusel, index){
+//         var onTransitionEnd = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"]
+//         var item = carusel.querySelectorAll('.carusel-item.@{_}front')[0];
+        
+        
+//         // onTransitionEnd.forEach(function(transitionend){
+//         //     $item.removeEventListener(transitionend, transitionEnd);
+//         // });
+//     }
+
+// //carusel
+// //item
+// //collection
+
+
+//     var $starX = 0;
+//     var $carusel = null;
+//     var $item = null;
+//     var $width = null;
+//     var $x = 0;
+
+//     var $collection = [];
+//     var $index = 0;
+//     var $back = 0;
+
+
+//     var $action = {
+//         start: function (element, points) {
+//             $starX = parseInt( points[0].pageX );
+//             $carusel = element.closest(".@{_}carusel-block");
+//             $item = element.closest(".@{_}carusel-item");
+//             $width = $carusel.getBoundingClientRect().width;
+//             $x = 0;
+
+//             $carusel.addClass("@{_}active");
+//             $item.addClass("@{_}front");
+
+//             for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
+//                 $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
+//                 $carusel.querySelectorAll('.carusel-item')[i].style.left = "";
+//                 if($item == $carusel.querySelectorAll('.carusel-item')[i]){
+//                     $index = i;
+//                     continue;
+//                 }
+//                 $carusel.querySelectorAll('.carusel-item')[i].removeClass("@{_}front");
+//             }
+
+//         },
+//         // wrap action to debounce function
+//         move: function (element, points) {
+//             if(!$carusel ) return;
+//             $x = parseInt( points[0].pageX ) - $starX;
+
+//             $item.style.left = $x + "px";
+
+//             prew = $index - 1 < 0 ? $collection.length - 1 : $index- 1;
+//             next = $index + 1 >= $collection.length ? 0 : $index + 1 ;
+//             $back = $x < 0 ? next : prew;
+
+//             for (let i = 0; i < $collection.length; i++) {
+//                 if( i == $back ) {
+//                     $collection[i].addClass("@{_}back");
+//                 }else{
+//                     $collection[i].removeClass("@{_}back");
+//                 }
+//             }
+
+//             // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+//             //     $item.removeEventListener(transitionend, transitionEnd);
+//             // });
+//         },
+//         end: function (element, points) {
+//             if(!$carusel ) return;
+//             $carusel.removeClass("@{_}active");
+
+
+//             var percent = ( 100 * $x / $width );
+
+
+//             open();
+
+
+
+//             // if( Math.abs(percent) < 20 ){
+//             //     $item.style.left = "0px";
+//             //     ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+//             //         $item.addEventListener(transitionend, function(event){
+//             //             $collection.forEach(function(element){
+//             //                 element.style.left = "0px";
+//             //                 element.removeClass("@{_}back");
+//             //             })
+//             //         });
+//             //     });
+//             //     return;
+//             // }
+
+
+            
+//         }
+//     };
+//     //=======================================================//
+
+//             //element.removeClass("@{_}front");
+//             // ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(transitionend){
+//             //     element.addEventListener(transitionend, function(event){
+//             //         element.removeClass("@{_}front");
+//             //         // $collection.forEach(function(el){
+//             //         //     el.removeClass("@{_}back");
+//             //         // });
+//             //     });
+//             // });
