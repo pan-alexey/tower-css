@@ -24,6 +24,10 @@
       </div>
     </div>
 
+
+<div class="container" style="height:20px;">
+  <div id="log">log</div>
+</div>
     <div class="carusel" style="height:100vh;">
       <div class="carusel-content">
         <div class="red carusel-item center-outer-flex center">

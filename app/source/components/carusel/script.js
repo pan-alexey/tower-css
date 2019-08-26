@@ -9,7 +9,6 @@
     
     var $param = {
         blindZone : 60,
-        matageLength : 60,
         tan : 2,
     };
 
@@ -34,22 +33,41 @@
 
 
 
-    var $change = 0;
 
+
+
+
+
+
+    var $change = 0;
 
     var $action = {
         start : function(distance, target){
             console.log("start", distance);
+            document.getElementById("log").innerHTML = "start" + distance;
+
+
+
         },
         move : debounce(function(distance){
             console.log("move", distance);
+            document.getElementById("log").innerHTML = "move" + distance;
+
+
+
         },60),
         end : function(distance, target){
             console.log("end", distance);
+            document.getElementById("log").innerHTML = "end" + distance;
+
+
+
+
             return;
         },
         up : function(distance, target){
-           console.log("up", distance);
+        //    console.log("up", distance);
+        //    document.getElementById("log").innerHTML = "up" + distance;
            return;
         }
     };
@@ -144,10 +162,7 @@
     document.addEventListener('mousedown', function (event) {
         var point = event;
         var distance = 0;
-
-
-        var target = event.target;
-
+        var target = event.target.closest(".@{_}carusel");
 
 
         //----------------------------------------------//
