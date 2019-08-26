@@ -86,6 +86,7 @@ window["@{_}carusel"] = function(element, prop){}
         move: function (element, points) {
             if($carusel == null ) return;
             if( $carusel.hasClass("@{_}progress") ) return;
+            $carusel.removeClass("@{_}action");
             $s =  parseInt( points[0].pageX ) - $x; 
 
 
@@ -112,11 +113,8 @@ window["@{_}carusel"] = function(element, prop){}
         },
         end: function (element, points) {
             if($carusel == null ) return;
-            $carusel.removeClass("@{_}action");
-            if($s == 0) return;
-
             $carusel.addClass("@{_}progress");
-
+            $carusel.removeClass("@{_}action");
 
             if( Math.abs($s/$width) < 0.1 ){
                 $s = 0;
@@ -124,7 +122,6 @@ window["@{_}carusel"] = function(element, prop){}
                 $onAnimation.forEach(function(onEvent){
                     $collection[$index].addEventListener(onEvent, cancel, false);
                 });
-
             } else{
                 $s = $s > 0 ? $width : -$width;
                 $collection[$index].style.transform = "translateX("+$s+"px)";
@@ -133,12 +130,15 @@ window["@{_}carusel"] = function(element, prop){}
                 });
             }
 
+
+
+            //-----------------------------------------------------//
             function action(event){
-                if($carusel==null) return;
+                if( $carusel == null ) return;
+                $carusel.removeClass("@{_}progress");
                 $onAnimation.forEach(function(onEvent){
                     event.target.removeEventListener(onEvent, action);
                 });
-                $carusel.removeClass("@{_}progress");
                 $collection[$index].style.transform = "";
                 $collection[$index].addClass("active");
                 $collection.forEach(function(element, i){
@@ -149,29 +149,21 @@ window["@{_}carusel"] = function(element, prop){}
                 });
                 $carusel=null;
             }
-
-
-
-
-
+            //-----------------------------------------------------//
             function cancel(event){
-                if($carusel==null) return;
+                if( $carusel == null ) return;
+                $carusel.removeClass("@{_}progress");
                 $onAnimation.forEach(function(onEvent){
                     event.target.removeEventListener(onEvent, cancel);
                 });
-                $carusel.removeClass("@{_}progress");
                 $collection.forEach(function(element, i){
                     element.removeClass("right");
                     element.removeClass("left");
+                    element.style.transform = "";
                 });
                 $carusel=null;
             }
-
-
-
-
-
-
+            //-----------------------------------------------------//
 
 
 
