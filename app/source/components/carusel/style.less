@@ -39,18 +39,25 @@
         transition: 60ms linear all; // необходим для плавного
     }
 }
-.@{_}carusel.progress{
+.@{_}carusel{
     .carusel-item{
-        transition: 300ms ease all; // необходим для плавного
+        transition: 300ms ease all;
     }
 }
 
 
-.carusel-item.front{
+
+
+
+.carusel-item.before{
+    z-index: 5;
+    visibility: visible;
+}
+.carusel-item.active{
     z-index: 10;
     visibility: visible;
 }
-.carusel-item.back{
-    z-index: 5;
+.carusel-item.after{
+    z-index: 15;
     visibility: visible;
 }

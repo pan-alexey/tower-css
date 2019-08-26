@@ -30,20 +30,22 @@
     <div navbar-scroll='bind' class="carusel" style=" height: 100vh; position: absolute; top: 0; left: 0; right: 0;">
 
 
-<!-- 
-<div class="container" style="height:20px;">
-  <div id="log">log</div>
-</div> 
--->
+
+      <div  style="height:20px; position: fixed; bottom:0;     z-index: 999999;">
+        <div class="container gutter-x">
+          <div id="log">log</div>
+        </div>
+      </div> 
+
       <div class="carusel-content">
 
         
-        <div class="red carusel-item center-outer-flex center" style="height:300vh;">
+        <div class="red carusel-item center-outer-flex center" >
               
           <div class="center-inner">1</div>
         </div>
 
-        <div class="blue carusel-item center-outer-flex center" style="height:300vh;">
+        <div class="blue carusel-item center-outer-flex center" >
           <div class="center-inner">2</div>
         </div>
 

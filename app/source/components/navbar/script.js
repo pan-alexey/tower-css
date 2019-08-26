@@ -129,10 +129,6 @@
         }
         oldScroll = scroll;
 
-
-
-        
-        console.log(forbiden);
     };
 
 
