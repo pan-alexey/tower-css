@@ -41,55 +41,26 @@
     var move = function(distance, collection, active){
 
 
-        //console.log(active,collection);
-
-
-        var activeX = distance>0 ? distance : 0;
-
-
-
-        // if(distance > 0){
-        //     $index = $active - 1 < 0 ? $collection.length - 1 : $active - 1;
-        // }
-
-
-
-        //collection[active].style.transform = "translateX("+activeX+"px)";
-
-
-
-        //     console.log(distance);
-        //     collection[active].style.transform = "translateX("+distance+"px)";
-
-
-
-        //     // $index = $active - 1 < 0 ? $collection.length - 1 : $active - 1;
-        //     // $collection[$index].addClass("left");
-        // }else{
-        //     collection[active].style.transform = "translateX(0px)";
-        // }
-
-
-
-
-        // collection.forEach(element,i => {
-        //     element.removeClass("before");
-        //     element.removeClass("after");
-        //     if(active !=i) element.removeClass("active");
-        // });
-
-
-
-        // if(distance===0){
-        //     collection[active].style.transform = "translateX(0)";
-        //     collection.forEach(element,i => {
-        //         element.removeClass("next");
-        //         element.removeClass("after");
-        //         if(active !=i) element.removeClass("active");
-        //     });
-        //     return ;
-        // }
-
+        
+        collection[active].style.transform = "translateX("+distance+"px)";
+        if(distance > 0){
+            var index = active - 1 < 0 ? collection.length - 1 : active - 1;
+            if(index==active) return;
+            collection[index].addClass("left");
+            for (let i = 0; i < collection.length; i++) {
+                collection[i].removeClass("right");
+                if(i!=index) collection[i].removeClass("left");
+            }
+        }else{
+            var index = active + 1 >= collection.length ? 0: active + 1;
+            if(index==active) return;
+            collection[index].addClass("right");
+            for (let i = 0; i < collection.length; i++) {
+                collection[i].removeClass("left");
+                if(i!=index) collection[i].removeClass("right");
+            }
+        }
+        collection[index].style.transform = "translateX("+distance+"px)";
     }
 
 
@@ -97,7 +68,6 @@
     var $collection = [];
     var $active = 0;
     var $width = 0;
-
 
 
     var $action = {
@@ -125,15 +95,15 @@
                 if($active != i) element.removeClass("active");
             }
            
-            
-            move(distance,  $collection, $active, );
+
+            move(distance, $collection, $active );
 
 
         },
         move : debounce(function(distance, carusel){
 
-
-            move(distance,  $collection, $active);
+            move(distance, $collection, $active );
+            //move(distance,  $collection, $active,);
             //console.log("move", carusel);
             //document.getElementById("log").innerHTML = "move: " + distance;
 
