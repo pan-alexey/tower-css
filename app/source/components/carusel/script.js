@@ -29,7 +29,13 @@ window["@{_}carusel"] = function(element, prop){}
 
 
 
-
+    var $onAnimation = [
+        "webkitTransitionEnd", 
+        "otransitionend", 
+        "oTransitionEnd", 
+        "msTransitionEnd", 
+        "transitionend"
+    ];
 
 
     
@@ -52,6 +58,12 @@ window["@{_}carusel"] = function(element, prop){}
 
             
             //-------------------------------------------------------------------------//
+
+            $collection = [];
+            $active = 0;
+            $index = 0;
+            $width = 0;
+
             for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
                 $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
                 if( $collection[i].hasClass('active') ){$active = i;} 
@@ -62,23 +74,16 @@ window["@{_}carusel"] = function(element, prop){}
                 element.removeClass("right");
                 element.removeClass("left");
                 element.style.transform = "";
-                if(i!==$active)  element.removeClass("active");
+                if( i!=$active )  element.removeClass("active");
             });
             //-------------------------------------------------------------------------//
 
             $s = 0;
-            $index  = 0;
             $x = parseInt( points[0].pageX );
             $width = $carusel.getBoundingClientRect().width;
-
-
-
-
-
-
         },
         // wrap action to debounce function
-        move: debounce(function (element, points) {
+        move: function (element, points) {
             if($carusel == null ) return;
             if( $carusel.hasClass("@{_}progress") ) return;
             $s =  parseInt( points[0].pageX ) - $x; 
@@ -92,62 +97,84 @@ window["@{_}carusel"] = function(element, prop){}
             } else{
                 $index = $active + 1 >= $collection.length ? 0: $active + 1;
                 $collection[$index].addClass("right");
-
             }
 
-            // for (let i = 0; i < $collection.length; i++) {
-            //     if (i!=$index) {
-            //         $collection[i].removeClass("left");
-            //         $collection[i].removeClass("right");
-            //     }
-            // }
+            for (let i = 0; i < $collection.length; i++) {
+                if (i!=$index) {
+                    $collection[i].removeClass("left");
+                    $collection[i].removeClass("right");
+                }
+            }
             $collection[$index].style.transform = "translateX("+$s+"px)";
-            $collection[$active].style.transform = "translateX("+$s+"px)";
+            //$collection[$active].style.transform = "translateX("+$s+"px)";
             
 
-        }, 40 ),
+        },
         end: function (element, points) {
             if($carusel == null ) return;
             $carusel.removeClass("@{_}action");
             if($s == 0) return;
 
             $carusel.addClass("@{_}progress");
-            $s = $s > 0 ? $width : -$width;
-            $collection[$index].style.transform = "translateX("+$s+"px)";
-            $collection[$active].style.transform = "translateX("+$s+"px)";
 
 
+            if( Math.abs($s/$width) < 0.1 ){
+                $s = 0;
+                $collection[$index].style.transform = "translateX("+$s+"px)";
+                $onAnimation.forEach(function(onEvent){
+                    $collection[$index].addEventListener(onEvent, cancel, false);
+                });
 
+            } else{
+                $s = $s > 0 ? $width : -$width;
+                $collection[$index].style.transform = "translateX("+$s+"px)";
+                $onAnimation.forEach(function(onEvent){
+                    $collection[$index].addEventListener(onEvent, action, false);
+                });
+            }
 
-
-            ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(onEvent){
-                $collection[$index].addEventListener(onEvent, end);
-            });
-
-
-            function end(event){
-
-
-                console.log("end")
+            function action(event){
+                if($carusel==null) return;
+                $onAnimation.forEach(function(onEvent){
+                    event.target.removeEventListener(onEvent, action);
+                });
                 $carusel.removeClass("@{_}progress");
                 $collection[$index].style.transform = "";
                 $collection[$index].addClass("active");
-
                 $collection.forEach(function(element, i){
                     element.removeClass("right");
                     element.removeClass("left");
                     element.style.transform = "";
                     if(i!==$index) element.removeClass("active");
                 });
-                event.target.removeEventListener(event.type,end);
+                $carusel=null;
             }
 
 
 
 
-            
 
-        
+            function cancel(event){
+                if($carusel==null) return;
+                $onAnimation.forEach(function(onEvent){
+                    event.target.removeEventListener(onEvent, cancel);
+                });
+                $carusel.removeClass("@{_}progress");
+                $collection.forEach(function(element, i){
+                    element.removeClass("right");
+                    element.removeClass("left");
+                });
+                $carusel=null;
+            }
+
+
+
+
+
+
+
+
+
         }
     }
 
@@ -155,27 +182,27 @@ window["@{_}carusel"] = function(element, prop){}
 
 
 
-    function _open(prop = {
-        carusel : null,
-        rule : "auto",
-        collection : [],
-        active : 0,
-        index : 0
-    }){
+    // function _open(prop = {
+    //     carusel : null,
+    //     rule : "auto",
+    //     collection : [],
+    //     active : 0,
+    //     index : 0
+    // }){
 
 
-        /*
-        $collection[$index].style.transform = "translateX(0px)";
-        $collection[$index].addClass("active");
-        $collection.forEach(function(element, i){
-            element.removeClass("right");
-            element.removeClass("left");
-            element.style.transform = "translateX(0px)";
-            if(i!==$index)  element.removeClass("active");
-        });
-        */
+    //     /*
+    //     $collection[$index].style.transform = "translateX(0px)";
+    //     $collection[$index].addClass("active");
+    //     $collection.forEach(function(element, i){
+    //         element.removeClass("right");
+    //         element.removeClass("left");
+    //         element.style.transform = "translateX(0px)";
+    //         if(i!==$index)  element.removeClass("active");
+    //     });
+    //     */
 
-    }
+    // }
 
 
     //=======================================================//
@@ -313,7 +340,18 @@ window["@{_}carusel"] = function(element, prop){}
 
 
 
+            /*
+            $carusel.removeClass("@{_}progress");
+            $collection[$index].style.transform = "";
+            $collection[$index].addClass("active");
 
+            $collection.forEach(function(element, i){
+                element.removeClass("right");
+                element.removeClass("left");
+                element.style.transform = "";
+                if(i!==$index) element.removeClass("active");
+            });
+            */
 
 
 
