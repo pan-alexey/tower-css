@@ -28,57 +28,7 @@ window["@{_}carusel"] = function(element, prop){}
     //-----------------------------------//
 
 
-    function open(carusel, index){
-        if( carusel.querySelectorAll('.carusel-item').length <= 0) return;
-        if( carusel.hasClass("action") ) return ;
-            
-        var block = carusel.querySelectorAll('.carusel-block')[0];
-        carusel.addClass("action");
-    
-        var collection = [];
-        var active = 0;
-        for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
-            collection[i] = carusel.querySelectorAll('.carusel-item')[i];
-            if( collection[i].hasClass('active') ){active = i;} 
-        }
-        collection[active].addClass("active");
-        index = clamp(index, [0, collection.length - 1] );
-        if(index == active) return;
 
-        collection.forEach(function(element){
-            element.removeClass("right");
-            element.removeClass("left");
-        });
-    
-        if(active > index ){
-            collection[index].addClass("left");
-            block.style.transform = "translateX(100%)";
-        }else{
-            collection[index].addClass("right");
-            block.style.transform = "translateX(-100%)";
-        }
-
-        var action = function(event){
-            carusel.removeClass("action");
-            block.style.transform = "translateX(0)";
-            collection[index].addClass("active");
-
-
-            // collection.forEach(function(element, i){
-            //     element.removeClass("right");
-            //     element.removeClass("left");
-            //     if(i!==index)  element.removeClass("active");
-            // });
-            // collection[index].addClass("active");
-
-            
-            block.removeEventListener(event.type,action);
-        }
-        var event = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"];
-        event.forEach(function(onEvent){
-            block.addEventListener(onEvent, action);
-        });
-    }
 
 
 
@@ -88,113 +38,144 @@ window["@{_}carusel"] = function(element, prop){}
 
 
     var $carusel = null;
-    var $block = null;
     var $collection = [];
-    
-
     var $active = 0;
-    var $index = null;
+    var $index = 0;
     var $width = 0;
-    var $x = 0;
-    var $s = 0;
 
+    
     var $action = {
         start: function (element, points) {
             $carusel = element.closest(".@{_}carusel");
-            //если у нас произходит анимация, то не обрабатываем 
-            if($carusel.hasClass("@{_}action")) return;
-
-
-            $block = element.closest(".@{_}carusel-block");
-
-
-
-
-            $block.style.transform = "translateX(0px)";
-            element.closest(".@{_}carusel-item").addClass('active');
-
-
-            $width = $carusel.getBoundingClientRect().width;
-            $s = 0;
-            $x = parseInt( points[0].pageX );
-
+            if( $carusel.hasClass("@{_}progress") ) return;
+            $carusel.addClass("@{_}action");
 
             
-
+            //-------------------------------------------------------------------------//
             for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
                 $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
                 if( $collection[i].hasClass('active') ){$active = i;} 
             }
-            // clear old active element
-            for (let i = 0; i < $collection.length; i++) {
-                if(i != $active) { $collection[i].removeClass("active");}
-                $collection[i].removeClass("right");
-                $collection[i].removeClass("left");
-            }
+            //-------------------------------------------------------------------------//
+            $collection[$active].addClass("active");
+            $collection.forEach(function(element, i){
+                element.removeClass("right");
+                element.removeClass("left");
+                element.style.transform = "";
+                if(i!==$active)  element.removeClass("active");
+            });
+            //-------------------------------------------------------------------------//
+
+            $s = 0;
+            $index  = 0;
+            $x = parseInt( points[0].pageX );
+            $width = $carusel.getBoundingClientRect().width;
+
+
+
+
 
 
         },
         // wrap action to debounce function
         move: debounce(function (element, points) {
-            if(!$block ) return;
-            $s =  parseInt( points[0].pageX ) - $x;
+            if($carusel == null ) return;
+            if( $carusel.hasClass("@{_}progress") ) return;
+            $s =  parseInt( points[0].pageX ) - $x; 
+
+
+
             $s = clamp($s, [-$width, $width]) ;
-            if($s == 0 ) return;
-
-            $block.style.transform = "translateX("+$s+"px)";
-
-            //слево на право
-            if($s > 0){
+            if( $s > 0){
                 $index = $active - 1 < 0 ? $collection.length - 1 : $active - 1;
                 $collection[$index].addClass("left");
-                $collection.forEach(element => {
-                    element.removeClass("right");
-                });
-            }else{
+            } else{
                 $index = $active + 1 >= $collection.length ? 0: $active + 1;
                 $collection[$index].addClass("right");
-                $collection.forEach(element => {
-                    element.removeClass("left");
-                });
-                
+
             }
 
+            // for (let i = 0; i < $collection.length; i++) {
+            //     if (i!=$index) {
+            //         $collection[i].removeClass("left");
+            //         $collection[i].removeClass("right");
+            //     }
+            // }
+            $collection[$index].style.transform = "translateX("+$s+"px)";
+            $collection[$active].style.transform = "translateX("+$s+"px)";
             
+
         }, 40 ),
         end: function (element, points) {
-            if(!$block ) return;
-            //open($carusel, $index);
+            if($carusel == null ) return;
+            $carusel.removeClass("@{_}action");
+            if($s == 0) return;
+
+            $carusel.addClass("@{_}progress");
+            $s = $s > 0 ? $width : -$width;
+            $collection[$index].style.transform = "translateX("+$s+"px)";
+            $collection[$active].style.transform = "translateX("+$s+"px)";
 
 
-            //$block.style.transform = "translateX(0)";
 
-            if($active > $index ){
-                $block.style.transform = "translateX(-100%)";
-            }else{
-                $block.style.transform = "translateX(100%)";
+
+
+            ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"].forEach(function(onEvent){
+                $collection[$index].addEventListener(onEvent, end);
+            });
+
+
+            function end(event){
+
+
+                console.log("end")
+                $carusel.removeClass("@{_}progress");
+                $collection[$index].style.transform = "";
+                $collection[$index].addClass("active");
+
+                $collection.forEach(function(element, i){
+                    element.removeClass("right");
+                    element.removeClass("left");
+                    element.style.transform = "";
+                    if(i!==$index) element.removeClass("active");
+                });
+                event.target.removeEventListener(event.type,end);
             }
 
-            for (let i = 0; i <   $collection.length; i++) {
-                $collection[i].removeClass("left");
-                $collection[i].removeClass("right");
-                if( i == $index ){
-                    $collection[i].addClass("active");
-                }else{
-                    $collection[i].removeClass("active");
-                }
-            }
-            $block.style.transform = "translateX(0)";
 
 
 
-            $active = 0;
-            $collection = [];
-            $carusel = null;
-            $block = null;
+            
+
+        
         }
     }
 
 
+
+
+
+    function _open(prop = {
+        carusel : null,
+        rule : "auto",
+        collection : [],
+        active : 0,
+        index : 0
+    }){
+
+
+        /*
+        $collection[$index].style.transform = "translateX(0px)";
+        $collection[$index].addClass("active");
+        $collection.forEach(function(element, i){
+            element.removeClass("right");
+            element.removeClass("left");
+            element.style.transform = "translateX(0px)";
+            if(i!==$index)  element.removeClass("active");
+        });
+        */
+
+    }
 
 
     //=======================================================//
@@ -363,40 +344,6 @@ setTimeout(function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // Проверяем DOM
 // // Переделать чтобы складывалось ощущение что слайд наезжает
 //     var open = function(carusel, index){
@@ -510,3 +457,170 @@ setTimeout(function(){
 //             //         // });
 //             //     });
 //             // });
+
+
+
+/*
+function open(carusel, index){
+    if( carusel.querySelectorAll('.carusel-item').length <= 0) return;
+    if( carusel.hasClass("action") ) return ;
+        
+    var block = carusel.querySelectorAll('.carusel-block')[0];
+    carusel.addClass("action");
+
+    var collection = [];
+    var active = 0;
+    for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
+        collection[i] = carusel.querySelectorAll('.carusel-item')[i];
+        if( collection[i].hasClass('active') ){active = i;} 
+    }
+    collection[active].addClass("active");
+    index = clamp(index, [0, collection.length - 1] );
+    if(index == active) return;
+
+    collection.forEach(function(element){
+        element.removeClass("right");
+        element.removeClass("left");
+    });
+
+    if(active > index ){
+        collection[index].addClass("left");
+        block.style.transform = "translateX(100%)";
+    }else{
+        collection[index].addClass("right");
+        block.style.transform = "translateX(-100%)";
+    }
+
+    var action = function(event){
+        carusel.removeClass("action");
+        block.style.transform = "translateX(0)";
+        collection[index].addClass("active");
+
+
+        // collection.forEach(function(element, i){
+        //     element.removeClass("right");
+        //     element.removeClass("left");
+        //     if(i!==index)  element.removeClass("active");
+        // });
+        // collection[index].addClass("active");
+
+        
+        block.removeEventListener(event.type,action);
+    }
+    var event = ["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"];
+    event.forEach(function(onEvent){
+        block.addEventListener(onEvent, action);
+    });
+}
+*/
+
+/*
+
+    var $carusel = null;
+    var $block = null;
+    var $collection = [];
+    
+
+    var $active = 0;
+    var $index = null;
+    var $width = 0;
+    var $x = 0;
+    var $s = 0;
+
+    var $action = {
+        start: function (element, points) {
+            $carusel = element.closest(".@{_}carusel");
+            //если у нас произходит анимация, то не обрабатываем 
+            if($carusel.hasClass("@{_}action")) return;
+
+
+            $block = element.closest(".@{_}carusel-block");
+
+
+
+
+            $block.style.transform = "translateX(0px)";
+            element.closest(".@{_}carusel-item").addClass('active');
+
+
+            $width = $carusel.getBoundingClientRect().width;
+            $s = 0;
+            $x = parseInt( points[0].pageX );
+
+
+            
+
+            for (var i = 0; i < $carusel.querySelectorAll('.carusel-item').length; i++) {
+                $collection[i] = $carusel.querySelectorAll('.carusel-item')[i];
+                if( $collection[i].hasClass('active') ){$active = i;} 
+            }
+            // clear old active element
+            for (let i = 0; i < $collection.length; i++) {
+                if(i != $active) { $collection[i].removeClass("active");}
+                $collection[i].removeClass("right");
+                $collection[i].removeClass("left");
+            }
+
+
+        },
+        // wrap action to debounce function
+        move: debounce(function (element, points) {
+            if(!$block ) return;
+            $s =  parseInt( points[0].pageX ) - $x;
+            $s = clamp($s, [-$width, $width]) ;
+            if($s == 0 ) return;
+
+            $block.style.transform = "translateX("+$s+"px)";
+
+            //слево на право
+            if($s > 0){
+                $index = $active - 1 < 0 ? $collection.length - 1 : $active - 1;
+                $collection[$index].addClass("left");
+                $collection.forEach(element => {
+                    element.removeClass("right");
+                });
+            }else{
+                $index = $active + 1 >= $collection.length ? 0: $active + 1;
+                $collection[$index].addClass("right");
+                $collection.forEach(element => {
+                    element.removeClass("left");
+                });
+                
+            }
+
+            
+        }, 40 ),
+        end: function (element, points) {
+            if(!$block ) return;
+            //open($carusel, $index);
+
+
+            //$block.style.transform = "translateX(0)";
+
+            if($active > $index ){
+                $block.style.transform = "translateX(-100%)";
+            }else{
+                $block.style.transform = "translateX(100%)";
+            }
+
+            for (let i = 0; i <   $collection.length; i++) {
+                $collection[i].removeClass("left");
+                $collection[i].removeClass("right");
+                if( i == $index ){
+                    $collection[i].addClass("active");
+                }else{
+                    $collection[i].removeClass("active");
+                }
+            }
+            $block.style.transform = "translateX(0)";
+
+
+
+            $active = 0;
+            $collection = [];
+            $carusel = null;
+            $block = null;
+        }
+    }
+
+    */
