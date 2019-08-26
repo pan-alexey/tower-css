@@ -109,8 +109,17 @@
         elementOffset.style.height = heightChilds + "px" ;
     }
     //------------------------------------------------------------//
-    let navbar = function () {
-       let scroll = window.pageYOffset || document.documentElement.scrollTop;
+    let navbar = function (event) {
+
+       var target = event ? event.target : null;
+       var forbiden = target != document && target!=null && !target.closest("[navbar-scroll='bind']");
+
+       if(forbiden) return;
+
+       var targetScroll = event ? event.target.scrollTop : 0;
+       let scroll = window.pageYOffset || document.documentElement.scrollTop || targetScroll ;
+
+
        let navbars = document.querySelectorAll('.@{_}navbar');
         for (let i = 0; i < navbars.length; i++) {
            if(!stikyMode(navbars[i], scroll)){
@@ -119,12 +128,17 @@
            offset(navbars[i]);
         }
         oldScroll = scroll;
+
+
+
+        
+        console.log(forbiden);
     };
 
 
 
     navbar();
-    document.addEventListener("scroll", navbar);
+    document.addEventListener("scroll", navbar,true);
     document.addEventListener("resize", navbar);
 
 
