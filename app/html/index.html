@@ -2,200 +2,104 @@
 <html lang="ru">
 
 <head>
-    <title>TOWER · FRONTEND FRAMEWORK</title>
-    <meta name="yandex-verification" content="a2737922eea22cfb" />
+	<title>TOWER · FRONTEND FRAMEWORK</title>
+	<meta name="yandex-verification" content="a2737922eea22cfb" />
 
-    <meta name="description" content="TOWER · FRONTEND FRAMEWORK">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
-    <meta name="theme-color" content="#2196f3">
-    <!-- Add to home screen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="TOWER">
-    <!--[if lt IE 9]>
+	<meta name="description" content="TOWER · FRONTEND FRAMEWORK">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
+	<meta name="theme-color" content="#2196f3">
+	<!-- Add to home screen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="TOWER">
+	<!--[if lt IE 9]>
         <script src="./libraries/polyfill/html5shiv.min.js"></script>
         <script src="./libraries/polyfill/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="./img/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="./fonts/roboto.css">
-    <link rel="stylesheet" type="text/css" href="./fonts/material-icons.css">
-    <link rel="stylesheet" type="text/css" href="./source/css/core.css">
-    <link rel="stylesheet" type="text/css" href="./source/css/components.css">
+	<link rel="shortcut icon" href="./img/favicon.ico" />
+
+	<link rel="stylesheet" type="text/css" href="./source/css/core.min.css">
+	<link rel="stylesheet" type="text/css" href="./source/css/components.min.css">
 
 </head>
+
 <body>
 
-    <style>
+	<style>
+		.fade-enter-active,
+		.fade-leave-active {
+			transition-duration: 0.3s;
+			transition-property: opacity;
+			transition-timing-function: ease;
+		}
+
+		.fade-enter,
+		.fade-leave-active {
+			opacity: 0;
+		}
+
+		.fade-enter-active {
+			animation: fade-in .600s;
+			overflow: auto;
+		}
+
+		.fade-leave-active {
+			animation: fade-out .600s;
+			overflow: hidden;
+		}
+
+		@keyframes fade-in {
+			0% {
+				opacity: 0;
+				transform: translateY(30%);
+			}
+
+			50% {
+				transform: translateY(0);
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		@keyframes fade-out {
+			0% {
+				opacity: 1;
+			}
+
+			100% {
+				opacity: 0;
+			}
+		}
+	</style>
 
 
-
-
-.fade-enter-active,
-.fade-leave-active {
-  transition-duration: 0.3s;
-  transition-property: opacity;
-  transition-timing-function: ease;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-
-
-
-.fade-enter-active {
-  animation: fade-in .600s;
-  overflow: auto;
-}
-.fade-leave-active {
-  animation: fade-out .600s;
-  overflow: hidden;
-}
-
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-    transform: translateY(30%);
-  }
-  50%{
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-
-
-</style>
-    <div id="app">
-<transition
-    name="fade"
-          >
-            <router-view></router-view>
-        </transition>
-    </div>
+	<div id="app">
+		<transition name="fade">
+			<router-view></router-view>
+		</transition>
+	</div>
 </body>
 <!-- UI COMPONENTS  -->
-<script src="./source/polyfill.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/fonts/roboto.css" media="none" onload="if(media!='all')media='all'">
+<link rel="stylesheet" type="text/css" href="/fonts/material-icons.css" media="none" onload="if(media!='all')media='all'">
+<noscript>
+<link rel="stylesheet" type="text/css" href="/fonts/roboto.css">
+<link rel="stylesheet" type="text/css" href="/fonts/material-icons.css">
+</noscript>
+
+
+
+
+<script src="./source/polyfill.min.js"></script>
 <script src="./source/js/core.js"></script>
 <script src="./source/js/components.js"></script>
 <!--/ UI COMPONENTS -->
 <script src="./webpack/app.js"></script>
 
-
-
-
-<div id="some-element"></div>
-
-<script>
-
-class JobSeeker {
-	/**
-	 * Assert #1
-	 */
-	constructor() {
-		let a = 0;
-		this['toString'] = () => a +++ a;
-	}
-
-	/**
-	 * Assert #2
-	 */
-	calc(arg) {
-		let args = [arg];
-		const fn = (arg) => typeof arg === 'function'
-			? args.reduce(arg)
-			: args.push(arg) && fn;
-		return fn;
-	}
-
-	/**
-	 * Assert #3
-	 */
-	get data() {
-		return '{ "0":null}';
-	}
-
-	/**
-	 * Assert #4
-	 * Возвращает HTML инфо-карточки соискателя.
-	 * Пожалуйста, заполните карточку достоверной информацией о вас.
-	 */
-	get seekerCard() {
-		return `
-			<seeker-card>
-				<my-info>
-					<my-name>Алексей П.</my-name>
-					<my-age>27</my-age>
-				</my-info>
-				<loc-info>
-					(<loc-city>г. Краснодар</loc-city>)
-				</loc-info>
-				<prof-info>
-					(<prof-skills>php,js,json,git,less,css,sql</prof-skills>)
-				</prof-info>
-			</seeker-card>
-		`;
-	}
-
-	/**
-	 * Assert #4
-	 * Возвращает информацию о соискателе
-	 */
-	async getSeekerInfo() {
-    const repo = self['customElements'];
-    
-
-
-		const listen = name => new Promise(resolve => {
-			repo.define(
-				name,
-				class extends HTMLElement {
-					constructor() {
-						super();
-						resolve([
-							name.replace(/^.+-/, ''),
-							this.innerText
-						]);
-					}
-				}
-			);
-		});
-		let queue = Promise.all('my-name,my-age,loc-city,prof-skills'.split(',').map(listen));
-		repo.get(document.body);
-		return new Map(await queue);
-	}
-
-
-
-
-}
-
-
-let inst = new JobSeeker();
-document.querySelector("#some-element").innerHTML = inst.seekerCard;
-inst.getSeekerInfo().then(info => {
-	console.assert(
-		/^[А-Я][-а-я]+\s[А-Я]\.$/.test(info.get("name") || "")
-		&& parseInt(info.get("age") || "0") >= 18
-		&& /^[дгп]\.\s[А-Я][-А-Яа-я]+$/.test(info.get("city"))
-		&& (info.get("skills") || "").split(",").filter(v => !!v).length >= 5
-	);
-});
-</script>
 
 </html>

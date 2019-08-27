@@ -24,6 +24,7 @@
       </div>
     </div>
     <div class="container gutter-x">
+        
       <div class="list">
         <div class="list-item">
           <div class="item-media-icon">

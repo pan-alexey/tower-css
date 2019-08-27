@@ -22,6 +22,58 @@
         <p>TOWER - Вэб компонентный фреймворк с открытыс исходным кодом для создания приложения HTML, CSS и JS. Поддерживается даже самыми устаревшими браузерами, такими как Internet Explorer 9</p>
         <p>Модульная архитектура позволяет использовать и подключать только те компоненты, которые нужны</p>
         <p>Для корректной работы, модули не требуют инициализацию, поээтому они работают даже елси не были инициализированны изначально</p>
+
+
+        <div class="list">
+
+            <router-link  to="/swipemenu" class="list-item ripple">
+            <div class="item-media-icon">
+                <i class="material-icons icon-laptop">&#xe31e;</i>
+            </div>
+            <div class="item-content">SWIPE MENU</div>
+            </router-link>
+
+            <router-link  to="/slider" class="list-item ripple">
+            <div class="item-media-icon">
+                <i class="material-icons icon-laptop">&#xe31e;</i>
+            </div>
+            <div class="item-content">RANGE SLIDER</div>
+            <div class="item-meta">
+                multitocuh
+            </div>
+            </router-link>
+
+            <router-link  to="/inputs" class="list-item ripple">
+            <div class="item-media-icon">
+                <i class="material-icons icon-laptop">&#xe31e;</i>
+            </div>
+            <div class="item-content">INPUT/TEXTAREA</div>
+            </router-link>
+
+            <router-link  to="/navbar" class="list-item ripple">
+            <div class="item-media-icon">
+                <i class="material-icons icon-laptop">&#xe31e;</i>
+            </div>
+            <div class="item-content">NAVBAR (FLOAT/STICKY)</div>
+            </router-link>
+
+            <router-link  to="/button" class="list-item ripple">
+            <div class="item-media-icon">
+                <i class="material-icons icon-laptop">&#xe31e;</i>
+            </div>
+            <div class="item-content">BUTTON & BUTTON GROUP</div>
+            </router-link>
+
+            <router-link  to="/list" class="list-item ripple">
+            <div class="item-media-icon">
+                <i class="material-icons icon-laptop">&#xe31e;</i>
+            </div>
+            <div class="item-content">LIST VIEW</div>
+            </router-link>
+            
+        </div>
+
+
     </div>
 </div>
 </template>

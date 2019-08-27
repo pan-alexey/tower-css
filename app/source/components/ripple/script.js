@@ -38,7 +38,12 @@
         ink.style.left = x + "px";
         ink.style.margin = 0;
 
-        ink.style.background = style.color;
+        
+
+        ink.style.background = el.getAttribute('ripple-color') ? el.getAttribute('ripple-color') :  style.color;
+
+
+
         //-------------------------------------------------------//
         ink.style.height = d + "px";
         ink.style.width = d + "px";

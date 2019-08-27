@@ -20,15 +20,67 @@
     </div>
     <div class="container gutter-x">
       
-      <ul>
-        <li><router-link to="/swipemenu"> <i class='material-icons icon-home'>&#xe88a;</i> swipemenu</router-link></li>
-        <li><router-link to="/slider"> <i class='material-icons icon-home'>&#xe88a;</i> slider</router-link></li>
-        <li><router-link to="/inputs"> <i class='material-icons icon-home'>&#xe88a;</i> inputs</router-link></li>
-        <li><router-link to="/navbar"> <i class='material-icons icon-home'>&#xe88a;</i> navbar</router-link></li>
-        <li><router-link to="/button"> <i class='material-icons icon-home'>&#xe88a;</i> buttons</router-link></li>
-        <li><router-link to="/list"> <i class='material-icons icon-home'>&#xe88a;</i> list</router-link></li>
-      </ul>
+
+      <div class="center">
+        <p>СПИСОК КОМПОНЕНТОВ</p>
+      </div>
+
+
+
+
+      <div class="list">
+
+        <router-link  to="/swipemenu" class="list-item ripple">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">SWIPE MENU</div>
+        </router-link>
+
+        <router-link  to="/slider" class="list-item ripple">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">RANGE SLIDER</div>
+          <div class="item-meta">
+            multitocuh
+          </div>
+        </router-link>
+
+        <router-link  to="/inputs" class="list-item ripple">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">INPUT/TEXTAREA</div>
+        </router-link>
+
+        <router-link  to="/navbar" class="list-item ripple">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">NAVBAR (FLOAT/STICKY)</div>
+        </router-link>
+
+        <router-link  to="/button" class="list-item ripple">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">BUTTON & BUTTON GROUP</div>
+        </router-link>
+
+        <router-link  to="/list" class="list-item ripple">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">LIST VIEW</div>
+        </router-link>
+
+      </div>
+
     </div>
+
+
+
 </div>
 </template>
 
