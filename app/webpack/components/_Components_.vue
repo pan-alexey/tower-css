@@ -26,7 +26,7 @@
         <li><router-link to="/inputs"> <i class='material-icons icon-home'>&#xe88a;</i> inputs</router-link></li>
         <li><router-link to="/navbar"> <i class='material-icons icon-home'>&#xe88a;</i> navbar</router-link></li>
         <li><router-link to="/button"> <i class='material-icons icon-home'>&#xe88a;</i> buttons</router-link></li>
-
+        <li><router-link to="/list"> <i class='material-icons icon-home'>&#xe88a;</i> list</router-link></li>
       </ul>
     </div>
 </div>

@@ -1,1 +1,124 @@
 @import "./../varibles.less";
+
+
+//item-media
+
+.@{_}list{
+    border: 1px solid rgb(229, 229, 229);
+    margin-bottom: 10px;
+
+    *{
+        text-decoration: none;
+    }
+}
+
+
+
+.@{_}list-item{
+    display: table;
+    position: relative;
+    margin:0;
+    padding:0;
+    border: 0;
+    background: #fff;
+    & > *{
+        display: table-cell;
+        table-layout: fixed;
+        width: 0;
+        vertical-align: middle;
+        position: relative;
+    }
+
+    
+
+    .@{_}item-content{
+        width: 100%;
+    }
+
+
+}
+
+
+
+
+
+
+
+.@{_}list-item{
+    min-height: 48px;
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.@{_}list-item:not(:last-child){
+    border-bottom: 1px solid rgb(229, 229, 229);
+}
+
+
+
+
+
+
+
+
+
+
+.item-media-icon{
+    padding-left: 16px;
+    padding-right: 0px;
+    height: 24px;
+    width: 24px;
+    min-width: 24px;
+    min-height: 24px;
+}
+.item-media-small{
+    padding-left: 16px;
+    padding-right: 0px;
+    height: 48px;
+    width: 48px;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.item-media-medium{
+    padding-left: 16px;
+    padding-right: 0px;
+    height: 56px;
+    width: 56px;
+    min-width: 56px;
+    min-height: 56px;
+}
+
+.item-media-big{
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 56px;
+    width: 100px;
+    min-width: 100px;
+    min-height: 56px;
+}
+
+
+
+
+.item-content{
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 16px;
+
+    .content-title{
+        font-size: 16px;
+        line-height: 1.4;
+        min-height: 22px;
+    }
+    .content-caption{
+        font-size: 12px;
+        line-height: 1.2;
+        color: rgba(0, 0, 0, 0.54);
+    }
+}
+.item-meta{
+    padding-right: 16px;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+}
