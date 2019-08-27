@@ -3,6 +3,85 @@ element.addEventListener("change", function(e){});
 window["@{_}carusel"] = function(element, prop){}
 */
 
+    // var open = function(carusel, index, direction = "right"){
+    //     // if carusel in progress;
+    //     if( carusel.hasClass("progress") ) return;
+    //     let width = carusel.getBoundingClientRect().width;
+    //     let collection = [];
+    //     let active = 0;
+
+
+    //     for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
+    //         collection[i] = carusel.querySelectorAll('.carusel-item')[i];
+    //         if( collection[i].hasClass('active') ){
+    //             active = i;
+    //         } 
+    //     }
+    //     // clear all active
+    //     for (let i = 0; i < collection.length; i++) {
+    //         if(i!==active){collection[i].removeClass("active");}
+    //     }
+
+    //     index = clamp(index, [0, collection.length-1]);
+
+
+    //     onAnimation.forEach(function(onEvent){
+    //         collection[index].addEventListener(onEvent, finish);
+    //     })
+        
+    //     if(active == index) {
+    //         collection[index].style.transform = "translateX(0px)";
+    //         return;
+    //     };
+
+    //     let className = direction == "left" ? "left" : "right";
+    //     collection[index].addClass(className);
+    //     carusel.removeClass("action");
+    //     carusel.addClass("progress");
+    //     collection[index].style.transform = direction == "left" ?  "translateX(100%)" : "translateX(-100%)";
+    //     function finish(event){
+    //         onAnimation.forEach(function(onEvent){ event.target.removeEventListener(onEvent, finish); });
+    //         carusel.removeClass("progress");
+    //         carusel.removeClass("action");
+    //         event.target.addClass("active");
+    //         event.target.style.transform = "";
+    //         for (let i = 0; i < collection.length; i++) {
+    //             if(i!==index){collection[i].removeClass("active");}
+    //             collection[i].removeClass("left");
+    //             collection[i].removeClass("right");
+    //             collection[i].style.transform = "";
+    //         }
+    //     }
+    // }
+
+
+    //------------------------------------------------------------------------//
+    var state = {
+        collection : [],
+        active : 0,
+        width : 0,
+        left: 0,
+        right: 0,
+        distance : 0,
+    };
+
+    // var $collection = [];
+    // var $active = 0;
+    // var $width = 0;
+    // $width = carusel.getBoundingClientRect().width;
+    // carusel.addClass('action');
+    // // active element;
+    // for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
+    //     $collection[i] = carusel.querySelectorAll('.carusel-item')[i];
+    //     if( $collection[i].hasClass('active') ){$active = i;} 
+    // }
+    // $collection[ $active ].addClass('active');
+    //move(distance, $collection, $active );
+
+
+
+
+
 /*
     Слайдер пересчитывает значения в процентах, и все манипуляции производятся в процентах
     Если необходимо пересчитывать в зависимости от значения, необходимо делать функцию обертку

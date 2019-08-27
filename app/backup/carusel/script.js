@@ -28,100 +28,34 @@
         };
     }
     //========================================================================//
+    var onAnimation = [
+        "webkitTransitionEnd", 
+        "otransitionend", 
+        "oTransitionEnd", 
+        "msTransitionEnd", 
+        "transitionend"
+    ];
 
 
-
-
-
-
-
-
-
-
-    var move = function(distance, collection, active){
-
-
-        
-        collection[active].style.transform = "translateX("+distance+"px)";
-        if(distance > 0){
-            var index = active - 1 < 0 ? collection.length - 1 : active - 1;
-            if(index==active) return;
-            collection[index].addClass("left");
-            for (let i = 0; i < collection.length; i++) {
-                collection[i].removeClass("right");
-                if(i!=index) collection[i].removeClass("left");
-            }
-        }else{
-            var index = active + 1 >= collection.length ? 0: active + 1;
-            if(index==active) return;
-            collection[index].addClass("right");
-            for (let i = 0; i < collection.length; i++) {
-                collection[i].removeClass("left");
-                if(i!=index) collection[i].removeClass("right");
-            }
-        }
-        collection[index].style.transform = "translateX("+distance+"px)";
-    }
-
-
-
-    var $collection = [];
-    var $active = 0;
-    var $width = 0;
 
 
     var $action = {
         start : function(distance, carusel){
-
+            if( carusel.hasClass("progress") ) return;
             
-            $collection = [];
-            $active = 0;
-            $width = carusel.getBoundingClientRect().width;
-            carusel.addClass('action');
-
-
-            // active element;
-            for (var i = 0; i < carusel.querySelectorAll('.carusel-item').length; i++) {
-                $collection[i] = carusel.querySelectorAll('.carusel-item')[i];
-                if( $collection[i].hasClass('active') ){$active = i;} 
-            }
-            $collection[ $active ].addClass('active');
             
-
-            //clear old state
-            for (let i = 0; i < $collection.length; i++) {
-                var element = $collection[i];
-                element.removeClass("next");
-                if($active != i) element.removeClass("active");
-            }
-           
-
-            move(distance, $collection, $active );
-
 
         },
         move : debounce(function(distance, carusel){
-
-            move(distance, $collection, $active );
-            //move(distance,  $collection, $active,);
-            //console.log("move", carusel);
-            //document.getElementById("log").innerHTML = "move: " + distance;
-
-
-
+            if( carusel.hasClass("progress") ) return;
         },60),
         end : function(distance, carusel){
-            //console.log("end", distance);
-            //document.getElementById("log").innerHTML = "end: " + distance;
-
-
-
+            if( carusel.hasClass("progress") ) return;
 
             return;
         },
+        // dont start move
         up : function(distance, carusel){
-        //    console.log("up", distance);
-        //    document.getElementById("log").innerHTML = "up" + distance;
            return;
         }
     };
@@ -131,13 +65,10 @@
 
 
 
-
-
     // 0 - ready
     // 1 - move
     // -1 - disable move
     var trigger = 0;
-
     document.addEventListener('touchstart', function (event) {
         if (event.touches.length > 1) return; // only single touch
         // ---------------------//
@@ -263,10 +194,4 @@
         document.addEventListener("mousemove", move);
         document.addEventListener('mouseup', end);
     });
-
-
-
-
-
-
 })(window);

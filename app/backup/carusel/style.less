@@ -36,12 +36,12 @@
 
 .@{_}carusel.action{
     .carusel-item{
-        transition: 60ms linear all; // необходим для плавного
+        transition: 40ms linear transform; // необходим для плавного
     }
 }
-.@{_}carusel{
+.@{_}carusel.progress{
     .carusel-item{
-        transition: 300ms ease all;
+        transition: 3000ms ease transform;
     }
 }
 
@@ -50,7 +50,7 @@
 
 
 .carusel-item.left{
-    z-index: 5;
+    z-index: 15;
     visibility: visible;
     left: -100%;
 }
