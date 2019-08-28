@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<!--
+Copyright 2013 Eric Bidelman
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Author: Eric Bidelman (ebidel@)
+-->
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<title>MediaSource API Demo</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<style>
+::selection {
+  color: #fff;
+  background: pink;
+}
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+body {
+  color: #222;
+  font-family: 'Open Sans', arial, sans-serif;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  -webkit-flex-direction: column;
+  display: -ms-flex;
+  -ms-align-items: center;
+  -ms-justify-content: center;
+  -ms-flex-direction: column;
+  display: -moz-flex;
+  -moz-align-items: center;
+  -moz-justify-content: center;
+  -moz-flex-direction: column;
+  display: -o-flex;
+  -o-align-items: center;
+  -o-justify-content: center;
+  -o-flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+details {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  margin: 1em 0;
+  cursor: pointer;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  max-width: 600px;
+  font-size: 10pt;
+  z-index: 100;
+}
+details > div {
+  margin: 10px 0;
+}
+details blockquote {
+  font-style: italic;
+}
+pre:not(#log) {
+  background: #eee;
+  border-radius: 5px;
+  padding: 3px 17px 20px 17px;
+  border: 1px solid #ccc;
+  color: navy;
+}
+#log {
+  margin: 0 1em;
+}
+code {
+  font-weight: bold;
+}
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+</style>
+</head>
+<body>
+
+<video controls="true" autoplay="true"></video>
+
+<script>
+//  https://simpl.info/mse/js/main.js
+
+var buffer = [];
+var urls = [
+    "https://raw.githubusercontent.com/w3c/web-platform-tests/master/media-source/mp4/test.mp4",
+    "https://nickdesaulniers.github.io/netfix/demo/frag_bunny.mp4"
+];
+let i = 0;
+setTimeout(function go() {
+    i = i+1 >1 ? 0 : i+1;
+    let url = "https://nickdesaulniers.github.io/netfix/demo/frag_bunny.mp4";
+
+    get(url, function(chank){
+        buffer.push(chank);
+        //console.log( buffer.length );
+    setTimeout(go, 1000);
+    })
+}, 1000);
+
+
+
+function get(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'arraybuffer';
+  xhr.send();
+  xhr.onload = function() {
+    if (xhr.status !== 200) {
+      alert('Unexpected status code ' + xhr.status + ' for ' + url);
+      return false;
+    }
+    callback(new Uint8Array(xhr.response));
+  };
+}
+
+
+
+
+
+
+
+    // использование проигрывание стека
+    const mediaSource = new MediaSource();
+    const video = document.querySelector("video");
+          video.src = window.URL.createObjectURL(mediaSource);
+
+    mediaSource.addEventListener('sourceopen', onMediaSourceOpen);
+
+
+
+    
+    //Init and start in this place
+    function onMediaSourceOpen(){
+        //GET(initUrl, appendToBuffer);
+        sourceBuffer = mediaSource.addSourceBuffer("video/mp4; codecs=avc1.42E01E, mp4a.40.2");
+        sourceBuffer.timestampOffset = -1;
+
+        var loop = function(){
+            var chank = buffer.shift();
+            if(!chank){
+                setTimeout(() => {
+                    loop();
+                },100);
+                return;
+            }
+
+
+            if (sourceBuffer.length == 0) {
+                mediaSource.endOfStream();
+                video.currentTime = 0;
+                video.play();
+                return;
+            }
+
+            console.log(chank);
+            sourceBuffer.appendBuffer(chank);
+        }
+        loop();
+
+
+        sourceBuffer.addEventListener('updateend', loop);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// var mediaSource = new MediaSource();
+// mediaSource.addEventListener('sourceopen', mediaSourceOpen);
+
+// var player = document.getElementById('player');
+// player.src = window.URL.createObjectURL(mediaSource);
+
+
+        //     const urls = [
+        //         "https://raw.githubusercontent.com/w3c/web-platform-tests/master/media-source/mp4/test.mp4",
+        //         "https://nickdesaulniers.github.io/netfix/demo/frag_bunny.mp4",
+        //     ];
+
+        //   (async() => {
+        //     const mediaSource = new MediaSource();
+        //     const video = document.querySelector("video");
+        //     const request = url => fetch(url).then(response => response.arrayBuffer());
+        //     const files = await Promise.all(urls.map(request));
+        //     const mimeCodec = "video/mp4; codecs=avc1.42E01E, mp4a.40.2";
+        //     const media = await Promise.all(files.map(file => {
+        //       return new Promise(resolve => {
+        //         let media = document.createElement("video");
+        //         let blobURL = URL.createObjectURL(new Blob([file]));
+        //         media.onloadedmetadata = async e => {
+        //           resolve({
+        //             mediaDuration: media.duration,
+        //             mediaBuffer: file
+        //           })
+        //         }
+        //         media.src = blobURL;
+        //       })
+        //     }));
+        //     mediaSource.addEventListener("sourceopen", sourceOpen);
+        //     video.src = URL.createObjectURL(mediaSource); 
+        //     async function sourceOpen(event) {
+        //       if (MediaSource.isTypeSupported(mimeCodec)) {
+        //         const sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
+
+        //         for (let chunk of media) {
+        //           await new Promise(resolve => {
+        //             sourceBuffer.appendBuffer(chunk.mediaBuffer);
+        //             sourceBuffer.onupdateend = e => {
+        //               sourceBuffer.onupdateend = null;
+        //               sourceBuffer.timestampOffset += chunk.mediaDuration;
+        //               //console.log(mediaSource.duration);
+        //               resolve()
+        //             }
+        //           })
+        //         }
+        //         mediaSource.endOfStream();
+        //       }  
+        //       else {
+        //         console.warn(mimeCodec + " not supported");
+        //       }
+        //     };
+        //   })()
+
+
+
+        </script>
+
+</body>
+</html>

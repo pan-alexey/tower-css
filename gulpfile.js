@@ -14,7 +14,6 @@ const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify-es').default;
 const rename = require('gulp-rename');
-
 //================================================//
 const PREFIX = "";
 
@@ -217,6 +216,14 @@ gulp.task("webpack", function() {
     .pipe(inject.replace('@{_}', PREFIX))
     .pipe(babel({
         presets: [babelPreset],
+    }))
+    .pipe(gulp.dest('./dist/webpack'))
+    .pipe(uglify({}).on('error', function(e) {
+        console.log("core", e);
+        this.emit('end');
+    }))
+    .pipe(rename(function(path) {
+        path.basename += ".min";
     }))
     .pipe(gulp.dest('./dist/webpack'));
 });
