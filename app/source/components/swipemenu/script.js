@@ -8,8 +8,8 @@
     // если Math.abs(x) >= Math.abs(y/2)
     
     var $param = {
-        blindZone : 60,
-        matageLength : 60,
+        blindZone : 40,
+        matageLength : 40,
         tan : 2,
         exclude : [
             ".@{_}slider",
@@ -284,7 +284,7 @@
         function scroll(e){
             if (trigger != 0) return;
             scrollsHits++;
-            if(scrollsHits>=20){
+            if(scrollsHits>=40){
                 trigger = -1;
             }
         }

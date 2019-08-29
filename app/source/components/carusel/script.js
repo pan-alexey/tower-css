@@ -271,7 +271,7 @@ var $action = {
         function scroll(e){
             if (trigger != 0) return;
             scrollsHits++;
-            if(scrollsHits>=20){
+            if(scrollsHits>=40){
                 trigger = -1;
             }
         }
