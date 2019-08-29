@@ -118,7 +118,7 @@
 
        var targetScroll = event ? event.target.scrollTop : 0;
        let scroll = window.pageYOffset || document.documentElement.scrollTop || targetScroll ;
-
+       if(scroll < 0 ) scroll = 0;
 
        let navbars = document.querySelectorAll('.@{_}navbar');
         for (let i = 0; i < navbars.length; i++) {
