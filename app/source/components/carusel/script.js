@@ -14,6 +14,7 @@
         "msTransitionEnd", 
         "transitionend"
     ];
+
   //-----------------------------------//
   function debounce(func, ms) {
       let isCooldown = false;
@@ -30,7 +31,6 @@
       return value > limit[1] ? limit[1] : value < limit[0] ? limit[0] : value;
   }
 //-----------------------------------//
-
 
 
 var getState = function(carusel){
@@ -78,10 +78,11 @@ var moveNext = function(distance, collection, next, opacity){
         element.removeClass("prew");
     });
     collection[next].style.transform = "translateX("+distance+"px)";
+    collection[next].style.msTransform  = "translateX("+distance+"px)";
 
 
-    opacity = clamp(opacity + 0.7, [0,1]);
-    console.log( opacity );
+
+
 }
 var movePrew = function(distance, collection, next){
     collection[next].addClass("prew");
@@ -90,13 +91,16 @@ var movePrew = function(distance, collection, next){
         element.removeClass("next");
     });
     collection[next].style.transform = "translateX("+distance+"px)";
-
+    collection[next].style.msTransform  = "translateX("+distance+"px)";
 
 
 }
 
 
 var caruselCansel = function(state){
+
+
+
     onAnimation.forEach(function(onEvent){
         state.collection[state.active].addEventListener(onEvent, caruselEnd, false);
     });
@@ -107,12 +111,32 @@ var caruselCansel = function(state){
         var carusel = event.target.closest(".@{_}carusel");
         carusel.removeClass("animate");
     }
+
+
+
+
     state.collection[state.active].style.transition =  $param.transition+"ms ease transform";
     state.collection[state.prew].style.transition =  $param.transition+"ms ease transform";
     state.collection[state.next].style.transition =  $param.transition+"ms ease transform";
     state.collection[state.active].style.transform =  "";
     state.collection[state.prew].style.transform =  "";
     state.collection[state.next].style.transform =  "";
+
+    state.collection[state.active].style.msTransform  =  "";
+    state.collection[state.prew].style.msTransform  =  "";
+    state.collection[state.next].style.msTransform  =  "";
+
+
+    //fix for ie <11
+    // in future add js animation
+    if (isIE () && isIE () <= 11) {
+        onAnimation.forEach(function(onEvent){
+            state.collection[state.active].removeEventListener(onEvent, caruselEnd);
+        });
+        var carusel = state.collection[state.active].closest(".@{_}carusel");
+        carusel.removeClass("animate");
+    }
+
 }
 
 
@@ -121,9 +145,18 @@ var caruselNext = function(state){
     state.collection[state.active].style.transition =  $param.transition+"ms ease transform";
     state.collection[state.prew].style.transition =  $param.transition+"ms ease transform";
     state.collection[state.next].style.transition =  $param.transition+"ms ease transform";
+
+
+
     state.collection[state.active].style.transform =  "translateX(-"+state.width+"px)";
     state.collection[state.prew].style.transform =  "translateX(-"+state.width+"px)";
     state.collection[state.next].style.transform =  "translateX(-"+state.width+"px)";
+
+
+    state.collection[state.active].style.msTransform  =  "translateX(-"+state.width+"px)";
+    state.collection[state.prew].style.msTransform  =  "translateX(-"+state.width+"px)";
+    state.collection[state.next].style.msTransform  =  "translateX(-"+state.width+"px)";
+
     var collection = state.collection;
     var index = state.next;
     onAnimation.forEach(function(onEvent){
@@ -137,6 +170,29 @@ var caruselNext = function(state){
         collection.forEach(function (element, i) {
             element.style.transition =  "";
             element.style.transform =  "";
+            element.style.msTransform  =  "";
+
+            element.removeClass("active");
+            element.removeClass("next");
+            element.removeClass("prew");
+        })
+        collection[index].addClass("active");
+        carusel.removeClass("animate");
+    }
+
+
+    //fix for ie <11
+    // in future add js animation
+    if (isIE () && isIE () <= 11) {
+        onAnimation.forEach(function(onEvent){
+            state.collection[state.active].removeEventListener(onEvent, caruselEnd);
+        });
+        var carusel = state.collection[state.active].closest(".@{_}carusel");
+        collection.forEach(function (element, i) {
+            element.style.transition =  "";
+            element.style.transform =  "";
+            element.style.msTransform  =  "";
+
             element.removeClass("active");
             element.removeClass("next");
             element.removeClass("prew");
@@ -156,6 +212,10 @@ var caruselPrew = function(state){
     state.collection[state.prew].style.transform =  "translateX("+state.width+"px)";
     state.collection[state.next].style.transform =  "translateX("+state.width+"px)";
 
+    state.collection[state.active].style.msTransform  =  "translateX("+state.width+"px)";
+    state.collection[state.prew].style.msTransform  =  "translateX("+state.width+"px)";
+    state.collection[state.next].style.msTransform  =  "translateX("+state.width+"px)";
+
 
     var collection = state.collection;
     var index = state.prew;
@@ -170,6 +230,8 @@ var caruselPrew = function(state){
         collection.forEach(function (element, i) {
             element.style.transition =  "";
             element.style.transform =  "";
+            element.style.msTransform  =  "";
+
             element.removeClass("active");
             element.removeClass("next");
             element.removeClass("prew");
@@ -177,6 +239,30 @@ var caruselPrew = function(state){
         collection[index].addClass("active");
         carusel.removeClass("animate");
     }
+
+
+
+
+        //fix for ie <11
+    // in future add js animation
+    if (isIE () && isIE () <= 11) {
+        onAnimation.forEach(function(onEvent){
+            state.collection[state.active].removeEventListener(onEvent, caruselEnd);
+        });
+        var carusel = state.collection[state.active].closest(".@{_}carusel");
+        collection.forEach(function (element, i) {
+            element.style.transition =  "";
+            element.style.transform =  "";
+            element.style.msTransform  =  "";
+
+            element.removeClass("active");
+            element.removeClass("next");
+            element.removeClass("prew");
+        })
+        collection[index].addClass("active");
+        carusel.removeClass("animate");
+    }
+
 }
 
 
@@ -185,12 +271,15 @@ var caruselPrew = function(state){
 var state = {};
 var $action = {
     start : function(distance, carusel){
+
+
         carusel.addClass("animate");
         state = getState(carusel);
         if(!state.element) return;
         distance = clamp(distance, [-state.width, state.width]);
         var rule = distance>0 ? "prew" : "next";
         state.element.style.transform = "translateX("+distance+"px)";
+        state.element.style.msTransform  = "translateX("+distance+"px)";
 
         if( state.collection.length < 2) return;
         if( rule == "next"  ){
@@ -201,8 +290,12 @@ var $action = {
     },
     move : function(distance, carusel){
         distance = clamp(distance, [-state.width, state.width]);
+
+
+
         var rule = distance>0 ? "prew" : "next";
         state.element.style.transform = "translateX("+distance+"px)";
+        state.element.style.msTransform  = "translateX("+distance+"px)";
 
         if( state.collection.length < 2) return;
         if( rule == "next"  ){
