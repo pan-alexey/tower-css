@@ -4,19 +4,8 @@
     // Необходим для плавной работы в случаях multitouch
     //var root = document.getElementsByTagName( 'html' )[0]; 
 
-    
 
-menu
-
-
-
-
-Создать карусель:
-Карусель не создает и не клонирует элементы
-Каруель должна работать на старых браузерах
-Карусель должна поддерживать скролл события (для macbook) ?
-Карусель инициализируется с помошью мышки
-
+carusel, range, swipemenu - ipad safari: disable scrolling, and bounce effect
 
 
 

@@ -24,7 +24,6 @@
       </div>
     </div>
     <div class="container gutter-x">
-        
       <div class="list">
         <div class="list-item">
           <div class="item-media-icon">
@@ -156,7 +155,6 @@
         </router-link>
       </div>
 
-
       <div class="list">
         <router-link to="/components" class="list-item">
           <div class="item-media-small">
@@ -165,7 +163,8 @@
           <div class="item-content">
             <div class="content-title">Single line item</div>
             <div class="content-caption">
-              Single line item<br />Single line item
+              Single line item
+              <br />Single line item
             </div>
           </div>
           <div class="item-meta">meta</div>
@@ -178,7 +177,8 @@
           <div class="item-content">
             <div class="content-title">Single line item</div>
             <div class="content-caption">
-              Single line item<br />Single line item
+              Single line item
+              <br />Single line item
             </div>
           </div>
           <div class="item-meta">meta</div>
@@ -191,16 +191,83 @@
           <div class="item-content">
             <div class="content-title">Single line item</div>
             <div class="content-caption">
-              Single line item<br />Single line item
+              Single line item
+              <br />Single line item
             </div>
           </div>
           <div class="item-meta">meta</div>
         </router-link>
       </div>
 
+      <div class="list">
+        <router-link to="/components" class="list-item">
+          <div class="item-media-small item-top">
+            <img src="/img/48x48.jpg" class="img-auto img-circle" />
+          </div>
+          <div class="item-content">
+            <div class="content-title">Single line item</div>
+            <div class="content-caption">
+              Single line item
+              <br />Single line item
+            </div>
 
+            <div class="list-item">
+              <div class="item-media-small">
+                <img src="/img/48x48.jpg" class="img-auto img-circle" />
+              </div>
+              <div class="item-content">
+                <div class="content-title">Single line item</div>
+                <div class="content-caption">
+                  Single line item
+                  <br />Single line item
+                </div>
+              </div>
+              <div class="item-meta">meta</div>
+            </div>
+          </div>
+        </router-link>
 
+        <router-link to="/components" class="list-item">
+          <div class="item-media-medium">
+            <img src="/img/56x56.jpg" class="img-auto" />
+          </div>
+          <div class="item-content">
+            <div class="content-title">Single line item</div>
+            <div class="content-caption">
+              Single line item
+              <br />Single line item
+            </div>
+          </div>
+          <div class="item-meta">meta</div>
+        </router-link>
 
+        <router-link to="/components" class="list-item">
+          <div class="item-media-big item-top">
+            <img src="/img/100x56.jpg" class="img-auto" />
+          </div>
+          <div class="item-content">
+            <div class="content-title">Single line item</div>
+            <div class="content-caption">
+              Single line item
+              <br />Single line item
+            </div>
+
+            <div class="list-item">
+              <div class="item-media-big item-top">
+                <img src="/img/100x56.jpg" class="img-auto" />
+              </div>
+              <div class="item-content">
+                <div class="content-title">Single line item</div>
+                <div class="content-caption">
+                  Single line item
+                  <br />Single line item
+                </div>
+              </div>
+              <div class="item-meta">meta</div>
+            </div>
+          </div>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
