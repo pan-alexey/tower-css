@@ -10,7 +10,7 @@ import _Components_ from './components/_Components_.vue';
 import _404_ from './components/_404_.vue';
 
 
-
+import Box from './components/Box.vue';
 import Button from './components/Button.vue';
 import Navbar from './components/Navbar.vue';
 import Slider from './components/Slider.vue';
@@ -31,7 +31,7 @@ const router = new VueRouter({
 
 
 
-
+      { path: '/box', component: Box },
       { path: '/slider', component: Slider },
       { path: '/swipemenu', component: Swipemenu },
       { path: '/inputs', component: Inputs },

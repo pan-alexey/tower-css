@@ -33,6 +33,15 @@
             <div class="item-content">SWIPE MENU</div>
             </router-link>
 
+
+
+            <router-link  to="/box" class="list-item ripple">
+            <div class="item-media-icon">
+                <i class="material-icons icon-laptop">&#xe31e;</i>
+            </div>
+            <div class="item-content">BOX</div>
+            </router-link>
+
             <router-link  to="/slider" class="list-item ripple">
             <div class="item-media-icon">
                 <i class="material-icons icon-laptop">&#xe31e;</i>

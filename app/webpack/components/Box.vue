@@ -1,4 +1,12 @@
-// Slider.vue
+// _Components_.vue
+<style>
+.box-example{
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+    margin: .25rem;
+}
+</style>
 
 <template>
   <div class="activity">
@@ -12,7 +20,7 @@
               </router-link>
             </div>
             <div class="navbar-title center">
-              <b>CARUSEL</b>
+              <b>BOX</b>
             </div>
             <div class="navbar-group">
               <router-link to="/components">
@@ -23,23 +31,18 @@
         </div>
       </div>
     </div>
-
     <div class="container gutter-x">
 
 
+        <span class="box-material box-example"></span>
+        <span class="box box-example"></span>
+        <span class="box-border box-example"></span>
+        <span class="box-border border-orange box-example"></span>
+        <span class="box border-top border-blue box-example"></span>
 
 
-<div class="carusel">
-  <div class="carusel-content box-material" style="height: 300px;">
-    <div class="carusel-item red">1</div>
-    <div class="carusel-item blue">2</div>
-    <div class="carusel-item yellow">3</div>
-    <div class="carusel-item green">4</div>
-  </div>
-</div>
 
     </div>
-
   </div>
 </template>
 
@@ -51,3 +54,4 @@ export default {
   }
 };
 </script>
+

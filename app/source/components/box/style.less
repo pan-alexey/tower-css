@@ -1,0 +1,39 @@
+@import "./../varibles.less";
+
+
+
+//input-material
+//input-border
+
+
+
+
+.@{_}box{
+    @radius : if(3 > ceil(@font-size*0.4), 3px, ceil(@font-size*0.4));
+    background: #fff;
+    border-radius: @radius;
+    border: solid transparent;
+    border-width: 1px;
+}
+
+.@{_}box-material{
+    @radius : if(3 > ceil(@font-size*0.4), 3px, ceil(@font-size*0.4));
+    box-shadow: @shadow;
+    background: #fff;
+    border-radius: @radius;
+}
+
+.@{_}box-border{
+    @radius : if(3 > ceil(@font-size*0.4), 3px, ceil(@font-size*0.4));
+    background: #fff;
+    border-radius: @radius;
+    border: solid @border-color;
+    border-width: @border-width;
+
+}
+
+
+
+
+
+
