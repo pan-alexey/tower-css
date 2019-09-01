@@ -49,9 +49,12 @@ var getState = function(carusel){
     collection.forEach(function(element, i){
         element.removeClass("right");
         element.removeClass("left");
+        element.addClass("pass");
         element.style.transform = "";
         element.style.transition =  "";
-        if( i!= active )  element.removeClass("active");
+        if( i!= active ) {
+            element.removeClass("active");
+        } 
     });
     var prew = active - 1 < 0 ? collection.length - 1 : active - 1;
         prew = clamp(prew, [0, collection.length-1]);

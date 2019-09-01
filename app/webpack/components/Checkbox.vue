@@ -1,4 +1,12 @@
-// Slider.vue
+// _Components_.vue
+<style>
+.box-example{
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+    margin: .25rem;
+}
+</style>
 
 <template>
   <div class="activity">
@@ -12,7 +20,7 @@
               </router-link>
             </div>
             <div class="navbar-title center">
-              <b>CARUSEL</b>
+              <b>BOX</b>
             </div>
             <div class="navbar-group">
               <router-link to="/components">
@@ -23,23 +31,33 @@
         </div>
       </div>
     </div>
-
     <div class="container gutter-x">
 
 
+<label class="pure-material-checkbox">
+  <input type="checkbox">
+  <span>Checkbox</span>
+</label>
 
 
-<div class="carusel">
-  <div class="carusel-content box-material" style="height: 300px;">
-    <div class="carusel-item blue">1</div>
-    <div class="carusel-item ">2</div>
-    <div class="carusel-item red">3</div>
-    <div class="carusel-item ">4</div>
-  </div>
+<br>
+
+<br>
+<div class="checkbox">
+  <input type="checkbox" checked>
+  <label>checkbox-3</label>
 </div>
 
-    </div>
 
+<br>
+<div class="checkbox">
+  <label>checkbox-4</label>
+  <input type="checkbox" checked>
+  
+</div>
+
+
+    </div>
   </div>
 </template>
 
@@ -51,3 +69,4 @@ export default {
   }
 };
 </script>
+

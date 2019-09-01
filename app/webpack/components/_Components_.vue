@@ -53,6 +53,12 @@
 
 
 
+        <router-link  to="/checkbox" class="list-item ripple">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">CHECKBOX</div>
+        </router-link>
 
 
 

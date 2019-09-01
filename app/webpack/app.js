@@ -19,6 +19,9 @@ import Inputs from './components/Inputs.vue';
 import Carusel from './components/Carusel.vue';
 
 
+import Checkbox from './components/Checkbox.vue';
+
+
 import List from './components/List.vue';
 
 const router = new VueRouter({
@@ -32,6 +35,7 @@ const router = new VueRouter({
 
 
       { path: '/box', component: Box },
+      { path: '/checkbox', component: Checkbox },
       { path: '/slider', component: Slider },
       { path: '/swipemenu', component: Swipemenu },
       { path: '/inputs', component: Inputs },
