@@ -35,22 +35,23 @@
 
 
 <br>
-
+<br>
 <div class="checkbox">
   <input type="checkbox">
-  <label class="chekmark"></label>
-  <span>checkbox-3</span>
+  <div class="chekmark">checkbox-3</div>
+  <span></span>
 </div>
 
+<br>
 <br>
 
 <div class="checkbox">
   <input type="checkbox" v-model="checked">
-  <label class="chekmark"></label>
+  <i class="chekmark"></i>
   <span>checkbox-3</span>
-  
 </div>
- <span for="checkbox">{{ checked }}</span>
+
+<span for="checkbox">{{ checked }}</span>
 
 
     </div>

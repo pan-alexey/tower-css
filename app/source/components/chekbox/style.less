@@ -17,41 +17,43 @@
   position: relative;
   display: inline-block;
   text-align: @text-align;
-  height: 36px;
+  height: 24px;
   cursor: pointer;
   user-select: none;
+  * > {line-height: 24px; }
 }
 
-.checkbox label {
+.checkbox .chekmark {
   cursor: pointer;
   display: inline;
-  line-height: 1.25em;
+  line-height: 24px;
   vertical-align: top;
   clear: both;
-  padding-@{float}: 3px;
+  padding-@{float}: 6px;
 }
-.checkbox label:not(:empty) {
-  padding-@{float}: 5px;
+.checkbox .chekmark:not(:empty) {
+  padding-@{float}: 6px;
 }
-.checkbox label:before, .checkbox label:after {
+.checkbox .chekmark:before, 
+.checkbox .chekmark:after {
   content: "";
   position: absolute;
   @{float}: 0;
   top: 0;
 }
-.checkbox label:before {
-  width: 1.25em;
-  height: 1.25em;
+.checkbox .chekmark:before {
+  width: 24px;
+  height: 24px;
   //background: tranpend;
   border: 2px solid rgba(0, 0, 0, 0.54);
-  border-radius: 0.125em;
+  border-radius: 2px;
   cursor: pointer;
   transition: background .3s;
 }
 .checkbox input[type="checkbox"] {
   outline: 0;
   visibility: hidden;
-  width: 1.25em;
+  width: 24px;
   margin: 0;
   display: block;
   float: @float;
@@ -59,20 +61,20 @@
 }
 
 
-.checkbox input[type="checkbox"]:checked + label:before {
+.checkbox input[type="checkbox"]:checked + .chekmark:before {
   background: #337ab7;
   border: none;
 }
-.checkbox input[type="checkbox"]:checked + label:after {
+.checkbox input[type="checkbox"]:checked + .chekmark:after {
   transform: rotate(-45deg);
-  width: .75em;
-  height: .38em;
-  border: .125em solid #fff;
+  width: 14px;
+  height: 8px;
+  border: 2px solid #fff;
   border-top-style: none;
   border-right-style: none;
   position: absolute;
-  @{float}: 0.24em;
-  top: 0.30em;
+  @{float}: 6px;
+  top: 6px;
 }
 
 
