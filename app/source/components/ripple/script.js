@@ -64,11 +64,17 @@
     document.addEventListener('touchstart', function(event) {
         if(event.touches.length >= 1) { return; }
         var el = event.target.closest(".@{_}ripple");
+
+        if( el.matches(".disabled") )return;
+        if( el.matches("[disabled]") )return;
+
         if( el == null )  { return; }
         ripple(el,event.touches);
     });
     document.addEventListener('mousedown', function(event) {
         var el = event.target.closest(".@{_}ripple");
+        if( el.matches(".disabled") )return;
+        if( el.matches("[disabled]") )return;
         if( el == null )  { return; }
         ripple(el,event);
     });

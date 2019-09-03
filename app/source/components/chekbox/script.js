@@ -19,7 +19,11 @@
 
   //-------------------------------------------------------------//
   document.addEventListener('click', function(event) {
+
       var el = event.target.closest(".@{_}checkbox");
+      if( el.matches(".disabled") )return;
+      if( el.matches("[disabled]") )return;
+
       if( el == null )  { return; }
       check(el);
       //alert("ckeckbox click");

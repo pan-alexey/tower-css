@@ -53,6 +53,15 @@
 
 <span for="checkbox">{{ checked }}</span>
 
+<br>
+<br>
+
+<div class="checkbox disabled" >
+  <input type="checkbox">
+  <div class="chekmark">checkbox disabled</div>
+  <span></span>
+</div>
+
 
     </div>
   </div>

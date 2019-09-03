@@ -79,11 +79,10 @@
 
 
 
-// .checkbox input[type="checkbox"]:disabled + label {
-//   //border-color: rgba(0, 0, 0, 0.26);
-//   opacity: @disabled-opacity_;
-// }
-// .checkbox input[type="checkbox"]:disabled:checked + label:before {
-//   opacity: @disabled-opacity_;
-//   //background: rgba(0, 0, 0, 0.26);
-// }
+
+.checkbox.disabled input[type="checkbox"] + .chekmark {
+  opacity: @disabled ;
+}
+.checkbox[disabled] input[type="checkbox"] + .chekmark {
+  opacity: @disabled ;
+}
