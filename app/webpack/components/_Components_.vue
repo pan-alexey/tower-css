@@ -31,7 +31,7 @@
       <div class="list">
 
 
-        <router-link  to="/components/1" class="list-item ripple">
+        <router-link  to="/components/1" class="list-item ripple" disabled>
           <div class="item-media-icon">
             <i class="material-icons icon-laptop">&#xe31e;</i>
           </div>
