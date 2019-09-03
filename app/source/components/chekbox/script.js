@@ -1,37 +1,36 @@
-/*
-(function (window, $) {
-    $(document).on("click tap" , ".checkbox", function(e){
+(function (window) {
+  'use strict';
 
-      // for attr
-      //---------------------------------------------------------------------//
-      var forId = $( e.target ).attr( "for" );
-      if( forId ) {
-        $("#"+forId).each(function(){
-          if(this.disabled)return;
-          $(this).trigger( "change");
-          this.checked = !this.checked;
-        });;
-        return;
-      };
-      // simple
-      //---------------------------------------------------------------------//
-      $(e.target).closest( ".checkbox" )
-      .find(':checkbox')
-      .each(function(){
-        if(this.disabled)return;
-        $(this).trigger( "change");
-        this.checked = !this.checked;
-      });
-      //---------------------------------------------------------------------//
+ 
 
-    });
+  function check(element){
 
-})(window, $);
-*/
+    if( element.querySelectorAll('input[type=checkbox]').length == -1  )return;
+    let checkbox = element.querySelectorAll('input[type=checkbox]')[0];
+
+    checkbox.checked = checkbox.checked ? false: true;
+    let event = new Event("change");
+    checkbox.dispatchEvent(event);
 
 
-/*
-$('.checkbox').on("change", function(e){
-  //console.log('cheked',e);
-});
-*/
+  }
+
+
+
+  //-------------------------------------------------------------//
+  document.addEventListener('click', function(event) {
+      var el = event.target.closest(".@{_}checkbox");
+      if( el == null )  { return; }
+      check(el);
+      //alert("ckeckbox click");
+  });
+
+  //-------------------------------------------------------------//
+
+
+
+
+
+
+
+})(window);

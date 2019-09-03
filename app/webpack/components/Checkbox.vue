@@ -34,27 +34,23 @@
     <div class="container gutter-x">
 
 
-<label class="pure-material-checkbox">
-  <input type="checkbox">
-  <span>Checkbox</span>
-</label>
-
-
 <br>
 
-<br>
 <div class="checkbox">
-  <input type="checkbox" checked>
-  <label>checkbox-3</label>
+  <input type="checkbox">
+  <label class="chekmark"></label>
+  <span>checkbox-3</span>
 </div>
 
-
 <br>
+
 <div class="checkbox">
-  <label>checkbox-4</label>
-  <input type="checkbox" checked>
+  <input type="checkbox" v-model="checked">
+  <label class="chekmark"></label>
+  <span>checkbox-3</span>
   
 </div>
+ <span for="checkbox">{{ checked }}</span>
 
 
     </div>
@@ -63,6 +59,11 @@
 
 <script>
 export default {
+  data: function () {
+    return {
+      checked:  true
+    }
+  },
   mounted: function() {
     //Необходимо вызвать пересчет отступа
     window.navbar();
