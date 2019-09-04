@@ -40,15 +40,17 @@
 <!-- Rectangular switch -->
 <div class="switch">
   <input type="checkbox">
-  <span class="thumb"></span>
+  <span class="handle"></span>
+  <span>checkbox-3</span>
 </div>
 
 <br>
 
-<div class="switch">
-  <input type="checkbox">
-  <span class="thumb"></span>
-</div>
+<lable class="switch">
+  <input type="checkbox" v-model="checked">
+  <span class="handle"></span>
+  <span>{{ checked }}</span>
+</lable>
 
 <br>
 
@@ -68,7 +70,7 @@
             
 <label class="switch">
   <input type="checkbox">
-  <span class="thumb"></span>
+  <span class="handle"></span>
 </label>
 
           </div>

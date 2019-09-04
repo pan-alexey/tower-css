@@ -4,17 +4,18 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 36px;
   height: 28px;
+  line-height: 28px;
   user-select: none;
   cursor: pointer;
+  padding-left: 36px;
 }
 
 .switch::before {
   content: "";
+  left:0;
   position: absolute;
   height: 14px;
-
   top: 50%;
   margin-top: -7px;
   width: 36px;
@@ -34,7 +35,11 @@
   visibility: hidden;
 }
 
-.thumb {
+.switch > *{
+  padding: 0px 5px;
+}
+
+.handle {
     position: absolute;
     content: "";
     height: 22px;
@@ -49,7 +54,7 @@
     transition: .4s;
 }
 
-input:checked + .thumb {
+input:checked + .handle {
   -webkit-transform: translateX(22px);
   -ms-transform: translateX(22px);
   transform: translateX(22px);
