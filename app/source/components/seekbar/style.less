@@ -1,17 +1,17 @@
 @import "./../varibles.less";
 
-@slider-background : #b6b6b6;
-@slider-color : #b6b6b6;
-@slider-height : 32px;
+@seekbar-background : #b6b6b6;
+@seekbar-color : #b6b6b6;
+@seekbar-height : 32px;
 @bar-height : 3px;
 @handle-size : 14px;
 
 
-.@{_}slider{
+.@{_}seekbar{
     position: relative;
     width: 100%;
     
-    height: @slider-height;
+    height: @seekbar-height;
     pointer-events: all;
     //-- for drag & drop browser --//
     -webkit-text-size-adjust: none;
@@ -23,14 +23,14 @@
     user-select: none;
 }
 
-.@{_}slider-content{
+.@{_}seekbar-content{
     position: relative;
     left: 0%;
     right: 0%;
     height: 100%;
 }
 
-.slider-handle{
+.seekbar-handle{
     position: absolute;
     height: @handle-size;
     width: @handle-size;
@@ -41,21 +41,21 @@
     z-index: 2;
 }
 
-.@{_}slider[data-slider="multi"]{
+.@{_}seekbar[data-seekbar="multi"]{
     padding-left: @handle-size;
     padding-right: @handle-size;
-    .slider-handle[data-handle="left"]{
+    .seekbar-handle[data-handle="left"]{
         margin-left: -@handle-size;
         left : 0%;
         transition: 60ms ease-out all;
 
     }
-    .slider-handle[data-handle="right"]{
+    .seekbar-handle[data-handle="right"]{
         margin-right: -@handle-size;
         right : 0%;
         transition: 60ms ease-out all;
     }
-    .slider-bar{
+    .seekbar-bar{
         position: absolute;
         left: -@handle-size/2;
         right: -@handle-size/2;
@@ -67,15 +67,15 @@
     }
 }
 
-.@{_}slider[data-slider="left"]{
+.@{_}seekbar[data-seekbar="left"]{
     padding-left: @handle-size/2;
     padding-right: @handle-size/2;
-    .slider-handle{
+    .seekbar-handle{
         left: 0%;
         margin-left: -@handle-size/2;
         transition: 60ms linear all;
     }
-    .slider-bar{
+    .seekbar-bar{
         position: absolute;
         left: 0;
         right: 0;
@@ -86,15 +86,15 @@
     }
 }
 
-.@{_}slider[data-slider="right"]{
+.@{_}seekbar[data-seekbar="right"]{
     padding-left: @handle-size/2;
     padding-right: @handle-size/2;
-    .slider-handle{
+    .seekbar-handle{
         right: 0%;
         margin-right: -@handle-size/2;
         transition: 40ms linear all;
     }
-    .slider-bar{
+    .seekbar-bar{
         position: absolute;
         left: 0;
         right: 0;
@@ -105,7 +105,7 @@
     }
 }
 //-------------------------------------//
-.slider-handle{
+.seekbar-handle{
     &::before{
         content: '';
         transition: opacity .6s;
@@ -124,10 +124,10 @@
 }
 
 
-.slider-bar{
+.seekbar-bar{
     background: fade( extract(@blue, 1), 30%);
 }
-.slider-handle{
+.seekbar-handle{
     background: extract(@blue, 1);
     &::before{
         background: extract(@blue, 1);

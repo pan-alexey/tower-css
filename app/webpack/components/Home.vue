@@ -42,11 +42,11 @@
             <div class="item-content">BOX</div>
             </router-link>
 
-            <router-link  to="/slider" class="list-item ripple">
+            <router-link  to="/seekbar" class="list-item ripple">
             <div class="item-media-icon">
                 <i class="material-icons icon-laptop">&#xe31e;</i>
             </div>
-            <div class="item-content">RANGE SLIDER</div>
+            <div class="item-content">RANGE SEEKBAR</div>
             <div class="item-meta">
                 multitocuh
             </div>

@@ -37,20 +37,19 @@
           </div>
           <div class="item-content">/components/1</div>
         </router-link>
-                <router-link  to="/components/2" class="list-item ripple">
+        <router-link  to="/components/2" class="list-item ripple">
           <div class="item-media-icon">
             <i class="material-icons icon-laptop">&#xe31e;</i>
           </div>
           <div class="item-content">/components/2</div>
         </router-link>
-                <router-link  to="/components/3" class="list-item ripple">
+
+        <router-link  to="/switch" class="list-item ripple">
           <div class="item-media-icon">
             <i class="material-icons icon-laptop">&#xe31e;</i>
           </div>
-          <div class="item-content">/components/3</div>
+          <div class="item-content">/switch</div>
         </router-link>
-
-
 
 
         <router-link  to="/checkbox" class="list-item ripple">
@@ -74,11 +73,11 @@
 
 
 
-        <router-link  to="/slider" class="list-item ripple">
+        <router-link  to="/seekbar" class="list-item ripple">
           <div class="item-media-icon">
             <i class="material-icons icon-laptop">&#xe31e;</i>
           </div>
-          <div class="item-content">RANGE SLIDER</div>
+          <div class="item-content">RANGE SEELBAR</div>
           <div class="item-meta">
             multitocuh
           </div>

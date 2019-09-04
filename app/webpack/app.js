@@ -13,14 +13,14 @@ import _404_ from './components/_404_.vue';
 import Box from './components/Box.vue';
 import Button from './components/Button.vue';
 import Navbar from './components/Navbar.vue';
-import Slider from './components/Slider.vue';
+import Seekbar from './components/Seekbar.vue';
 import Swipemenu from './components/Swipemenu.vue';
 import Inputs from './components/Inputs.vue';
 import Carusel from './components/Carusel.vue';
 
 
 import Checkbox from './components/Checkbox.vue';
-
+import Switch from './components/Switch.vue';
 
 import List from './components/List.vue';
 
@@ -36,7 +36,7 @@ const router = new VueRouter({
 
       { path: '/box', component: Box },
       { path: '/checkbox', component: Checkbox },
-      { path: '/slider', component: Slider },
+      { path: '/seekbar', component: Seekbar },
       { path: '/swipemenu', component: Swipemenu },
       { path: '/inputs', component: Inputs },
       
@@ -44,7 +44,7 @@ const router = new VueRouter({
       { path: '/button', component: Button },
       { path: '/list', component: List },
       { path: '/carusel', component: Carusel },
-
+      { path: '/Switch', component: Switch },
 
       
       { path: '*', component: _404_ },

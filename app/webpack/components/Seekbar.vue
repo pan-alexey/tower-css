@@ -1,4 +1,4 @@
-// Slider.vue
+// seekbar.vue
 
 <template>
   <div class="activity">
@@ -12,7 +12,7 @@
               </router-link>
             </div>
             <div class="navbar-title center">
-              <b>SLIDER</b>
+              <b>seekbar</b>
             </div>
             <div class="navbar-group">
               <router-link to="/components">
@@ -25,17 +25,17 @@
     </div>
 
     <div class="container gutter-x">
-      <p>SLIDER - компонент SLIDER. Компонент поддерживает multitouch события. В режиме MULTI можно управлять одновременно двумя ручками</p>
-      <p>SLIDER - обернут в debounce функцию с вызовом не чаще чем 60ms</p>
+      <p>seekbar - компонент seekbar. Компонент поддерживает multitouch события. В режиме MULTI можно управлять одновременно двумя ручками</p>
+      <p>seekbar - обернут в debounce функцию с вызовом не чаще чем 60ms</p>
       <br>
 
-      <p>SLIDER [MULTI] - КОМПОНЕНТ SLIDER:</p>
+      <p>seekbar [MULTI] - КОМПОНЕНТ seekbar:</p>
 
-      <div class="slider" data-slider="multi">
-        <div class="slider-content">
-          <div class="slider-bar"></div>
-          <div class="slider-handle" data-handle="left"></div>
-          <div class="slider-handle" data-handle="right"></div>
+      <div class="seekbar" data-seekbar="multi">
+        <div class="seekbar-content">
+          <div class="seekbar-bar"></div>
+          <div class="seekbar-handle" data-handle="left"></div>
+          <div class="seekbar-handle" data-handle="right"></div>
         </div>
       </div>
       <p>ПРИМЕР ВЫЗОВА:</p>
@@ -44,21 +44,21 @@
 
 
 
-      <p>SLIDER [LEFT] - КОМПОНЕНТ SLIDER</p>
-      <div class="slider" data-slider="left">
-        <div class="slider-content">
-          <div class="slider-bar"></div>
-          <div class="slider-handle" ></div>
+      <p>seekbar [LEFT] - КОМПОНЕНТ seekbar</p>
+      <div class="seekbar" data-seekbar="left">
+        <div class="seekbar-content">
+          <div class="seekbar-bar"></div>
+          <div class="seekbar-handle" ></div>
         </div>
       </div>
       <p>ПРИМЕР ВЫЗОВА:</p>
 
 
-      <p>SLIDER [RIGHT] - КОМПОНЕНТ SLIDER</p>
-      <div class="slider" data-slider="right">
-        <div class="slider-content">
-          <div class="slider-bar"></div>
-          <div class="slider-handle" ></div>
+      <p>seekbar [RIGHT] - КОМПОНЕНТ seekbar</p>
+      <div class="seekbar" data-seekbar="right">
+        <div class="seekbar-content">
+          <div class="seekbar-bar"></div>
+          <div class="seekbar-handle" ></div>
         </div>
       </div>
       <p>ПРИМЕР ВЫЗОВА:</p>

@@ -1,6 +1,6 @@
 /*
 element.addEventListener("change", function(e){});
-window["@{_}slider"] = function(element, prop){}
+window["@{_}seekbar"] = function(element, prop){}
 */
 
 /*
@@ -60,7 +60,7 @@ window["@{_}slider"] = function(element, prop){}
         var attr = {};
         var propDefault = {
             disable: false,
-            slider: 'left',
+            seekbar: 'left',
             step: 0,
             min: 0,
             max: 100,
@@ -76,13 +76,13 @@ window["@{_}slider"] = function(element, prop){}
         attr.min = toFloat(attr.min);
 
         //normalize min/max
-        attr.slider = element.getAttribute('data-slider') ? element.getAttribute('data-slider') : propDefault.slider;
-        attr.slider = new String(attr.slider).toLowerCase();
+        attr.seekbar = element.getAttribute('data-seekbar') ? element.getAttribute('data-seekbar') : propDefault.seekbar;
+        attr.seekbar = new String(attr.seekbar).toLowerCase();
 
         attr.step = element.getAttribute('data-step') ? element.getAttribute('data-step') : propDefault.step;
         attr.step = parseInt(attr.step);
 
-        if (attr.slider == "multi") {
+        if (attr.seekbar == "multi") {
 
             attr.left = element.getAttribute('data-left') ? element.getAttribute('data-left') : attr.left;
             attr.left = attr.left ? attr.left : attr.min;
@@ -93,7 +93,7 @@ window["@{_}slider"] = function(element, prop){}
             attr.right = toFloat(attr.right);
         }
 
-        if (attr.slider == "left" || attr.slider == "right") {
+        if (attr.seekbar == "left" || attr.seekbar == "right") {
             attr.value = element.getAttribute('data-value') ? element.getAttribute('data-value') : attr.value;
             attr.value = attr.value ? attr.value : attr.min;
             attr.value = toFloat(attr.value);
@@ -102,7 +102,7 @@ window["@{_}slider"] = function(element, prop){}
 
 
         properties = merge(attr, properties);
-        render(element, properties.slider);
+        render(element, properties.seekbar);
         return properties;
     }
 
@@ -114,14 +114,14 @@ window["@{_}slider"] = function(element, prop){}
 
         state._rank = rank;
         rank.sort(function (a, b) { return a - b; });
-        if (state.slider == 'multi') {
+        if (state.seekbar == 'multi') {
             state.left = state.left ? state.left : state.min;
             state.right = state.right ? state.right : state.max;
             // single touch
             if (rank.length <= 1) {
                 state._general = state._general ? state._general : getNear(rank[0], state.left, state.right);
-                state.left = state._general == 'left' ? rank[0] + bounding.handle / 2 : state.left; //+ state._sliderRank/2
-                state.right = state._general == 'right' ? rank[0] - bounding.handle / 2 : state.right; //- state._sliderRank/2
+                state.left = state._general == 'left' ? rank[0] + bounding.handle / 2 : state.left; //+ state._seekbarRank/2
+                state.right = state._general == 'right' ? rank[0] - bounding.handle / 2 : state.right; //- state._seekbarRank/2
 
                 // collision
                 if (state._general == 'left') { state.right = (state.left > state.right) ? state.left : state.right; }
@@ -137,11 +137,11 @@ window["@{_}slider"] = function(element, prop){}
         }
 
 
-        if (state.slider == "left") {
+        if (state.seekbar == "left") {
             state.value = rank[0];
             state.value = clamp(state.value, [state.min, state.max]);
         }
-        if (state.slider == "right") {
+        if (state.seekbar == "right") {
             state.value = 100 - rank[0];
             state.value = clamp(state.value, [state.min, state.max]);
         }
@@ -153,7 +153,7 @@ window["@{_}slider"] = function(element, prop){}
     var cahnge = function (element, state) {
         //----------------------------------------------------------//
 
-        if (state.slider == 'multi') {
+        if (state.seekbar == 'multi') {
             for (var i = 0; i < element.querySelectorAll('[data-handle="left"]').length; i++) {
                 element.querySelectorAll('[data-handle="left"]')[i].style.left = state.left + "%";
             }
@@ -164,12 +164,12 @@ window["@{_}slider"] = function(element, prop){}
 
         //----------------------------------------------------------//
 
-        for (var i = 0; i < element.querySelectorAll('.slider-handle').length; i++) {
-            var handle = element.querySelectorAll('.slider-handle')[i];
-            if (state.slider == "left") {
+        for (var i = 0; i < element.querySelectorAll('.seekbar-handle').length; i++) {
+            var handle = element.querySelectorAll('.seekbar-handle')[i];
+            if (state.seekbar == "left") {
                 handle.style.left = state.value + "%";
             }
-            if (state.slider == "right") {
+            if (state.seekbar == "right") {
                 handle.style.right = state.value + "%";
             }
         }
@@ -200,13 +200,13 @@ window["@{_}slider"] = function(element, prop){}
             $state = mutable($state, $elementBounding, points);
             cahnge(element, $state);
             save(element, $state);
-            domActive(element, $state); // for active slider and handle
+            domActive(element, $state); // for active seekbar and handle
         },
         // wrap action to debounce function
         move: debounce(function (element, points) {
             $state = mutable($state, $elementBounding, points);
             cahnge(element, $state);
-            domActive(element, $state); // for active slider and handle
+            domActive(element, $state); // for active seekbar and handle
         }, 40),
 
         end: function (element, points) {
@@ -215,7 +215,7 @@ window["@{_}slider"] = function(element, prop){}
             $elementBounding = {};
             $state = {};
             $debounce = 40;
-            domActive(element); // clear active slider and handle
+            domActive(element); // clear active seekbar and handle
         }
     };
     //=======================================================//
@@ -228,16 +228,16 @@ window["@{_}slider"] = function(element, prop){}
     //event wrapper for touch
     document.addEventListener('touchstart', function (event) {
 
-        var slider = event.target.closest(".@{_}slider");
-        if (slider == null) { return; }
+        var seekbar = event.target.closest(".@{_}seekbar");
+        if (seekbar == null) { return; }
         if ($touches.length > 1) return; //limit 2 point for tocuh devices
 
         // disable browser custom drag and drop
-        slider.ondragstart = function () { return false; };
-        slider.gesturechange = function () { return false; };
+        seekbar.ondragstart = function () { return false; };
+        seekbar.gesturechange = function () { return false; };
 
-        if ($element != null && $element != slider) { return; }
-        $element = slider;
+        if ($element != null && $element != seekbar) { return; }
+        $element = seekbar;
         event.preventDefault();
         for (var i = 0; i < event.changedTouches.length; i++) {
             var id = event.changedTouches[i].identifier;
@@ -297,27 +297,27 @@ window["@{_}slider"] = function(element, prop){}
 
 
     document.addEventListener('mousedown', function (event) {
-        var slider = event.target.closest(".@{_}slider");
-        if (slider == null) { return; }
+        var seekbar = event.target.closest(".@{_}seekbar");
+        if (seekbar == null) { return; }
         event.preventDefault();
         // disable browser drag and drop
-        slider.ondragstart = function () { return false; };
+        seekbar.ondragstart = function () { return false; };
 
         var points = [];
         points.push(event);
-        $action.start(slider, points);
+        $action.start(seekbar, points);
         //----------------------------------------------//
         function move(event) {
             event.preventDefault();
             points = [];
             points.push(event);
-            $action.move(slider, points);
+            $action.move(seekbar, points);
         };
         //----------------------------------------------//
         function end(event) {
             event.preventDefault();
 
-            $action.end(slider, points);
+            $action.end(seekbar, points);
             document.removeEventListener("mousemove", move);
             document.removeEventListener('mouseup', end);
         };
@@ -345,70 +345,70 @@ window["@{_}slider"] = function(element, prop){}
 
     function getBounding(el) {
         var result = {};
-        result.width = (el.querySelector(".@{_}slider-content").getBoundingClientRect()).width;
-        result.offset = (el.querySelector(".@{_}slider-content").getBoundingClientRect()).left + document.body.scrollLeft;
-        result.handle = 100 * (el.querySelector(".@{_}slider-handle").getBoundingClientRect()).width / result.width;
+        result.width = (el.querySelector(".@{_}seekbar-content").getBoundingClientRect()).width;
+        result.offset = (el.querySelector(".@{_}seekbar-content").getBoundingClientRect()).left + document.body.scrollLeft;
+        result.handle = 100 * (el.querySelector(".@{_}seekbar-handle").getBoundingClientRect()).width / result.width;
         return result;
     }
 
 
-    function render(element, slider) {
-        if (["left", "right", "multi"].indexOf(slider) < 0) return;
-        element.addClass('@{_}slider');
-        element.setAttribute('data-slider', slider);
-        // Add slider-content element if not exist;
-        if (element.querySelectorAll('.@{_}slider-content').length == 0) {
+    function render(element, seekbar) {
+        if (["left", "right", "multi"].indexOf(seekbar) < 0) return;
+        element.addClass('@{_}seekbar');
+        element.setAttribute('data-seekbar', seekbar);
+        // Add seekbar-content element if not exist;
+        if (element.querySelectorAll('.@{_}seekbar-content').length == 0) {
             var div = document.createElement('div');
-            div.className = '@{_}slider-content';
+            div.className = '@{_}seekbar-content';
             element.appendChild(div);
         }
-        // Add slider-bar element if not exist;
-        if (element.querySelectorAll('.@{_}slider-content > .@{_}slider-bar').length == 0) {
+        // Add seekbar-bar element if not exist;
+        if (element.querySelectorAll('.@{_}seekbar-content > .@{_}seekbar-bar').length == 0) {
             var div = document.createElement('div');
-            div.className = '@{_}slider-bar';
-            for (var i = 0; i < element.querySelectorAll('.@{_}slider-content').length; i++) {
-                element.querySelectorAll('.@{_}slider-content')[i].prepend(div);
+            div.className = '@{_}seekbar-bar';
+            for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-content').length; i++) {
+                element.querySelectorAll('.@{_}seekbar-content')[i].prepend(div);
             }
         }
 
-        if (slider == "multi") {
-            // Add slider-handle[data-handle="left"] element if not exist;
-            if (element.querySelectorAll('.@{_}slider-content > .@{_}slider-handle[data-handle="left"]').length == 0) {
+        if (seekbar == "multi") {
+            // Add seekbar-handle[data-handle="left"] element if not exist;
+            if (element.querySelectorAll('.@{_}seekbar-content > .@{_}seekbar-handle[data-handle="left"]').length == 0) {
                 var div = document.createElement('div');
-                div.className = '@{_}slider-handle';
+                div.className = '@{_}seekbar-handle';
                 div.setAttribute('data-handle', 'left');
-                for (var i = 0; i < element.querySelectorAll('.@{_}slider-content').length; i++) {
-                    element.querySelectorAll('.@{_}slider-content')[i].appendChild(div);
+                for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-content').length; i++) {
+                    element.querySelectorAll('.@{_}seekbar-content')[i].appendChild(div);
                 }
             }
-            // Add slider-handle[data-handle="left"] element if not exist;
-            if (element.querySelectorAll('.@{_}slider-content > .@{_}slider-handle[data-handle="right"]').length == 0) {
+            // Add seekbar-handle[data-handle="left"] element if not exist;
+            if (element.querySelectorAll('.@{_}seekbar-content > .@{_}seekbar-handle[data-handle="right"]').length == 0) {
                 var div = document.createElement('div');
-                div.className = '@{_}slider-handle';
+                div.className = '@{_}seekbar-handle';
                 div.setAttribute('data-handle', 'right');
-                for (var i = 0; i < element.querySelectorAll('.@{_}slider-content').length; i++) {
-                    element.querySelectorAll('.@{_}slider-content')[i].appendChild(div);
+                for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-content').length; i++) {
+                    element.querySelectorAll('.@{_}seekbar-content')[i].appendChild(div);
                 }
             }
 
             //RESET CSS PROPERTIES
-            for (var i = 0; i < element.querySelectorAll('.@{_}slider-handle[data-handle="right"]').length; i++) {
-                var handle = element.querySelectorAll('.@{_}slider-handle[data-handle="right"]')[i];
+            for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-handle[data-handle="right"]').length; i++) {
+                var handle = element.querySelectorAll('.@{_}seekbar-handle[data-handle="right"]')[i];
                 handle.style.left = null;
             }
-            for (var i = 0; i < element.querySelectorAll('.@{_}slider-handle').length; i++) {
-                var handle = element.querySelectorAll('.@{_}slider-handle')[i];
+            for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-handle').length; i++) {
+                var handle = element.querySelectorAll('.@{_}seekbar-handle')[i];
                 handle.style.right = null;
             }
 
         }
-        if (slider == "left" || slider == "right") {
-            // Add slider-handle[data-handle="left"] element if not exist;
-            if (element.querySelectorAll('.@{_}slider-content > .@{_}slider-handle').length == 0) {
+        if (seekbar == "left" || seekbar == "right") {
+            // Add seekbar-handle[data-handle="left"] element if not exist;
+            if (element.querySelectorAll('.@{_}seekbar-content > .@{_}seekbar-handle').length == 0) {
                 var div = document.createElement('div');
-                div.className = '@{_}slider-handle';
-                for (var i = 0; i < element.querySelectorAll('.@{_}slider-content').length; i++) {
-                    element.querySelectorAll('.@{_}slider-content')[i].appendChild(div);
+                div.className = '@{_}seekbar-handle';
+                for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-content').length; i++) {
+                    element.querySelectorAll('.@{_}seekbar-content')[i].appendChild(div);
                 }
             }
         }
@@ -420,31 +420,31 @@ window["@{_}slider"] = function(element, prop){}
     function domActive(element, state) {
         if (!state) {
             element.removeClass('@{_}active');
-            for (var i = 0; i < element.querySelectorAll('.@{_}slider-handle').length; i++) {
-                element.querySelectorAll('.@{_}slider-handle')[i].removeClass('@{_}active');
+            for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-handle').length; i++) {
+                element.querySelectorAll('.@{_}seekbar-handle')[i].removeClass('@{_}active');
             }
             return;
         }
         //-------------------------------------------------------------------------------//
-        if (state.slider == 'left' || state.slider == 'right') {
+        if (state.seekbar == 'left' || state.seekbar == 'right') {
             element.addClass('@{_}active');
-            for (var i = 0; i < element.querySelectorAll('.@{_}slider-handle').length; i++) {
-                element.querySelectorAll('.@{_}slider-handle')[i].addClass('@{_}active');
+            for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-handle').length; i++) {
+                element.querySelectorAll('.@{_}seekbar-handle')[i].addClass('@{_}active');
             }
             return;
         }
         //-------------------------------------------------------------------------------//
-        if (state.slider == 'multi' && state._rank.length > 1) {
+        if (state.seekbar == 'multi' && state._rank.length > 1) {
             element.addClass('@{_}active');
-            for (var i = 0; i < element.querySelectorAll('.@{_}slider-handle').length; i++) {
-                element.querySelectorAll('.@{_}slider-handle')[i].addClass('@{_}active');
+            for (var i = 0; i < element.querySelectorAll('.@{_}seekbar-handle').length; i++) {
+                element.querySelectorAll('.@{_}seekbar-handle')[i].addClass('@{_}active');
             }
             return;
         }
 
-        if (state.slider == 'multi' && state._rank.length == 1) {
+        if (state.seekbar == 'multi' && state._rank.length == 1) {
             element.addClass('@{_}active');
-            var selector = '.@{_}slider-handle[data-handle="' + state._general + '"]';
+            var selector = '.@{_}seekbar-handle[data-handle="' + state._general + '"]';
             for (var i = 0; i < element.querySelectorAll(selector).length; i++) {
                 element.querySelectorAll(selector)[i].addClass('@{_}active');
             }
