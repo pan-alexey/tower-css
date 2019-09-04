@@ -38,18 +38,55 @@
 <br>
 <!-- Rounded switch -->
 <!-- Rectangular switch -->
+<div class="switch">
+  <input type="checkbox">
+  <span class="thumb"></span>
+</div>
+
+<br>
+
+<div class="switch">
+  <input type="checkbox">
+  <span class="thumb"></span>
+</div>
+
+<br>
+
+
+<!-- Rounded switch -->
+<!-- Rectangular switch -->
+
+
+
+    <div class="list">
+        <div class="list-item">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">Single line item</div>
+          <div class="item-meta">
+            
 <label class="switch">
   <input type="checkbox">
   <span class="thumb"></span>
 </label>
 
-<br>
-<!-- Rounded switch -->
-<!-- Rectangular switch -->
-<label class="switch">
-  <input type="checkbox">
-  <span class="thumb"></span>
-</label>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="item-content">Single line item</div>
+          <div class="item-meta">meta</div>
+        </div>
+        <div class="list-item">
+          <div class="item-media-icon">
+            <i class="material-icons icon-laptop">&#xe31e;</i>
+          </div>
+          <div class="item-content">Single line item</div>
+        </div>
+        <div class="list-item">
+          <div class="item-content">Single line item</div>
+        </div>
+      </div>
 
 
 
