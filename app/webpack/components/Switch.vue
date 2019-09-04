@@ -43,6 +43,14 @@
   <span class="thumb"></span>
 </label>
 
+<br>
+<!-- Rounded switch -->
+<!-- Rectangular switch -->
+<label class="switch">
+  <input type="checkbox">
+  <span class="thumb"></span>
+</label>
+
 
 
 
