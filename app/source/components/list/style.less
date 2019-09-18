@@ -2,8 +2,7 @@
 
 
 //item-media
-
-
+@padding-x : 12px;
 
 
 .@{_}list{
@@ -67,15 +66,17 @@
 
 
 
+
+
 .item-media-icon{
 
     & when (@align = left) { 
-        padding-left: 16px;
+        padding-left: @padding-x;
         padding-right: 0px;
     }
     & when (@align = right) {
         padding-left: 0px;
-        padding-right: 16px;
+        padding-right: @padding-x;
     }
 
     height: 24px;
@@ -85,12 +86,12 @@
 }
 .item-media-small{
     & when (@align = left) { 
-        padding-left: 16px;
+        padding-left: @padding-x;
         padding-right: 0px;
     }
     & when (@align = right) {
         padding-left: 0px;
-        padding-right: 16px;
+        padding-right: @padding-x;
     }
 
 
@@ -103,12 +104,12 @@
 .item-media-medium{
 
     & when (@align = left) { 
-        padding-left: 16px;
+        padding-left: @padding-x;
         padding-right: 0px;
     }
     & when (@align = right) {
         padding-left: 0px;
-        padding-right: 16px;
+        padding-right: @padding-x;
     }
     height: 56px;
     width: 56px;
@@ -130,8 +131,8 @@
 
 
 .item-content{
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: @padding-x;
+    padding-right: @padding-x;
     font-size: 16px;
 
     .content-title{
@@ -144,14 +145,19 @@
         line-height: 1.2;
         color: @color;
     }
+
+    .@{_}list-item{
+        width: calc(100% + @padding-x);
+    }
+
 }
 .item-meta{
 
     & when (@align = left) { 
-        padding-right: 16px;
+        padding-right: @padding-x;
     }
     & when (@align = right) {
-        padding-left: 16px;
+        padding-left: @padding-x;
     }
 
 
