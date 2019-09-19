@@ -2,7 +2,7 @@
 
     
     var $param = {
-        blindZone : 30,
+        blindZone : 15,
         transition: 200,
         tan : 2,
     };

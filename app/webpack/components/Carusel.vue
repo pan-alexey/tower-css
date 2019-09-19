@@ -31,7 +31,12 @@
 
 <div class="carusel">
   <div class="carusel-content box-material" style="height: 300px;">
-    <div class="carusel-item blue">1</div>
+    <div class="carusel-item blue" style="overflow:auto;">
+      1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>
+      1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>
+      1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>
+      1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>1<br>
+    </div>
     <div class="carusel-item ">2</div>
     <div class="carusel-item red">3</div>
     <div class="carusel-item ">4</div>
