@@ -278,7 +278,7 @@
             if( target.closest($param.exclude[i]) ) return;
         }
         // --------------------//
-
+        var offset = 0;
 
         var scrollsHits = 0;
         function scroll(e){
@@ -299,6 +299,8 @@
             var x = Math.abs(point.clientX - event.touches[0].clientX);
             var y = Math.abs(point.clientY - event.touches[0].clientY);
             distance = point.clientX - event.touches[0].clientX;
+            distance = distance + offset;
+
             if (trigger == 1) {
                 $action.move(-distance);
                 return;
@@ -308,7 +310,8 @@
                 if (trigger == 1) {
                     //point = event.touches[0];
                     distance = point.clientX - event.touches[0].clientX;
-                    $action.start(distance, target);
+                    offset = -1 * distance;
+                    $action.start(0, target);
                 }
                 return;
             }
@@ -360,7 +363,7 @@
             if( target.closest($param.exclude[i]) ) return;
         }
         // --------------------//
-
+        var offset = 0;
 
         //----------------------------------------------//
         function move(event) {
@@ -369,7 +372,7 @@
             var x = Math.abs(point.clientX - event.clientX);
             var y = Math.abs(point.clientY - event.clientY);
             distance = point.clientX - event.clientX;
-
+            distance = distance + offset;
             if (trigger == 1) {
                 $action.move(-distance);
                 return;
@@ -378,9 +381,9 @@
             if (Math.max(x, y) >= $param.blindZone) {
                 trigger = $param.tan * x <= y ? -1 : 1;
                 if (trigger == 1) {
-                    //point = event;
                     distance = point.clientX - event.clientX;
-                    $action.start(distance, target);
+                    offset = -1 * distance;
+                    $action.start(0, target);
                 }
                 return;
             }
