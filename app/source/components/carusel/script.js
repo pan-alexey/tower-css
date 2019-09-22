@@ -2,7 +2,7 @@
 
     
     var $param = {
-        blindZone : 15,
+        blindZone : 40,
         transition: 200,
         tan : 2,
     };
@@ -359,7 +359,7 @@ var $action = {
         var point = event.touches[0];
         var distance = 0;
         var width = target.getBoundingClientRect().width;
-
+        var offset = 0;
 
 
 
@@ -377,7 +377,7 @@ var $action = {
             var x = Math.abs(point.clientX - event.touches[0].clientX);
             var y = Math.abs(point.clientY - event.touches[0].clientY);
             distance = point.clientX - event.touches[0].clientX;
-
+            distance = distance + offset;
             distance = clamp(distance, [-width, width]) ;
            
 
@@ -389,9 +389,8 @@ var $action = {
             if (Math.max(x, y) >= $param.blindZone) {
                 trigger = $param.tan * x <= y ? -1 : 1;
                 if (trigger == 1) {
-                    //point = event.touches[0];
-                    //distance = point.clientX - event.touches[0].clientX;
-                    $action.start(-distance, target);
+                    offset = -1 * distance;
+                    $action.start(0, target);
                 }
                 return;
             }
@@ -434,9 +433,15 @@ var $action = {
     document.addEventListener('mousedown', function (event) {
         var point = event;
         var distance = 0;
+        
+
+
         var target = event.target.closest(".@{_}carusel");
         if(!target) return;
         if(target.hasClass("animate")) return;
+
+        var width = target.getBoundingClientRect().width;
+        var offset = 0;
         //----------------------------------------------//
         function move(event) {
             if (trigger == -1) return;
@@ -444,6 +449,10 @@ var $action = {
             var x = Math.abs(point.clientX - event.clientX);
             var y = Math.abs(point.clientY - event.clientY);
             distance = point.clientX - event.clientX;
+            distance = distance + offset;
+            
+            distance = clamp(distance, [-width, width]) ;
+
 
             if (trigger == 1) {
                 $action.move(-distance, target);
@@ -453,9 +462,8 @@ var $action = {
             if (Math.max(x, y) >= $param.blindZone) {
                 trigger = $param.tan * x <= y ? -1 : 1;
                 if (trigger == 1) {
-                    //point = event;
-                    distance = point.clientX - event.clientX;
-                    $action.start(-distance, target);
+                    offset = -1 * distance;
+                    $action.start(0, target);
                 }
                 return;
             }
