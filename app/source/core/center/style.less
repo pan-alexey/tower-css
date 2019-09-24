@@ -1,0 +1,65 @@
+@import "./../varibles.less";
+
+
+//----------------------------------------------------------------------------//
+.@{_}center-outer-transform {
+    position: relative;
+    width: 100%;
+    .@{_}center-inner {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+    }
+}
+
+//----------------------------------------------------------------------------//
+.@{_}center-outer-table {
+    display: table;
+    width: 100%;
+    .@{_}center-inner{
+      display: table-cell;
+      vertical-align: middle;
+      width: 100%;
+    }
+}
+//----------------------------------------------------------------------------//
+
+
+.@{_}center-outer-before{
+  width: 100%;
+  .@{_}center-inner{
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-left: -0.25em; // Becouse inline block have spacebetween fix space width
+    // margin: 0;
+    // font-size: 0px;
+    // margin-left: -14px;
+    // width: 10px;
+  }
+}
+//----------------------------------------------------------------------------//
+.@{_}center-outer-flex {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .@{_}center-inner{
+      flex: none;
+      width: 100%;
+    }
+}
+
+
+//----------------------------------------------------------------------------//
+.@{_}center{
+    margin: 0 auto;
+    text-align: center;
+}
+

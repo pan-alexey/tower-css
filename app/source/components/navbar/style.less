@@ -1,0 +1,99 @@
+@import "./../varibles.less";
+
+
+
+.@{_}navbar{
+    //position: relative;
+}
+//------------------------------------------------------//
+.@{_}navbar-top{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+//------------------------------------------------------//
+.@{_}navbar-block{
+    position: relative;
+    width: 100%;
+    left: 0;
+    right: 0;
+
+    //transition: 80ms linear all;
+}
+//------------------------------------------------------//
+.navbar-content{
+    position: relative;
+    display: table;
+    width: 100%;
+    height: @navbar;
+
+    & > *{
+        display: table-cell;
+        table-layout: fixed;
+        width: 0;
+        vertical-align: middle;
+        position: relative;
+    }
+
+    
+}
+
+.navbar-middle{
+    vertical-align: middle;
+}
+
+.navbar-title{
+    width: 100%;
+}
+
+
+//------------------------------------------------------//
+.navbar-offset{
+    position: relative;
+    overflow: hidden;
+    visibility: hidden;
+}
+//------------------------------------------------------//
+.@{_}navbar-content{
+    position: relative;
+    width: 100%;
+    min-height: @navbar;
+    padding: 0 ceil(@navbar/10);
+    & > *{
+        padding: 0 ceil(@navbar/10);
+    }
+
+    &.@{_}navbar-1{ 
+        min-height: @height-1; 
+        padding: 0 ceil(@height-1/10);
+        & > *{
+            padding: 0 ceil(@height-1/10);
+        }
+    }
+
+    &.@{_}navbar-2{ 
+        min-height: @height-2; 
+        padding: 0 ceil(@height-2/10);
+        & > *{
+            padding: 0 ceil(@height-2/10);
+        }
+    }
+    &.@{_}navbar-3{ 
+        min-height: @height-3; 
+        padding: 0 ceil(@height-3/10);
+        & > *{
+            padding: 0 ceil(@height-3/10);
+        }
+    }
+
+
+
+
+    &.@{_}navbar-auto{ min-height: auto; }
+}
+//------------------------------------------------------//
+.@{_}navbar-raised{
+    box-shadow: @shadow;
+}

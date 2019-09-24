@@ -1,0 +1,88 @@
+@import "./../varibles.less";
+
+
+
+
+
+
+
+
+
+
+@float : @align;
+@text-align : @align;
+
+
+.checkbox {
+  position: relative;
+  display: inline-block;
+  text-align: @text-align;
+  height: 20px;
+  cursor: pointer;
+  user-select: none;
+  * > {line-height: 20px; }
+}
+
+.checkbox .chekmark {
+  cursor: pointer;
+  display: inline;
+  line-height: 20px;
+  vertical-align: top;
+  clear: both;
+  padding-@{float}: 6px;
+}
+.checkbox .chekmark:not(:empty) {
+  padding-@{float}: 6px;
+}
+.checkbox .chekmark:before, 
+.checkbox .chekmark:after {
+  content: "";
+  position: absolute;
+  @{float}: 0;
+  top: 0;
+}
+.checkbox .chekmark:before {
+  width: 20px;
+  height: 20px;
+  //background: tranpend;
+  border: 2px solid rgba(0, 0, 0, 0.54);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background .3s;
+}
+.checkbox input[type="checkbox"] {
+  outline: 0;
+  visibility: hidden;
+  width: 24px;
+  margin: 0;
+  display: block;
+  float: @float;
+  font-size: inherit;
+}
+
+
+.checkbox input[type="checkbox"]:checked + .chekmark:before {
+  background: #337ab7;
+  border: none;
+}
+.checkbox input[type="checkbox"]:checked + .chekmark:after {
+  transform: rotate(-45deg);
+  width: 12px;
+  height: 6px;
+  border: 2px solid #fff;
+  border-top-style: none;
+  border-right-style: none;
+  position: absolute;
+  @{float}: 4px;
+  top: 6px;
+}
+
+
+
+
+.checkbox.disabled input[type="checkbox"] + .chekmark {
+  opacity: @disabled ;
+}
+.checkbox[disabled] input[type="checkbox"] + .chekmark {
+  opacity: @disabled ;
+}

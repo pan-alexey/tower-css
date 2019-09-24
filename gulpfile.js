@@ -14,7 +14,6 @@ const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify-es').default;
 const rename = require('gulp-rename');
-
 //================================================//
 const PREFIX = "";
 
@@ -61,6 +60,11 @@ gulp.task('fonts', function() {
 gulp.task('html', function() {
     return gulp.src(["./app/html/**"])
         .pipe(gulp.dest('./dist/'))
+});
+
+gulp.task('img', function() {
+    return gulp.src(["./app/img/**"])
+        .pipe(gulp.dest('./dist/img'))
 });
 
 //-------------------------------------------------------------//
@@ -178,11 +182,51 @@ gulp.task("components.less", function() {
 
 
 
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 
 
 
-
+gulp.task("webpack", function() {
+    return gulp.src('./app/webpack/app.js')
+    .pipe(webpackStream({
+        mode: 'production',
+        entry: {
+            main: './app/webpack/app.js'
+        },
+        module: {
+            rules: [
+                { test: /\.vue$/, use: 'vue-loader'},
+                { test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
+            ]
+        },
+        plugins: [
+            new VueLoaderPlugin()
+        ],
+        output: {
+            filename: 'app.js',
+        },
+    }), webpack)
+    .on('error', function(err) {
+        console.log("webpack", err);
+        this.emit('end');
+    })
+    .pipe(inject.replace('@{_}', PREFIX))
+    .pipe(babel({
+        presets: [babelPreset],
+    }))
+    .pipe(gulp.dest('./dist/webpack'))
+    .pipe(uglify({}).on('error', function(e) {
+        console.log("core", e);
+        this.emit('end');
+    }))
+    .pipe(rename(function(path) {
+        path.basename += ".min";
+    }))
+    .pipe(gulp.dest('./dist/webpack'));
+});
 
 
 
@@ -209,15 +253,20 @@ gulp.task('watch', function() {
     gulp.watch(["./app/source/varibles.less"], gulp.parallel(['core.less', 'components.less']));
     gulp.watch(["./app/source/components/**/style.less"], gulp.parallel('components.less'));
     gulp.watch(["./app/source/core/**/style.less"], gulp.parallel('core.less'));
+
+    gulp.watch(["./app/webpack/**"], gulp.parallel('webpack'));
+
 });
 
 //---------------------------------------------------------------------//
 gulp.task('default', gulp.series(
     'clean',
+    "webpack",
     gulp.parallel(
         "vendor",
         "fonts",
         "html",
+        "img",
 
         "polyfill",
 
@@ -226,6 +275,8 @@ gulp.task('default', gulp.series(
 
         "components.js",
         "components.less",
+
+   
     ),
     gulp.parallel(
         'bsync',

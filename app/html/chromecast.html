@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <!-- <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script> -->
+    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  </script>
+
+
+      </head>
+      <body>
+
+
+
+      <button class="button">BUTTON LOAD</button>
+      </body>
+      </html>
+      <script id="rendered-js">
+
+        //https://github.com/googlecast/CastVideos-chrome/blob/master/CastVideos.js
+                var initializeCastApi = function () {
+        console.log('initializeCastApi');
+      
+        var sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
+        var apiConfig = new chrome.cast.ApiConfig(
+        sessionRequest, sessionListener, receiverListener);
+        chrome.cast.initialize(apiConfig, onInitSuccess, onError);
+      };
+      
+      if (!chrome.cast || !chrome.cast.isAvailable) {
+        setTimeout(initializeCastApi, 1000);
+      }
+      
+      function onInitSuccess() {
+        console.log('onInitSuccess');
+      }
+      
+      function onError(e) {
+        console.log('onError', e);
+      }
+      
+      function sessionListener(e) {
+        console.log('sessionListener', e);
+      }
+      
+      function receiverListener(availability) {
+        console.log('receiverListener', availability);
+      
+        if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
+          $(".button").removeAttr("disabled").text("Start");
+        }
+      }
+      
+      function onSessionRequestSuccess(session) {
+        console.log('onSessionRequestSuccess', session);
+      
+        var mediaInfo = new chrome.cast.media.MediaInfo(
+        "https://vxv.me/video/hls/index.m3u8",
+        "application/x-mpegURL");
+
+
+        mediaInfo.metadata = new chrome.cast.media.TvShowMediaMetadata();
+
+        mediaInfo.metadata.title = "FCKrasnodar TV";
+        //mediaInfo.metadata.subtitle = 'subtitle';
+        
+        mediaInfo.metadata.images = [{
+          'url': "https://upload.wikimedia.org/wikipedia/ru/thumb/d/df/FC_Krasnodar_2016_logo_new.svg/1066px-FC_Krasnodar_2016_logo_new.svg.png"
+        }];
+        mediaInfo.streamType = chrome.cast.media.StreamType.LIVE;
+        mediaInfo.duration = -1;
+        // TODO: Set on the receiver for your implementation.
+        mediaInfo.startAbsoluteTime = 0;
+        mediaInfo.metadata.sectionStartAbsoluteTime = 0;
+        // TODO: Set on the receiver for your implementation.
+        mediaInfo.metadata.sectionStartTimeInMedia = 0;
+        mediaInfo.metadata.sectionDuration = 0;
+
+
+
+        var request = new chrome.cast.media.LoadRequest(mediaInfo);
+        session.loadMedia(request, onMediaLoadSuccess, onError);
+      }
+      
+      function onMediaLoadSuccess(e) {
+        console.log('onMediaLoadSuccess', e);
+      }
+      
+      $(".button").click(function () {
+        chrome.cast.requestSession(onSessionRequestSuccess, onError);
+      });
+                //# sourceURL=pen.js
+              </script>
+      </body></html>

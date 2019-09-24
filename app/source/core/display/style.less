@@ -1,0 +1,67 @@
+@import "./../varibles.less";
+
+
+
+@media print {
+    .@{_}print-none                 { display: none !important;}
+    .@{_}print-block                { display: block !important;}
+    .@{_}display-print-none         { display: none !important;}
+    .@{_}display-print-inline       { display: inline !important;}
+    .@{_}display-print-inline-block { display: inline-block !important;}
+    .@{_}display-print-block        { display: block !important;}
+    .@{_}display-print-table        { display: table !important;}
+    .@{_}display-print-table-row    { display: table-row !important;}
+    .@{_}display-print-table-cell   { display: table-cell !important;}
+    .@{_}display-print-flex         { display: flex !important;}
+    .@{_}display-print-inline-flex  { display: inline-flex !important;}
+}
+
+.display(@class){
+    .@{_}none@{class}                 { display: none !important;}
+    .@{_}block@{class}                { display: block !important;}
+    .@{_}display-none@{class}         { display: none !important;}
+    .@{_}display-inline@{class}       { display: inline !important;}
+    .@{_}display-inline-block@{class} { display: inline-block !important;}
+    .@{_}display-block@{class}        { display: block !important;}
+    .@{_}display-table@{class}        { display: table !important;}
+    .@{_}display-table-row@{class}    { display: table-row !important;}
+    .@{_}display-table-cell@{class}   { display: table-cell !important;}
+    .@{_}display-flex@{class}         { display: flex !important;}
+    .@{_}display-inline-flex@{class}  { display: inline-flex !important;}
+}
+//---------------------------------------------------------------//
+.display(~''); 
+@media (min-width: @screen-sm) {
+    .display(~'-sm');  
+}
+@media (min-width: @screen-md) {
+    .display(~'-md');  
+}
+@media (min-width: @screen-lg) {
+    .display(~'-lg');  
+}
+@media (min-width: @screen-xl) {
+    .display(~'-xl');  
+}
+@media (min-width: @screen-xxl) {
+    .display(~'-xxl');  
+}
+//---------------------------------------------------------------//
+@media (max-width: @screen-xs - 1) {
+    .display(~'-xs-only');  
+}
+@media (min-width: @screen-xs) and (max-width: @screen-sm - 1) {
+    .display(~'-sm-only');  
+}
+@media (min-width: @screen-sm) and (max-width: @screen-md - 1) {
+    .display(~'-md-only');  
+}
+@media (min-width: @screen-md) and (max-width: @screen-lg - 1) {
+    .display(~'-lg-only');  
+}
+@media (min-width: @screen-xl) and (max-width: @screen-xxl - 1) {
+    .display(~'-xl-only');  
+}
+@media (min-width: @screen-xxl) {
+    .display(~'-xxl-only');  
+}

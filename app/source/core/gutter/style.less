@@ -1,0 +1,92 @@
+@import "./../varibles.less";
+
+
+
+
+@diveder-mini : 4;
+@diveder-nano : 6;
+
+
+//---------------------------------//
+.@{_}gutter{
+    padding: @gutter-y @gutter-x ;
+}
+.@{_}gutter-x {
+    padding-right: @gutter-x ;
+    padding-left: @gutter-x ;  
+}
+.@{_}gutter-y {
+    padding-top: @gutter-y ;
+    padding-bottom: @gutter-y ;  
+}
+
+
+.@{_}no-gutter{
+    padding: @gutter-y @gutter-x ;
+}
+.@{_}no-gutter-x {
+    padding-right: @gutter-x ;
+    padding-left: @gutter-x ;  
+}
+.@{_}no-gutter-y {
+    padding-top: @gutter-y ;
+    padding-bottom: @gutter-y ;  
+}
+
+
+
+//---------------------------------//
+
+.@{_}gutter-mini{
+    padding: floor(@gutter-y/@diveder-mini) floor(@gutter-x/@diveder-mini) ;
+}
+.@{_}gutter-x-mini {
+    padding-right: floor(@gutter-x/@diveder-mini) ;
+    padding-left: floor(@gutter-x/@diveder-mini) ;  
+}
+.@{_}gutter-y-mini {
+    padding-top: floor(@gutter-y/@diveder-mini) ;
+    padding-bottom: floor(@gutter-y/@diveder-mini) ;
+}
+
+.@{_}no-gutter-mini{
+    margin: -floor(@gutter-y/@diveder-mini) -floor(@gutter-x/@diveder-mini) ;
+}
+.@{_}no-gutter-x-mini {
+    margin-right: -floor(@gutter-x/@diveder-mini) ;
+    margin-left: -floor(@gutter-x/@diveder-mini) ;  
+}
+.@{_}no-gutter-y-mini {
+    margin-top: -floor(@gutter-y/@diveder-mini) ;
+    margin-bottom: -floor(@gutter-y/@diveder-mini) ;
+}
+
+
+
+
+
+
+.@{_}gutter-nano{
+    padding: floor(@gutter-y/@diveder-nano) floor(@gutter-x/@diveder-nano) ;
+}
+.@{_}gutter-x-nano {
+    padding-right: floor(@gutter-x/@diveder-nano) ;
+    padding-left: floor(@gutter-x/@diveder-nano) ;  
+}
+.@{_}gutter-y-nano {
+    padding-top: floor(@gutter-y/@diveder-nano) ;
+    padding-bottom: floor(@gutter-y/@diveder-nano) ;
+}
+
+
+.@{_}no-gutter-nano{
+    margin: -floor(@gutter-y/@diveder-nano) -floor(@gutter-x/@diveder-nano) ;
+}
+.@{_}no-gutter-x-nano {
+    margin-right: -floor(@gutter-x/@diveder-nano) ;
+    margin-left: -floor(@gutter-x/@diveder-nano) ;  
+}
+.@{_}no-gutter-y-nano {
+    margin-top: -floor(@gutter-y/@diveder-nano) ;
+    margin-bottom: -floor(@gutter-y/@diveder-nano) ;
+}

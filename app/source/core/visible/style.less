@@ -1,0 +1,63 @@
+@import "./../varibles.less";
+
+
+//---------------------------------------------------------------------------//
+@media print {
+    .@{_}visibility-print-hidden  { visibility: hidden !important; }
+    .@{_}visibility-print-visible { visibility: visible !important; }
+    .@{_}hidden-print  { visibility: hidden !important; }
+    .@{_}visible-print { visibility: visible !important; }
+}
+//---------------------------------------------------------------------------//
+.@{_}hidden  { visibility: hidden !important; }
+.@{_}visible { visibility: visible !important; }
+
+
+
+@media (min-width: @screen-sm) {
+    .@{_}hidden-sm  { visibility: hidden !important; }
+    .@{_}visible-sm { visibility: visible !important; }
+}
+@media (min-width: @screen-md) {
+    .@{_}hidden-md  { visibility: hidden !important; }
+    .@{_}visible-md { visibility: visible !important; }
+}
+@media (min-width: @screen-lg) {
+    .@{_}hidden-lg  { visibility: hidden !important; }
+    .@{_}visible-lg { visibility: visible !important; }
+}
+@media (min-width: @screen-xl) {
+    .@{_}hidden-xl  { visibility: hidden !important; }
+    .@{_}visible-xl { visibility: visible !important; }
+}
+@media (min-width: @screen-xxl) {
+    .@{_}hidden-xxl  { visibility: hidden !important; }
+    .@{_}visible-xxl { visibility: visible !important; }
+}
+
+
+
+@media (max-width: @screen-xs - 1) {
+    .@{_}hidden-xs-only  { visibility: hidden !important; }
+    .@{_}visible-xs-only { visibility: visible !important; }
+}
+@media (min-width: @screen-xs) and (max-width: @screen-sm - 1) {
+    .@{_}hidden-sm-only  { visibility: hidden !important; }
+    .@{_}visible-sm-only { visibility: visible !important; }
+}
+@media (min-width: @screen-sm) and (max-width: @screen-md - 1) {
+    .@{_}hidden-md-only  { visibility: hidden !important; }
+    .@{_}visible-md-only { visibility: visible !important; }
+}
+@media (min-width: @screen-md) and (max-width: @screen-lg - 1) {
+    .@{_}hidden-lg-only  { visibility: hidden !important; }
+    .@{_}visible-lg-only { visibility: visible !important; }
+}
+@media (min-width: @screen-xl) and (max-width: @screen-xxl - 1) {
+    .@{_}hidden-xl-only  { visibility: hidden !important; }
+    .@{_}visible-xl-only { visibility: visible !important; }
+}
+@media (min-width: @screen-xxl) {
+    .@{_}hidden-xxl-only  { visibility: hidden !important; }
+    .@{_}visible-xxl-only { visibility: visible !important; }
+}
