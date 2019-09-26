@@ -26,7 +26,11 @@
 
     <div class="container gutter-x">
 
-
+<div class="container gutter-x">
+        <p>Carusel - Карусель (слайдер) с поддержкой Internet Explorer 9</p>
+        <p>При работе не создаются фантомные элементы (слайды не клонируются)</p>
+        <p>Компонет отлично подходит для создание ViewPager</p>
+</div>
 
 
 <div class="carusel">
