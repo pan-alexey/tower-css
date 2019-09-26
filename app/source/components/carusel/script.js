@@ -115,9 +115,6 @@ var caruselCansel = function(state){
         carusel.removeClass("animate");
     }
 
-
-
-
     state.collection[state.active].style.transition =  $param.transition+"ms ease transform";
     state.collection[state.prew].style.transition =  $param.transition+"ms ease transform";
     state.collection[state.next].style.transition =  $param.transition+"ms ease transform";
@@ -277,6 +274,8 @@ var $action = {
 
 
         carusel.addClass("animate");
+        carusel.addClass("noscroll");
+
         state = getState(carusel);
         if(!state.element) return;
         distance = clamp(distance, [-state.width, state.width]);
@@ -293,7 +292,6 @@ var $action = {
     },
     move : function(distance, carusel){
         distance = clamp(distance, [-state.width, state.width]);
-
 
 
         var rule = distance>0 ? "prew" : "next";
@@ -314,6 +312,9 @@ var $action = {
             return;
         }
 
+        carusel.removeClass("noscroll");
+
+
         var rule = distance>0 ? "prew" : "next";
         if(rule=="next"){
             caruselNext(state);
@@ -330,6 +331,7 @@ var $action = {
     },
     // dont start move
     up : function(distance, carusel){
+       carusel.removeClass("noscroll");
        return;
     }
 };
