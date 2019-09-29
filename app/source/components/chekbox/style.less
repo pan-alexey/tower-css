@@ -11,7 +11,7 @@
 
 @float : @align;
 @text-align : @align;
-
+@offset-x : 6px;
 
 .checkbox {
   position: relative;
@@ -29,10 +29,10 @@
   line-height: 20px;
   vertical-align: top;
   clear: both;
-  padding-@{float}: 6px;
+  padding-@{float}: @offset-x;
 }
 .checkbox .chekmark:not(:empty) {
-  padding-@{float}: 6px;
+  padding-@{float}: @offset-x;
 }
 .checkbox .chekmark:before, 
 .checkbox .chekmark:after {
@@ -53,7 +53,7 @@
 .checkbox input[type="checkbox"] {
   outline: 0;
   visibility: hidden;
-  width: 24px;
+  width: 20px;
   margin: 0;
   display: block;
   float: @float;
