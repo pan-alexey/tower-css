@@ -8,7 +8,7 @@
     // если Math.abs(x) >= Math.abs(y/2)
     
     var $param = {
-        blindZone : 40,
+        blindZone : 20,
         matageLength : 40,
         tan : 2,
         exclude : [
