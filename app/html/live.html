@@ -23,11 +23,6 @@
 
 	<link rel="stylesheet" type="text/css" href="./source/css/core.min.css">
 	<link rel="stylesheet" type="text/css" href="./source/css/components.min.css">
-
-</head>
-
-<body>
-
 	<style>
 		.fade-enter-active,
 		.fade-leave-active {
@@ -35,54 +30,46 @@
 			transition-property: opacity;
 			transition-timing-function: ease;
 		}
-
 		.fade-enter,
 		.fade-leave-active {
 			opacity: 0;
 		}
-
 		.fade-enter-active {
 			animation: fade-in .600s;
 			overflow: auto;
 		}
-
 		.fade-leave-active {
 			animation: fade-out .600s;
 			overflow: hidden;
 		}
-
 		@keyframes fade-in {
 			0% {
 				opacity: 0;
 				transform: translateY(30%);
 			}
-
 			50% {
 				transform: translateY(0);
 			}
-
 			100% {
 				opacity: 1;
 			}
 		}
-
 		@keyframes fade-out {
 			0% {
 				opacity: 1;
 			}
-
 			100% {
 				opacity: 0;
 			}
 		}
 	</style>
+</head>
+
+<body>
+	
 
 
-	<div id="app">
-		<transition name="fade">
-			<router-view></router-view>
-		</transition>
-	</div>
+
 </body>
 <!-- UI COMPONENTS  -->
 
@@ -99,8 +86,69 @@
 <script src="./source/polyfill.min.js"></script>
 <script src="./source/js/core.min.js"></script>
 <script src="./source/js/components.min.js"></script>
-<!--/ UI COMPONENTS -->
-<script src="./webpack/app.min.js"></script>
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<!-- 
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-database.js"></script> 
+-->
+
+
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCOI9ZHFtXnz_fhryUTLFHrWAui4C72sbg",
+    authDomain: "vue-frontend-data.firebaseapp.com",
+    databaseURL: "https://vue-frontend-data.firebaseio.com",
+    projectId: "vue-frontend-data",
+    storageBucket: "",
+    messagingSenderId: "97938394019",
+    appId: "1:97938394019:web:33fd30cb6f4193be"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  var firebaseDB = firebase.database().ref('/');
+  var user = firebase.auth().signInAnonymously();
+var user_id;
+	var user = firebase.auth().signInAnonymously();
+	firebase.auth().onAuthStateChanged(function(user) {
+		if (user) {
+		var isAnonymous = user.isAnonymous;
+		user_id = user.uid;
+
+
+		} else {
+		}
+	});
+	
+
+	function writeUserData(message) {
+
+		var data = {
+          user_id: user_id,
+          message: message
+	  };
+	  console.log(data);
+		firebaseDB.push(data);
+	}
+
+
+
+	firebaseDB.limitToLast(100).on('child_added', function (data) {
+ 
+		console.log(data.val());
+
+});
+	
+</script>
+
 
 
 </html>
