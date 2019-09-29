@@ -38,7 +38,7 @@
 <br>
 <!-- Rounded switch -->
 <!-- Rectangular switch -->
-<div class="switch">
+<div class="switch" disabled>
   <input type="checkbox">
   <span class="handle"></span>
   <span>checkbox-3</span>
