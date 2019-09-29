@@ -59,7 +59,7 @@
             ink.addEventListener(transitionend, function(event){
                 if(trensitionTrigger) return; 
                 trensitionTrigger = true;
-                //el.removeChild(rippleContent);
+                el.removeChild(rippleContent);
             });
         });
         ink.addClass('@{_}animate' );

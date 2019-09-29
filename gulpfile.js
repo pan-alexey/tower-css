@@ -200,6 +200,7 @@ gulp.task("webpack", function() {
             rules: [
                 { test: /\.vue$/, use: 'vue-loader'},
                 { test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
+                { test: /\.less$/, use: ['vue-style-loader', 'css-loader', 'less-loader']},
             ]
         },
         plugins: [

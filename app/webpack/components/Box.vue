@@ -1,5 +1,4 @@
-// _Components_.vue
-<style>
+<style lang="less">
 .box-example{
     display: inline-block;
     width: 5rem;
@@ -7,6 +6,8 @@
     margin: .25rem;
 }
 </style>
+
+
 
 <template>
   <div class="activity">
