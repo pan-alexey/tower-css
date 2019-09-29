@@ -8,8 +8,8 @@
     // если Math.abs(x) >= Math.abs(y/2)
     
     var $param = {
-        blindZone : 20,
-        matageLength : 40,
+        blindZone : 40,
+        matageLength : 30,
         tan : 2,
         exclude : [
             ".@{_}slider",
@@ -56,6 +56,10 @@
 
     var close = function(element){
         element.removeClass('@{_}active');
+
+        var root = document.documentElement;
+        root.removeClass('@{_}swipemenu-noscroll');
+
         setBackdrop(element, 0);
         setX(element, 0);
     }
@@ -64,7 +68,8 @@
     var begin = function(element, state){
         element.addClass('@{_}active');
         element.addClass('@{_}change');
-
+        var root = document.documentElement;
+        root.addClass('@{_}swipemenu-noscroll');
         
     }
     var change = function(element,state){
@@ -299,7 +304,7 @@
             var x = Math.abs(point.clientX - event.touches[0].clientX);
             var y = Math.abs(point.clientY - event.touches[0].clientY);
             distance = point.clientX - event.touches[0].clientX;
-            distance = distance + offset;
+            //distance = distance + offset; //********
 
             if (trigger == 1) {
                 $action.move(-distance);
@@ -372,7 +377,7 @@
             var x = Math.abs(point.clientX - event.clientX);
             var y = Math.abs(point.clientY - event.clientY);
             distance = point.clientX - event.clientX;
-            distance = distance + offset;
+            //distance = distance + offset;  //********
             if (trigger == 1) {
                 $action.move(-distance);
                 return;
