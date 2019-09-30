@@ -27,8 +27,10 @@
 </head>
 
 <body>
-
 	<style>
+		[v-cloak] {
+			visibility: hidden!important;
+		}
 		.fade-enter-active,
 		.fade-leave-active {
 			transition-duration: 0.3s;
@@ -80,7 +82,11 @@
 
 	<div id="app">
 		<transition name="fade">
-			<router-view></router-view>
+			<router-view>
+				<div v-cloak>
+					234242343242342
+				</div>
+			</router-view>
 		</transition>
 	</div>
 </body>

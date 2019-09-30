@@ -1,7 +1,27 @@
 // Home.vue
+<style lang="less">
+.loading{
+    display: block;
+    z-index: 1060;
+    position: fixed;
+    top: -0;
+    left: -0;
+    right: -0;
+    bottom: -0;
+}
+
+</style>
+
 
 <template>
-  <div class="activity">
+<div>
+    <div class="center-outer-transform white loading" 
+    v-if="loading">
+        <div class="center-inner center">Загрузка...</div>
+    </div>
+
+
+  <div class="activity" >
     <div class="navbar">
         <div class="navbar-top">
             <div class="navbar-block blue" data-type="float">
@@ -81,21 +101,29 @@
             </router-link>
             
         </div>
-
-
     </div>
+
+</div>
 </div>
 </template>
 
 <script>
   export default {
+        data: function () {
+            return {
+                loading:  true
+            }
+        },
         mounted: function () {
            //Необходимо вызвать пересчет отступа
            window.navbar();
 
 
+            setTimeout(() => {
+            this.loading = false;
+            },800);
 
-
-        }
+        },
+        
   }
 </script>
