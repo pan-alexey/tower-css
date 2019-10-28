@@ -1,2 +1,2 @@
 # tower-css
-WEB COMPONENT BASED FRONTEND FRAMEWORK
+Web mobile first framework.
